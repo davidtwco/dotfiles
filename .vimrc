@@ -1,24 +1,12 @@
 
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2016 Jul 28
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
-
-" When started as "evim", evim.vim will already have done these settings.
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
+" Set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" let Vundle manage Vundle, required
+" Let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tpope/vim-commentary'
@@ -38,11 +26,11 @@ endif
 source $VIMRUNTIME/defaults.vim
 
 if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
+  set nobackup		" Do not keep a backup file, use versions instead
 else
-  set backup		" keep a backup file (restore to previous version)
+  set backup		" Keep a backup file (restore to previous version)
   if has('persistent_undo')
-    set undofile	" keep an undo file (undo changes after closing)
+    set undofile	" Keep an undo file (undo changes after closing)
   endif
 endif
 
@@ -77,14 +65,27 @@ if has('syntax') && has('eval')
   packadd matchit
 endif
 
-set tabstop=4			" Width of tab is 4.
+" Tab Settings
+set tabstop=4					" Width of tab is 4.
 set softtabstop=0 noexpandtab	" Number of columns for a tab
-set shiftwidth=4		" Indents have width of four.
-set smarttab			" Insert spaces or tabs to get to next indent.
+set shiftwidth=4				" Indents have width of four.
+set smarttab					" Insert spaces or tabs to get to next indent.
 
 " Change undo and backup directories to keep things clean.
 set backupdir=~/.vim/backup
 set undodir=~/.vim/undo
 
+" Turn on wildmenu.
 set wildmode=longest,list,full
 set wildmenu
+
+" UI Settings & Visual Cues
+set ruler			" Show ruler.
+set noshowcmd		" No incomplete commands.
+set lazyredraw
+set number			" Line Numbers
+set report=0		" Display messages for changes (ie. yank, delete, etc.)
+set showmatch		" Show matching brackets.
+set mat=5			" Matching bracket duration.
+set visualbell		" Shut up, Vim.
+set laststatus=1	" Always show the status line.

@@ -3,10 +3,20 @@
 # Navigate to root of yadm repository.
 cd "$HOME"
 
+# Set up submodules.
 echo ":: Initialize submodules..."
 yadm submodules update --recursive --init
 
+# Install Vundle plugins.
 if command -v vim >/dev/null 2>&1; then
 	echo ":: Install Vim Plugins..."
 	vim '+PluginInstall' '+qall'
 fi
+ 
+# Install bash prompt.
+echo ":: Install sexy-bash-prompt..."
+cd "$HOME/.config/sexy-bash-prompt"
+make install
+
+# Use the bash prompt.
+source "$HOME/.bashrc"

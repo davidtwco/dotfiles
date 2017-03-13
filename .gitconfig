@@ -1,0 +1,7 @@
+[user]
+	name = David Wood
+	email = david@davidtw.co
+[push]
+	default = simple
+[color]
+	ui = auto

@@ -12,6 +12,9 @@ if command -v vim >/dev/null 2>&1; then
 	echo ":: Install Vim Plugins..."
 	vim '+PluginInstall' '+qall'
 fi
+
+# Install tpm plugins.
+$HOME/.tmux/plugins/tpm/bin/install_plugins
  
 # Install bash prompt.
 echo ":: Install sexy-bash-prompt..."

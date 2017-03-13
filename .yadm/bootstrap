@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Navigate to root of yadm repository.
+cd "$HOME"
+
+echo ":: Initialize submodules..."
+yadm submodules update --recursive --init
+
+if command -v vim >/dev/null 2>&1; then
+	echo ":: Install Vim Plugins..."
+	vim '+PluginInstall' '+qall'
+fi

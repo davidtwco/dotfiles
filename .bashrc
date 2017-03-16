@@ -152,3 +152,5 @@ alias keybase="keybase --standalone"
 
 # Add completion for tmuxinator.
 source ~/.bin/tmuxinator.bash
+# Add completion for tmuxp.
+eval "$(_TMUXP_COMPLETE=source tmuxp)"

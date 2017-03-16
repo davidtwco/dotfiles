@@ -92,3 +92,12 @@ set laststatus=1	" Always show the status line.
 
 " File Type Specific
 au FileType yaml set tabstop=2 shiftwidth=2 expandtab nosmarttab
+
+" Strip whitespace on save.
+function! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()

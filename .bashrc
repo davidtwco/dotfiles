@@ -149,3 +149,6 @@ unset env
 export DOCKER_HOST=tcp://127.0.0.1:2375
 export EDITOR=vim
 alias keybase="keybase --standalone"
+
+# Add completion for tmuxinator.
+source ~/.bin/tmuxinator.bash

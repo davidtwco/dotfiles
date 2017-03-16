@@ -89,3 +89,6 @@ set showmatch		" Show matching brackets.
 set mat=5			" Matching bracket duration.
 set visualbell		" Shut up, Vim.
 set laststatus=1	" Always show the status line.
+
+" File Type Specific
+au FileType yaml set tabstop=2 shiftwidth=2 expandtab nosmarttab

@@ -101,3 +101,6 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfun
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+" Mouse settings
+set mouse=a			" Allows scrolling but will require pressing shift while pasting.

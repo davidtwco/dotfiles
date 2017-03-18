@@ -12,6 +12,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-eunuch'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'Valloric/YouCompleteMe'
 

@@ -83,7 +83,7 @@ set wildmenu
 
 " UI Settings & Visual Cues
 set ruler			" Show ruler.
-set noshowcmd		" No incomplete commands.
+set showcmd			" Show incomplete commands.
 set lazyredraw
 set number			" Line Numbers
 set report=0		" Display messages for changes (ie. yank, delete, etc.)

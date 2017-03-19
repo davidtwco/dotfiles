@@ -1,4 +1,6 @@
-" This is David Wood's .vimrc file.
+" David Wood's .vimrc Configuration
+" 	dotfiles: https://github.com/davidtwco/dotfiles
+" 	website: https://davidtw.co
 " =================================
 " The goal of this configuration is to enhance the default
 " Vim configuration without remapping from the defaults too

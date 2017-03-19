@@ -104,6 +104,13 @@ set ignorecase		" Ignore case when searching.
 set smartcase		" Don't ignore case when different cases searched for.
 " }}}
 
+" Movement {{{
+" ========
+" Move vertically visually, ie. on wrapped lines.
+nnoremap j gj
+nnoremap k gk
+" }}}
+
 " Mouse {{{
 " ==============
 " Allows scrolling in Vim, need to press SHIFT + RClick to paste.

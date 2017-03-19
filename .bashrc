@@ -1,7 +1,10 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# David Wood's .bashrc Configuration
+#	dotfiles: https://github.com/davidtwco/dotfiles
+#	website: https://davidtw.co
+# ==================================================
 
+# Default Ubuntu Configurations {{{
+# =============================
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -112,8 +115,10 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+# }}}
 
-# Run .config/sexy-bash-prompt
+# Sexy Bash Prompt {{{
+# ================
 PROMPT_USER_COLOR="$(tput setaf 1)"
 PROMPT_PREPOSITION_COLOR="$(tput setaf 7)"
 PROMPT_DEVICE_COLOR="$(tput setaf 4)"
@@ -122,8 +127,10 @@ PROMPT_GIT_STATUS_COLOR="$(tput setaf 2)"
 PROMPT_GIT_PROGRESS_COLOR="$(tput setaf 2)"
 PROMPT_SYMBOL_COLOR="$(tput setaf 7)"
 . ~/.bash_prompt
+# }}}
 
-# Autolaunch ssh-agent
+# SSH Agent {{{
+# =========
 env=~/.ssh/agent.env
 
 agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
@@ -145,11 +152,18 @@ elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
 fi
 
 unset env
+# }}}
 
+# Environment Variables {{{
+# =====================
 export DOCKER_HOST=tcp://127.0.0.1:2375
 export EDITOR=vim
+# }}}
 
-# Add completion for tmuxinator.
-source ~/.bin/tmuxinator.bash
-# Add completion for tmuxp.
-eval "$(_TMUXP_COMPLETE=source tmuxp)"
+# tmux helper completion {{{
+# =======================
+source ~/.bin/tmuxinator.bash # tmuxinator
+eval "$(_TMUXP_COMPLETE=source tmuxp)" # tmuxp
+# }}}
+
+# vim:foldmethod=marker:foldlevel=0

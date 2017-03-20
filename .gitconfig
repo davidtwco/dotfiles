@@ -1,7 +1,11 @@
 [user]
 	name = David Wood
 	email = david@davidtw.co
+[core]
+	editor = vim
 [push]
 	default = simple
 [color]
 	ui = auto
+[include]
+	path = ~/.config/gitalias/gitalias.txt

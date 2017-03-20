@@ -7,3 +7,6 @@
 [submodule ".config/sexy-bash-prompt"]
 	path = .config/sexy-bash-prompt
 	url = https://github.com/twolfson/sexy-bash-prompt.git
+[submodule ".config/gitalias"]
+	path = .config/gitalias
+	url = https://github.com/GitAlias/gitalias.git

@@ -48,6 +48,8 @@ call vundle#begin()
 	Plugin 'ekalinin/Dockerfile.vim'
 	" Completion (complex install, see docs)
 	Plugin 'Valloric/YouCompleteMe'
+	" Markdown Preview (requires npm package)
+	Plugin 'shime/vim-livedown'
 
 call vundle#end()            " required
 filetype plugin indent on    " required

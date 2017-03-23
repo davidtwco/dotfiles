@@ -10,3 +10,6 @@
 [submodule ".config/gitalias"]
 	path = .config/gitalias
 	url = https://github.com/GitAlias/gitalias.git
+[submodule ".config/antigen"]
+	path = .config/antigen
+	url = https://github.com/zsh-users/antigen.git

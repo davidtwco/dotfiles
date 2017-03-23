@@ -165,4 +165,11 @@ source ~/.bin/tmuxinator.bash # tmuxinator
 eval "$(_TMUXP_COMPLETE=source tmuxp)" # tmuxp
 # }}}
 
+# Shell {{{
+# =====
+if [ -t 1 ]; then
+	exec zsh
+fi
+# }}}
+
 # vim:foldmethod=marker:foldlevel=0

@@ -46,6 +46,11 @@ autoload -Uz promptinit
 promptinit
 # }}}
 
+# Up {{{
+# ==
+source .config/up/up.sh
+# }}}
+
 # History {{{
 # =======
 setopt histignorealldups sharehistory

@@ -50,6 +50,8 @@ call vundle#begin()
 	Plugin 'Valloric/YouCompleteMe'
 	" Markdown Preview (requires npm package)
 	Plugin 'shime/vim-livedown'
+	" Color Scheme
+	Plugin 'w0ng/vim-hybrid'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -58,6 +60,8 @@ filetype plugin indent on    " required
 " Colors {{{
 " ======
 syntax enable
+set background=dark
+colorscheme hybrid
 " }}}
 
 " Tabs & Spaces {{{

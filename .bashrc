@@ -3,6 +3,14 @@
 #	website: https://davidtw.co
 # ==================================================
 
+# Shell {{{
+# =====
+# Launch zsh, required for use with WSL.
+if [ -t 1 ]; then
+	exec zsh
+fi
+# }}}
+
 # Default Ubuntu Configurations {{{
 # =============================
 # If not running interactively, don't do anything
@@ -163,13 +171,6 @@ export EDITOR=vim
 # =======================
 source ~/.bin/tmuxinator.bash # tmuxinator
 eval "$(_TMUXP_COMPLETE=source tmuxp)" # tmuxp
-# }}}
-
-# Shell {{{
-# =====
-if [ -t 1 ]; then
-	exec zsh
-fi
 # }}}
 
 # vim:foldmethod=marker:foldlevel=0

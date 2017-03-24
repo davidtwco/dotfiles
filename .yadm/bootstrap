@@ -16,12 +16,7 @@ fi
 # Install tpm plugins.
 $HOME/.tmux/plugins/tpm/bin/install_plugins
 
-# Install bash prompt.
-echo ":: Install sexy-bash-prompt..."
-cd "$HOME/.config/sexy-bash-prompt"
-make install
-
-# Use the bash prompt.
+# Reload the bash configuration.
 source "$HOME/.bashrc"
 
 # Set up YouCompleteMe.

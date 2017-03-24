@@ -11,6 +11,22 @@
 # fi
 # }}}
 
+# Colors {{{
+# ======
+RED="$(tput setaf 1)"
+GREEN="$(tput setaf 2)"
+YELLOW="$(tput setaf 3)"
+BLUE="$(tput setaf 4)"
+MAGENTA="$(tput setaf 5)"
+CYAN="$(tput setaf 6)"
+WHITE="$(tput setaf 7)"
+GRAY="$(tput setaf 8)"
+BOLD="$(tput bold)"
+UNDERLINE="$(tput sgr 0 1)"
+INVERT="$(tput sgr 1 0)"
+NOCOLOR="$(tput sgr0)"
+# }}}
+
 # Default Ubuntu Configurations {{{
 # =============================
 # If not running interactively, don't do anything
@@ -124,16 +140,9 @@ if [ -f ~/.bash_aliases ]; then
 fi
 # }}}
 
-# Sexy Bash Prompt {{{
-# ================
-PROMPT_USER_COLOR="$(tput setaf 1)"
-PROMPT_PREPOSITION_COLOR="$(tput setaf 7)"
-PROMPT_DEVICE_COLOR="$(tput setaf 4)"
-PROMPT_DIR_COLOR="$(tput setaf 3)"
-PROMPT_GIT_STATUS_COLOR="$(tput setaf 2)"
-PROMPT_GIT_PROGRESS_COLOR="$(tput setaf 2)"
-PROMPT_SYMBOL_COLOR="$(tput setaf 7)"
-. ~/.bash_prompt
+# Prompt {{{
+# ======
+source $HOME/.bash_prompt
 # }}}
 
 # SSH Agent {{{

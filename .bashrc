@@ -6,9 +6,9 @@
 # Shell {{{
 # =====
 # Launch zsh, required for use with WSL.
-if [ -t 1 ]; then
-	exec zsh
-fi
+# if [ -t 1 ]; then
+# 	exec zsh
+# fi
 # }}}
 
 # Default Ubuntu Configurations {{{

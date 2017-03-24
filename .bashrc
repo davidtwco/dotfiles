@@ -182,4 +182,9 @@ source ~/.bin/tmuxinator.bash # tmuxinator
 eval "$(_TMUXP_COMPLETE=source tmuxp)" # tmuxp
 # }}}
 
+# Up {{{
+# ==
+source $HOME/.config/up/up.sh
+# }}}
+
 # vim:foldmethod=marker:foldlevel=0

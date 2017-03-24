@@ -22,14 +22,14 @@ source ~/.config/antigen/antigen.zsh
 
 antigen bundle mafredri/zsh-async
 antigen bundle sindresorhus/pure
-antigen bundle adb
-antigen bundle bower
-antigen bundle cargo
-antigen bundle cloudapp
+# antigen bundle adb
+# antigen bundle bower
+# antigen bundle cargo
+# antigen bundle cloudapp
 antigen bundle command-not-found
-antigen bundle composer
+# antigen bundle composer
 antigen bundle debian
-antigen bundle django
+# antigen bundle django
 antigen bundle docker
 antigen bundle fasd
 antigen bundle gem
@@ -37,23 +37,23 @@ antigen bundle gitfast
 antigen bundle gitignore
 antigen bundle history
 antigen bundle httpie
-antigen bundle mosh
-antigen bundle nmap
+# antigen bundle mosh
+# antigen bundle nmap
 antigen bundle npm
 antigen bundle pep8
 antigen bundle pip
 antigen bundle postgres
 antigen bundle python
-antigen bundle rust
+# antigen bundle rust
 antigen bundle ssh-agent
 antigen bundle systemd
 antigen bundle sudo
 antigen bundle tmux
-antigen bundle vagrant
+# antigen bundle vagrant
 antigen bundle vundle
-antigen bundle web-search
-antigen bundle yarn
-antigen bundle yii2
+# antigen bundle web-search
+# antigen bundle yarn
+# antigen bundle yii2
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
 

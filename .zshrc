@@ -20,10 +20,8 @@ export ZSH_CACHE_DIR=$HOME/.zsh/cache
 # Grab Antigen
 source ~/.config/antigen/antigen.zsh
 
-# Pure (Theme)
 antigen bundle mafredri/zsh-async
 antigen bundle sindresorhus/pure
-# Oh-my-zsh Plugins
 antigen bundle adb
 antigen bundle bower
 antigen bundle cargo
@@ -56,7 +54,6 @@ antigen bundle vundle
 antigen bundle web-search
 antigen bundle yarn
 antigen bundle yii2
-# Features
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
 

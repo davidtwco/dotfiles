@@ -175,6 +175,14 @@ function! ToggleNumber()
 endfunc
 " }}}
 
+" Buffers {{{
+" =======
+" Vim should create hidden buffers more liberally.
+" ie. it should not prompt when switching between open files (in buffers)
+"	  when those files have changes.
+set hidden
+" }}}
+
 " Organization {{{
 " ============
 set modelines=1			" Sets the expected modeline format.

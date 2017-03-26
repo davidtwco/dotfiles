@@ -8,7 +8,7 @@
 "
 " Fold Bindings (incase you've forgotten):
 " ----------------------------------------
-" za 		toggle one level
+" za		toggle one level
 " zc		close one level
 " zo		open one level
 " zA		toggle all levels
@@ -72,6 +72,10 @@ set tabstop=4					" Width of tab is 4.
 set softtabstop=0 noexpandtab	" Number of columns for a tab
 set shiftwidth=4				" Indents have width of four.
 set smarttab					" Insert spaces or tabs to get to next indent.
+
+" Display the tab characters and end of line characters.
+set list
+set listchars=tab:▸\ ,eol:¬
 " }}}
 
 " Undo/Backups {{{
@@ -145,27 +149,27 @@ au FileType yaml set tabstop=2 shiftwidth=2 expandtab nosmarttab
 " =========
 " Strip trailing whitespace on saving a file.
 function! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
+	let l = line(".")
+	let c = col(".")
+	%s/\s\+$//e
+	call cursor(l, c)
 endfun
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " Toggle between absolute line numbers and relative line numbers.
 function! ToggleNumber()
-    if(&relativenumber == 1)
-        set norelativenumber
-        set number
-    else
-        set relativenumber
-    endif
+	if(&relativenumber == 1)
+		set norelativenumber
+		set number
+	else
+		set relativenumber
+	endif
 endfunc
 " }}}
 
 " Organization {{{
 " ============
-set modelines=1		" Sets the expected modeline format.
+set modelines=1			" Sets the expected modeline format.
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0

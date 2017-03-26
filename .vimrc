@@ -144,11 +144,13 @@ set history=1000	" Increase history.
 
 " File Type Specific {{{
 " ==================
-" Find the filetype using ':set ft?'
-" Syntax of these languages is dependant on tabs/spaces.
-au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-au FileType python set ts=4 sw=4 expandtab smarttab sts=4 autoindent
-au FileType yaml set ts=2 sw=2 expandtab nosmarttab
+if has("autocmd")
+	" Find the filetype using ':set ft?'
+	" Syntax of these languages is dependant on tabs/spaces.
+	au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+	au FileType python set ts=4 sw=4 expandtab smarttab sts=4 autoindent
+	au FileType yaml set ts=2 sw=2 expandtab nosmarttab
+endif
 " }}}
 
 " Functions {{{

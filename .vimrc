@@ -69,9 +69,11 @@ colorscheme hybrid
 " In general, prefer using tabs for indentation and spaces for alignment.
 " May change depending on filetype.
 set tabstop=4					" Width of tab is 4.
-set softtabstop=0 noexpandtab	" Number of columns for a tab
-set shiftwidth=4				" Indents have width of four.
+set softtabstop=4 				" Width of a 'space tab' (pressing tab when using spaces) is 4.
+set noexpandtab					" Use tabs rather than spaces.
+set shiftwidth=4				" Indent by 4 when using '<', '>' operators.
 set smarttab					" Insert spaces or tabs to get to next indent.
+set autoindent					" Match identation of the previous line.
 
 " Display the tab characters and end of line characters.
 set list
@@ -142,6 +144,7 @@ set history=1000	" Increase history.
 
 " File Type Specific {{{
 " ==================
+au FileType python set tabstop=4 shiftwidth=4 expandtab smarttab softtabstop=4 autoindent
 au FileType yaml set tabstop=2 shiftwidth=2 expandtab nosmarttab
 " }}}
 

@@ -52,6 +52,8 @@ call vundle#begin()
 	Plugin 'shime/vim-livedown'
 	" Color Scheme
 	Plugin 'w0ng/vim-hybrid'
+	" Twig Syntax
+	Plugin 'lumiliet/vim-twig'
 
 call vundle#end()            " required
 filetype plugin indent on    " required

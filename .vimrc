@@ -125,8 +125,8 @@ nnoremap k gk
 
 " Mouse {{{
 " ==============
-" Allows scrolling in Vim, need to press SHIFT + RClick to paste.
-set mouse=a
+" Disable the mouse.
+set mouse=r
 " }}}
 
 " Folding {{{

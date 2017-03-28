@@ -57,7 +57,9 @@ call vundle#begin()
 	Plugin 'niftylettuce/vim-jinja'
 
 call vundle#end()            " required
-filetype plugin indent on    " required
+if has("autocmd")
+	filetype plugin indent on    " required
+endif
 " }}}
 
 " Colors {{{
@@ -155,6 +157,14 @@ set foldmethod=indent		" Fold based on indentation (for Python)
 " Misc {{{
 " ====
 set history=1000	" Increase history.
+
+" Restore cursor position.
+if has("autocmd")
+	autocmd BufReadPost *
+				\ if line("'\"") > 1 && line("'\"") <= line("$") |
+				\   exe "normal! g`\"" |
+				\ endif
+endif
 " }}}
 
 " File Type Specific {{{

@@ -158,6 +158,20 @@ set foldmethod=indent		" Fold based on indentation (for Python)
 " ====
 set history=1000	" Increase history.
 
+" If we edit a file named '.vimrc', reload our .vimrc.
+if has("autocmd")
+	" Adding this to a group ensures that any previous reload commands queued
+	" are removed.
+	augroup FileTypeVim
+		au!
+		au! BufWritePost .vimrc source $MYVIMRC
+		" Following line ensures that modeline is loaded.
+		au! BufWritePost .vimrc set modeline | doautocmd BufRead
+	augroup END
+endif
+" Map <leader>v to edit the .vimrc file in a new tab.
+nmap <leader>v :tabedit $MYVIMRC<CR>
+
 " Restore cursor position.
 if has("autocmd")
 	autocmd BufReadPost *

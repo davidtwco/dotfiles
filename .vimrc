@@ -2,9 +2,8 @@
 " 	dotfiles: https://github.com/davidtwco/dotfiles
 " 	website: https://davidtw.co
 " =================================
-" The goal of this configuration is to enhance the default
-" Vim configuration without remapping from the defaults too
-" heavily.
+" The goal of this configuration is to enhance the default Vim configuration
+" without remapping from the defaults too much.
 "
 " Fold Bindings (incase you've forgotten):
 " ----------------------------------------
@@ -70,8 +69,8 @@ colorscheme hybrid
 
 " Tabs & Spaces {{{
 " =============
-" In general, prefer using tabs for indentation and spaces for alignment.
-" May change depending on filetype.
+" In general, prefer using tabs for indentation and spaces for alignment. May
+" change depending on filetype.
 set tabstop=4					" Width of tab is 4.
 set softtabstop=4 				" Width of a 'space tab' (pressing tab when using spaces) is 4.
 set noexpandtab					" Use tabs rather than spaces.
@@ -194,8 +193,8 @@ endfunc
 " Buffers {{{
 " =======
 " Vim should create hidden buffers more liberally.
-" ie. it should not prompt when switching between open files (in buffers)
-"	  when those files have changes.
+" ie. it should not prompt when switching between open files (in buffers) when
+" those files have changes.
 set hidden
 " }}}
 

@@ -37,6 +37,8 @@ call vundle#begin()
 	" ------------
 		" Easy navigation between vim splits and tmux panes.
 		Plugin 'christoomey/vim-tmux-navigator'
+		" Functions that interact with tmux.
+		Plugin 'tpope/vim-tbone'
 	" }}}
 
 	" Operators/Motions/etc. {{{
@@ -59,6 +61,10 @@ call vundle#begin()
 		Plugin 'tpope/vim-endwise'
 		" Improvements to netrw.
 		Plugin 'tpope/vim-vinegar'
+		" Improve '.' (repeat) for plugin maps.
+		Plugin 'tpope/vim-repeat'
+		" Get character codes.
+		Plugin 'tpope/vim-characterize'
 
 		" Fuzzy file search.
 		Plugin 'ctrlpvim/ctrlp.vim'
@@ -70,6 +76,8 @@ call vundle#begin()
 
 	" Functions {{{
 	" --------
+		" Line up text.
+		Plugin 'godlygeek/tabular'
 		" Markdown Preview (requires npm package - livedown).
 		Plugin 'shime/vim-livedown'
 	" }}}

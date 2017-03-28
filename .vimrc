@@ -33,12 +33,33 @@ call vundle#begin()
 	" Let Vundle manage Vundle, required
 	Plugin 'VundleVim/Vundle.vim'
 
+	" Colour Schemes {{{
+	" --------------
+		Plugin 'w0ng/vim-hybrid'
+	" }}}
+
+	" Functions {{{
+	" --------
+		" Visualize the undo tree.
+		Plugin 'sjl/gundo.vim'
+		" Line up text.
+		Plugin 'godlygeek/tabular'
+		" Markdown Preview (requires npm package - livedown).
+		Plugin 'shime/vim-livedown'
+	" }}}
+
 	" Integrations {{{
 	" ------------
 		" Easy navigation between vim splits and tmux panes.
 		Plugin 'christoomey/vim-tmux-navigator'
 		" Functions that interact with tmux.
 		Plugin 'tpope/vim-tbone'
+		" Generate statuslines for tmux.
+		Plugin 'edkolev/tmuxline.vim'
+		" Works with Python virtual environments.
+		Plugin 'jmcantrell/vim-virtualenv'
+		" Show Git changes.
+		Plugin 'mhinz/vim-signify'
 	" }}}
 
 	" Operators/Motions/etc. {{{
@@ -74,19 +95,10 @@ call vundle#begin()
 		Plugin 'Valloric/YouCompleteMe'
 	" }}}
 
-	" Functions {{{
-	" --------
-		" Visualize the undo tree.
-		Plugin 'sjl/gundo.vim'
-		" Line up text.
-		Plugin 'godlygeek/tabular'
-		" Markdown Preview (requires npm package - livedown).
-		Plugin 'shime/vim-livedown'
-	" }}}
-
-	" Colour Schemes {{{
-	" --------------
-		Plugin 'w0ng/vim-hybrid'
+	" Statusline {{{
+	" ==========
+	Plugin 'vim-airline/vim-airline'
+	Plugin 'vim-airline/vim-airline-themes'
 	" }}}
 
 	" Syntax {{{
@@ -107,6 +119,13 @@ endif
 
 " Configuration
 " =============
+
+" Airline {{{
+" =======
+let g:airline_theme='hybrid'
+let g:airline_powerline_fonts = 0
+let g:airline_symbols_ascii = 1
+" }}}
 
 " Buffers {{{
 " =======
@@ -238,6 +257,12 @@ set ignorecase		" Ignore case when searching.
 set smartcase		" Don't ignore case when different cases searched for.
 " }}}
 
+" Signify {{{
+" =======
+" Specify which VCS to check for.
+let g:signify_vcs_list = [ 'git' ]
+" }}}
+
 " Tab Completion {{{
 " ==============
 " Turn on wildmenu for file name tab completion.
@@ -261,6 +286,11 @@ set list
 set listchars=tab:▸\ ,eol:¬
 " }}}
 
+" Tmuxline {{{
+" ========
+let g:tmuxline_powerline_separators = 0
+" }}}
+
 " UI & Visual Cues {{{
 " =========
 set ruler			" Show ruler.
@@ -272,7 +302,7 @@ set report=0		" Display messages for changes (ie. yank, delete, etc.)
 set showmatch		" Show matching brackets.
 set mat=5			" Matching bracket duration.
 set visualbell		" Shut up, Vim.
-set laststatus=1	" Always show the status line.
+set laststatus=2	" Always show the status line.
 " }}}
 
 " Undo/Backups {{{

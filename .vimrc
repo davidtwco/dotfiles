@@ -29,37 +29,74 @@ call vundle#begin()
 
 	" Let Vundle manage Vundle, required
 	Plugin 'VundleVim/Vundle.vim'
-	" Easy navigation between vim splits and tmux panes.
-	Plugin 'christoomey/vim-tmux-navigator'
-	" Comments
-	Plugin 'tpope/vim-commentary'
-	" Git Wrapper
-	Plugin 'tpope/vim-fugitive'
-	" Surroundings ("", '', {}, etc.)
-	Plugin 'tpope/vim-surround'
-	" UNIX Helpers
-	Plugin 'tpope/vim-eunuch'
-	" Session saving (works with tmux-resurrect)
-	Plugin 'tpope/vim-obsession'
-	" Enhanced '%'
-	Plugin 'geoffharcourt/vim-matchit'
-	" Dockerfile Syntax
-	Plugin 'ekalinin/Dockerfile.vim'
-	" Completion (complex install, see docs)
-	Plugin 'Valloric/YouCompleteMe'
-	" Markdown Preview (requires npm package)
-	Plugin 'shime/vim-livedown'
-	" Color Scheme
-	Plugin 'w0ng/vim-hybrid'
-	" Twig Syntax
-	Plugin 'lumiliet/vim-twig'
-	" Jinja/Nunjucks Syntax
-	Plugin 'niftylettuce/vim-jinja'
+
+	" Integrations {{{
+	" ------------
+		" Easy navigation between vim splits and tmux panes.
+		Plugin 'christoomey/vim-tmux-navigator'
+	" }}}
+
+	" Operators/Motions/etc. {{{
+	" ---------------------
+		" Comments.
+		Plugin 'tpope/vim-commentary'
+		" Git wrapper.
+		Plugin 'tpope/vim-fugitive'
+		" Surroundings ("", '', {}, etc.).
+		Plugin 'tpope/vim-surround'
+		" UNIX helpers.
+		Plugin 'tpope/vim-eunuch'
+		" Session saving (works with tmux-resurrect).
+		Plugin 'tpope/vim-obsession'
+		" Handy bracket matchings.
+		Plugin 'tpope/vim-unimpaired'
+		" Word variation helper.
+		Plugin 'tpope/vim-abolish'
+		" Auto-adds 'end' where appropriate.
+		Plugin 'tpope/vim-endwise'
+		" Improvements to netrw.
+		Plugin 'tpope/vim-vinegar'
+
+		" Fuzzy file search.
+		Plugin 'ctrlpvim/ctrlp.vim'
+		" Enhanced '%' functionality.
+		Plugin 'geoffharcourt/vim-matchit'
+		" Completion (complex install, see docs).
+		Plugin 'Valloric/YouCompleteMe'
+	" }}}
+
+	" Functions {{{
+	" --------
+		" Markdown Preview (requires npm package - livedown).
+		Plugin 'shime/vim-livedown'
+	" }}}
+
+	" Colour Schemes {{{
+	" --------------
+		Plugin 'w0ng/vim-hybrid'
+	" }}}
+
+	" Syntax {{{
+	" ------
+		" Dockerfile Syntax.
+		Plugin 'ekalinin/Dockerfile.vim'
+		" Twig Syntax.
+		Plugin 'lumiliet/vim-twig'
+		" Jinja/Nunjucks Syntax.
+		Plugin 'niftylettuce/vim-jinja'
+	" }}}
 
 call vundle#end()            " required
 if has("autocmd")
 	filetype plugin indent on    " required
 endif
+" }}}
+
+" CtrlP {{{
+" =====
+" Map CTRLP to use CTRL+P.
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 " }}}
 
 " Colors {{{

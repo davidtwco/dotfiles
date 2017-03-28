@@ -54,6 +54,8 @@ call vundle#begin()
 	Plugin 'w0ng/vim-hybrid'
 	" Twig Syntax
 	Plugin 'lumiliet/vim-twig'
+	" Jinja/Nunjucks Syntax
+	Plugin 'niftylettuce/vim-jinja'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -129,6 +131,18 @@ nnoremap k gk
 " ==============
 " Disable the mouse.
 set mouse=r
+" }}}
+
+" File Navigation {{{
+" ===============
+" Map %% to the current opened file's path.
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+" Map helpful commands for editing files in that directory. (leader defaults
+" to \)
+map <leader>ew :e %%
+map <leader>es :sp %%
+map <leader>ev :vsp %%
+map <leader>et :tabe %%
 " }}}
 
 " Folding {{{

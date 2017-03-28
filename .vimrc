@@ -76,6 +76,8 @@ call vundle#begin()
 
 	" Functions {{{
 	" --------
+		" Visualize the undo tree.
+		Plugin 'sjl/gundo.vim'
 		" Line up text.
 		Plugin 'godlygeek/tabular'
 		" Markdown Preview (requires npm package - livedown).

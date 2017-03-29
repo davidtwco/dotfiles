@@ -7,10 +7,10 @@ cd "$HOME"
 echo ":: Initialize submodules..."
 yadm submodules update --recursive --init
 
-# Install Vundle plugins.
+# Install vim-plug plugins.
 if command -v vim >/dev/null 2>&1; then
 	echo ":: Install Vim Plugins..."
-	vim '+PluginInstall' '+qall'
+	vim '+PlugInstall' '+qall'
 fi
 
 # Install tpm plugins.

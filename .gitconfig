@@ -9,3 +9,5 @@
 	ui = auto
 [include]
 	path = ~/.config/gitalias/gitalias.txt
+[alias]
+	ps = push

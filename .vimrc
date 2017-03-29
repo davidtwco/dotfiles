@@ -18,103 +18,99 @@
 " zm		close one level everywhere
 " zM		close all levels everywhere
 
+set nocompatible              " be iMproved, required
+
 " Plugins
 " =======
 
-" Vundle {{{
+" vim-plug {{{
 " ================
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" Set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-	" Let Vundle manage Vundle, required
-	Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
 	" Colour Schemes {{{
 	" --------------
-		Plugin 'w0ng/vim-hybrid'
+		Plug 'w0ng/vim-hybrid'
 	" }}}
 
 	" Functions {{{
 	" --------
 		" Visualize the undo tree.
-		Plugin 'sjl/gundo.vim'
+		Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 		" Line up text.
-		Plugin 'godlygeek/tabular'
+		Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tab', 'AddTabularPattern', 'AddTabularPipeline'] }
 		" Markdown Preview (requires npm package - livedown).
-		Plugin 'shime/vim-livedown'
+		Plug 'shime/vim-livedown', { 'for': 'markdown' }
 	" }}}
 
 	" Integrations {{{
 	" ------------
 		" Easy navigation between vim splits and tmux panes.
-		Plugin 'christoomey/vim-tmux-navigator'
+		Plug 'christoomey/vim-tmux-navigator'
 		" Functions that interact with tmux.
-		Plugin 'tpope/vim-tbone'
+		Plug 'tpope/vim-tbone'
 		" Generate statuslines for tmux.
-		Plugin 'edkolev/tmuxline.vim'
+		Plug 'edkolev/tmuxline.vim'
 		" Works with Python virtual environments.
-		Plugin 'jmcantrell/vim-virtualenv'
+		Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 		" Show Git changes.
-		Plugin 'mhinz/vim-signify'
+		Plug 'mhinz/vim-signify'
 	" }}}
 
 	" Operators/Motions/etc. {{{
 	" ---------------------
 		" Comments.
-		Plugin 'tpope/vim-commentary'
+		Plug 'tpope/vim-commentary'
 		" Git wrapper.
-		Plugin 'tpope/vim-fugitive'
+		Plug 'tpope/vim-fugitive'
 		" Surroundings ("", '', {}, etc.).
-		Plugin 'tpope/vim-surround'
+		Plug 'tpope/vim-surround'
 		" UNIX helpers.
-		Plugin 'tpope/vim-eunuch'
+		if has("unix")
+			Plug 'tpope/vim-eunuch'
+		endif
 		" Session saving (works with tmux-resurrect).
-		Plugin 'tpope/vim-obsession'
+		Plug 'tpope/vim-obsession'
 		" Handy bracket matchings.
-		Plugin 'tpope/vim-unimpaired'
+		Plug 'tpope/vim-unimpaired'
 		" Word variation helper.
-		Plugin 'tpope/vim-abolish'
+		Plug 'tpope/vim-abolish'
 		" Auto-adds 'end' where appropriate.
-		Plugin 'tpope/vim-endwise'
+		Plug 'tpope/vim-endwise'
 		" Improvements to netrw.
-		Plugin 'tpope/vim-vinegar'
+		Plug 'tpope/vim-vinegar'
 		" Improve '.' (repeat) for plugin maps.
-		Plugin 'tpope/vim-repeat'
+		Plug 'tpope/vim-repeat'
 		" Get character codes.
-		Plugin 'tpope/vim-characterize'
+		Plug 'tpope/vim-characterize'
+	" }}}
 
+	" Features {{{
+	" --------
 		" Fuzzy file search.
-		Plugin 'ctrlpvim/ctrlp.vim'
+		Plug 'ctrlpvim/ctrlp.vim'
 		" Enhanced '%' functionality.
-		Plugin 'geoffharcourt/vim-matchit'
+		Plug 'geoffharcourt/vim-matchit'
 		" Completion (complex install, see docs).
-		Plugin 'Valloric/YouCompleteMe'
+		Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 	" }}}
 
 	" Statusline {{{
-	" ==========
-	Plugin 'vim-airline/vim-airline'
-	Plugin 'vim-airline/vim-airline-themes'
+	" ----------
+		Plug 'vim-airline/vim-airline'
+		Plug 'vim-airline/vim-airline-themes'
 	" }}}
 
 	" Syntax {{{
 	" ------
 		" Dockerfile Syntax.
-		Plugin 'ekalinin/Dockerfile.vim'
+		Plug 'ekalinin/Dockerfile.vim'
 		" Twig Syntax.
-		Plugin 'lumiliet/vim-twig'
+		Plug 'lumiliet/vim-twig'
 		" Jinja/Nunjucks Syntax.
-		Plugin 'niftylettuce/vim-jinja'
+		Plug 'niftylettuce/vim-jinja'
 	" }}}
 
-call vundle#end()            " required
-if has("autocmd")
-	filetype plugin indent on    " required
-endif
+call plug#end()
 " }}}
 
 " Configuration

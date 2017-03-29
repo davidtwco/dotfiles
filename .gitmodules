@@ -1,9 +1,6 @@
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
-[submodule ".vim/bundle/Vundle.vim"]
-	path = .vim/bundle/Vundle.vim
-	url = https://github.com/VundleVim/Vundle.vim.git
 [submodule ".config/gitalias"]
 	path = .config/gitalias
 	url = https://github.com/GitAlias/gitalias.git
@@ -13,3 +10,6 @@
 [submodule ".config/up"]
 	path = .config/up
 	url = https://github.com/shannonmoeller/up.git
+[submodule ".config/vim-plug"]
+	path = .config/vim-plug
+	url = https://github.com/junegunn/vim-plug

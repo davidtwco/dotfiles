@@ -18,12 +18,3 @@ $HOME/.tmux/plugins/tpm/bin/install_plugins
 
 # Reload the bash configuration.
 source "$HOME/.bashrc"
-
-# Set up YouCompleteMe.
-echo ":: Installing YouCompleteMe for Vim (https://github.com/Valloric/YouCompleteMe#ubuntu-linux-x64)."
-
-default="-all"
-read -p "Change install flag? [$default]: " ycm_flag
-ycm_flag=${ycm_flag:-$default}
-# Run the installer with supplied flag.
-$HOME/.vim/bundle/YouCompleteMe/install.py $ycm_flag

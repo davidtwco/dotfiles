@@ -32,17 +32,69 @@ call plug#begin('~/.vim/plugged')
 		Plug 'w0ng/vim-hybrid'
 	" }}}
 
-	" Functions {{{
-	" --------
-		" Visualize the undo tree.
-		Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
-		" Line up text.
-		Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tab', 'AddTabularPattern', 'AddTabularPipeline'] }
-		" Markdown Preview (requires npm package - livedown).
-		Plug 'shime/vim-livedown', { 'for': 'markdown' }
+	" Autocomplete {{{
+	" ------------
+		Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 	" }}}
 
-	" Integrations {{{
+	" Commenting {{{
+	" ----------
+		" Comments.
+		Plug 'tpope/vim-commentary'
+	" }}}
+
+	" File Browsing/Search {{{
+	" --------
+		" Improvements to netrw.
+		Plug 'tpope/vim-vinegar'
+		" Fuzzy file search.
+		Plug 'ctrlpvim/ctrlp.vim'
+	" }}}
+
+	" Git Integration {{{
+	" ---
+		" Show Git changes.
+		Plug 'mhinz/vim-signify'
+		" Git wrapper.
+		Plug 'tpope/vim-fugitive'
+	" }}}
+
+	" Markdown Integration {{{
+	" --------------------
+		" Markdown Preview (requires npm package - livedown).
+		Plug 'shime/vim-livedown', { 'for': 'markdown', 'on': 'LivedownPreview' }
+	" }}}
+
+	" Misc {{{
+	" ---------------------
+		" Word variation helper.
+		Plug 'tpope/vim-abolish'
+		" Improve '.' (repeat) for plugin maps.
+		Plug 'tpope/vim-repeat'
+		" Get character codes.
+		Plug 'tpope/vim-characterize'
+	" }}}
+
+	" OS Integration {{{
+	" --------------
+		if has("unix")
+			Plug 'tpope/vim-eunuch'
+		endif
+	" }}}
+
+	" Python Integration {{{
+	" ------
+		" Works with Python virtual environments.
+		Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
+	" }}}
+
+	" Tabbing {{{
+	" -------
+		" Line up text.
+		Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tab', 'AddTabularPattern', 'AddTabularPipeline'] }
+	" }}}
+
+	" tmux Integration {{{
 	" ------------
 		" Easy navigation between vim splits and tmux panes.
 		Plug 'christoomey/vim-tmux-navigator'
@@ -50,54 +102,29 @@ call plug#begin('~/.vim/plugged')
 		Plug 'tpope/vim-tbone'
 		" Generate statuslines for tmux.
 		Plug 'edkolev/tmuxline.vim'
-		" Works with Python virtual environments.
-		Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
-		" Show Git changes.
-		Plug 'mhinz/vim-signify'
 	" }}}
 
-	" Operators/Motions/etc. {{{
-	" ---------------------
-		" Comments.
-		Plug 'tpope/vim-commentary'
-		" Git wrapper.
-		Plug 'tpope/vim-fugitive'
-		" Surroundings ("", '', {}, etc.).
-		Plug 'tpope/vim-surround'
-		" UNIX helpers.
-		if has("unix")
-			Plug 'tpope/vim-eunuch'
-		endif
-		" Session saving (works with tmux-resurrect).
+	" Session Saving {{{
+	" --------------
 		Plug 'tpope/vim-obsession'
-		" Handy bracket matchings.
-		Plug 'tpope/vim-unimpaired'
-		" Word variation helper.
-		Plug 'tpope/vim-abolish'
-		" Auto-adds 'end' where appropriate.
-		Plug 'tpope/vim-endwise'
-		" Improvements to netrw.
-		Plug 'tpope/vim-vinegar'
-		" Improve '.' (repeat) for plugin maps.
-		Plug 'tpope/vim-repeat'
-		" Get character codes.
-		Plug 'tpope/vim-characterize'
-	" }}}
-
-	" Features {{{
-	" --------
-		" Fuzzy file search.
-		Plug 'ctrlpvim/ctrlp.vim'
-		" Enhanced '%' functionality.
-		Plug 'geoffharcourt/vim-matchit'
-		" Completion (complex install, see docs).
-		Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 	" }}}
 
 	" Statusline {{{
 	" ----------
 		Plug 'vim-airline/vim-airline'
 		Plug 'vim-airline/vim-airline-themes'
+	" }}}
+
+	" Surroundings {{{
+	" ----
+		" Enhanced '%' functionality.
+		Plug 'geoffharcourt/vim-matchit'
+		" Handy bracket matchings.
+		Plug 'tpope/vim-unimpaired'
+		" Surroundings ("", '', {}, etc.).
+		Plug 'tpope/vim-surround'
+		" Auto-adds 'end' where appropriate.
+		Plug 'tpope/vim-endwise'
 	" }}}
 
 	" Syntax {{{
@@ -108,6 +135,12 @@ call plug#begin('~/.vim/plugged')
 		Plug 'lumiliet/vim-twig'
 		" Jinja/Nunjucks Syntax.
 		Plug 'niftylettuce/vim-jinja'
+	" }}}
+
+	" Undo {{{
+	" --------
+		" Visualize the undo tree.
+		Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 	" }}}
 
 call plug#end()

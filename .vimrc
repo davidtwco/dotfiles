@@ -261,6 +261,8 @@ set smartcase		" Don't ignore case when different cases searched for.
 " =======
 " Specify which VCS to check for.
 let g:signify_vcs_list = [ 'git' ]
+" Work in near-realtime.
+let g:signify_realtime = 1
 " }}}
 
 " Tab Completion {{{

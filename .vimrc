@@ -260,13 +260,6 @@ if has("autocmd")
 endif
 " }}}
 
-" Movement {{{
-" ========
-" Move vertically visually, ie. on wrapped lines.
-nnoremap j gj
-nnoremap k gk
-" }}}
-
 " Mouse {{{
 " ==============
 " Disable the mouse.

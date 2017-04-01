@@ -320,7 +320,7 @@ set softtabstop=4 				" Width of a 'space tab' (pressing tab when using spaces) 
 set noexpandtab					" Use tabs rather than spaces.
 set shiftwidth=4				" Indent by 4 when using '<', '>' operators.
 set smarttab					" Insert spaces or tabs to get to next indent.
-set autoindent					" Match identation of the previous line.
+set autoindent					" Match indentation of the previous line.
 
 " Display the tab characters and end of line characters.
 set list

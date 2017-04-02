@@ -13,3 +13,6 @@
 [submodule ".config/vim-plug"]
 	path = .config/vim-plug
 	url = https://github.com/junegunn/vim-plug
+[submodule ".config/weechat-matrix-protocol-script"]
+	path = .config/weechat-matrix-protocol-script
+	url = https://github.com/torhve/weechat-matrix-protocol-script.git

@@ -7,6 +7,14 @@ cd "$HOME"
 echo ":: Initialize submodules..."
 yadm submodule update --recursive --init
 
+# Make our symlinks.
+echo ":: Creating symlinks..."
+mkdir -p ~/.vim/autoload
+ln -s ~/.config/vim-plug/plug.vim ~/.vim/autoload/plug.vim
+mkdir -p ~/.weechat/lua/autoload
+ln -s ~/.config/weechat-matrix-protocol-script/matrix.lua ~/.weechat/lua/matrix.lua
+ln -s ~/.weechat/lua/matrix.lua ~/.weechat/lua/autoload/matrix.lua
+
 # Install vim-plug plugins.
 if command -v vim >/dev/null 2>&1; then
 	echo ":: Install Vim Plugins..."

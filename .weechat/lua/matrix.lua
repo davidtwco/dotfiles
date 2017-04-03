@@ -1,1 +1,0 @@
-/home/david/.config/weechat-matrix-protocol-script/matrix.lua

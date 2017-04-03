@@ -15,65 +15,76 @@ export ZSH_CACHE_DIR=$HOME/.zsh/cache
 # Plugins {{{
 # =================
 
-# Antigen {{{
-# -------
-# Grab Antigen
-source ~/.config/antigen/antigen.zsh
+	# zplug {{{
+	# -------
+	source ~/.config/zplug/init.zsh
 
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure
-# antigen bundle adb
-# antigen bundle bower
-# antigen bundle cargo
-# antigen bundle cloudapp
-antigen bundle command-not-found
-# antigen bundle composer
-antigen bundle debian
-# antigen bundle django
-antigen bundle docker
-antigen bundle fasd
-antigen bundle gem
-antigen bundle gitfast
-antigen bundle gitignore
-antigen bundle history
-antigen bundle httpie
-# antigen bundle mosh
-# antigen bundle nmap
-antigen bundle npm
-antigen bundle pep8
-antigen bundle pip
-antigen bundle postgres
-antigen bundle python
-# antigen bundle rust
-antigen bundle ssh-agent
-antigen bundle systemd
-antigen bundle sudo
-antigen bundle tmux
-# antigen bundle vagrant
-antigen bundle vundle
-# antigen bundle web-search
-# antigen bundle yarn
-# antigen bundle yii2
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-completions
+	zplug "mafredri/zsh-async", from:github
+	zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 
-# Apply Changes
-antigen apply
-# }}}
+	# zplug "plugins/adb", from:oh-my-zsh
+	# zplug "plugins/bower", from:oh-my-zsh
+	# zplug "plugins/cargo", from:oh-my-zsh
+	# zplug "plugins/cloudapp", from:oh-my-zsh
+	zplug "plugins/command-not-found", from:oh-my-zsh
+	# zplug "plugins/composer", from:oh-my-zsh
+	zplug "plugins/debian", from:oh-my-zsh
+	# zplug "plugins/django", from:oh-my-zsh
+	zplug "plugins/docker", from:oh-my-zsh
+	zplug "plugins/fasd", from:oh-my-zsh
+	zplug "plugins/gem", from:oh-my-zsh
+	zplug "plugins/gitfast", from:oh-my-zsh
+	zplug "plugins/gitignore", from:oh-my-zsh
+	zplug "plugins/history", from:oh-my-zsh
+	zplug "plugins/httpie", from:oh-my-zsh
+	# zplug "plugins/mosh", from:oh-my-zsh
+	# zplug "plugins/nmap", from:oh-my-zsh
+	zplug "plugins/npm", from:oh-my-zsh
+	zplug "plugins/pep8", from:oh-my-zsh
+	zplug "plugins/pip", from:oh-my-zsh
+	zplug "plugins/postgres", from:oh-my-zsh
+	zplug "plugins/python", from:oh-my-zsh
+	# zplug "plugins/rust", from:oh-my-zsh
+	zplug "plugins/ssh-agent", from:oh-my-zsh
+	zplug "plugins/systemd", from:oh-my-zsh
+	zplug "plugins/sudo", from:oh-my-zsh
+	zplug "plugins/tmux", from:oh-my-zsh
+	# zplug "plugins/vagrant", from:oh-my-zsh
+	zplug "plugins/vundle", from:oh-my-zsh
+	# zplug "plugins/web-search", from:oh-my-zsh
+	# zplug "plugins/yarn", from:oh-my-zsh
+	# zplug "plugins/yii2", from:oh-my-zsh
 
-# Other {{{
-# -----
-# Install fasd
-fasd_cache="$ZSH_CACHE_DIR/fasd-init-cache"
-if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-  fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install >| "$fasd_cache"
-fi
-source "$fasd_cache"
-unset fasd_cache
+	zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2
+	zplug "zsh-users/zsh-completions", from:github
 
-# Source up.
-source .config/up/up.sh
-# }}}
+	# Install plugins if there are plugins that have not been installed
+	if ! zplug check; then
+		printf "Install? [y/N]: "
+		if read -q; then
+			echo; zplug install
+		fi
+	fi
+
+	# Apply Changes
+	zplug load
+	# }}}
+
+	# Other {{{
+	# -----
+	# Initialize fasd if it is installed.
+	if which fasd>/dev/null 2>&1; then
+		fasd_cache="$ZSH_CACHE_DIR/fasd-init-cache"
+		if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+			fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install >| "$fasd_cache"
+		fi
+		source "$fasd_cache"
+		unset fasd_cache
+	fi
+
+	# Source up.sh
+	source .config/up/up.sh
+	# }}}
 
 # }}}
 

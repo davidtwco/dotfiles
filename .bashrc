@@ -163,48 +163,53 @@ agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
 
 agent_start () {
 	(umask 077; ssh-agent >| "$env")
-	. "$env" >| /dev/null ; }
+	. "$env" >| /dev/null ;
+}
 
-	agent_load_env
+agent_load_env
 
-	# agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
-	agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+# agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
+agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
 
-	if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
-		agent_start
-		ssh-add
-	elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-		ssh-add
-	fi
+if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+	agent_start
+	ssh-add
+elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+	ssh-add
+fi
 
-	unset env
-	# }}}
+unset env
+# }}}
 
-	# Environment Variables {{{
-	# =====================
-	export DOCKER_HOST=tcp://127.0.0.1:2375
-	export EDITOR=vim
-	# }}}
+# Environment Variables {{{
+# =====================
+export DOCKER_HOST=tcp://127.0.0.1:2375
+export EDITOR=vim
+# }}}
 
-	# tmux helper completion {{{
-	# =======================
-	source ~/.bin/tmuxinator.bash # tmuxinator
+# tmux helper completion {{{
+# =======================
+source ~/.bin/tmuxinator.bash # tmuxinator
+if which tmuxp>/dev/null 2>&1; then
 	eval "$(_TMUXP_COMPLETE=source tmuxp)" # tmuxp
-	# }}}
+fi
+# }}}
 
-	# Up {{{
-	# ==
-	source $HOME/.config/up/up.sh
-	# }}}
+# Up {{{
+# ==
+source $HOME/.config/up/up.sh
+# }}}
 
-	# fasd {{{
-	# ====
+# fasd {{{
+# ====
+if which fasd>/dev/null 2>&1; then
 	fasd_cache="$HOME/.fasd-init-bash"
 	if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
 		fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
 	fi
 	source "$fasd_cache"
 	unset fasd_cache
-	# }}}
+fi
+# }}}
 
-	# vim:foldmethod=marker:foldlevel=0
+# vim:foldmethod=marker:foldlevel=0

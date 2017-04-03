@@ -152,6 +152,7 @@ fi
 
 # GPG Agent {{{
 # =========
+export GPG_TTY=$(tty)
 if which gpg-agent>/dev/null 2>&1; then
 	eval "$(gpg-agent --daemon)"
 fi

@@ -10,6 +10,9 @@ bindkey -v
 
 # Set a cache dir.
 export ZSH_CACHE_DIR=$HOME/.zsh/cache
+
+# Set the correct gpg tty.
+export GPG_TTY=$(tty)
 # }}}
 
 # Plugins {{{

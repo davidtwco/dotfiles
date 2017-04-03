@@ -5,7 +5,7 @@ cd "$HOME"
 
 # Set up submodules.
 echo ":: Initialize submodules..."
-yadm submodules update --recursive --init
+yadm submodule update --recursive --init
 
 # Install vim-plug plugins.
 if command -v vim >/dev/null 2>&1; then

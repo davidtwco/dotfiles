@@ -1,4 +1,4 @@
-// David Wood's .vimrc Configuration
+// David Wood's .hyper.js Configuration
 //  dotfiles: https://github.com/davidtwco/dotfiles
 //  website: https://davidtw.co
 // =================================

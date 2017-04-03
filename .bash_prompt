@@ -48,23 +48,27 @@ function prompt_command() {
 	# Virtualenv
 	local venv_prompt=
 	if [ -n "$VIRTUAL_ENV" ]; then
-	    venv_prompt=" $BLUE$prompt_venv_symbol$(basename $VIRTUAL_ENV)$NOCOLOR"
+		venv_prompt=" $BLUE$prompt_venv_symbol$(basename $VIRTUAL_ENV)$NOCOLOR"
 	fi
 
 	# Only show username if not default
 	local user_prompt=
 	[ "$USER" != "$local_username" ] && user_prompt="$user_color$USER$NOCOLOR"
 
+	# Add the '@' only if there is a username and a host.
+	local host_delimiter=
+	[ "$USER" != "$local_username" ] && [ -n "$remote" ] && host_delimiter="@"
+
 	# Show hostname inside SSH session
 	local host_prompt=
-	[ -n "$remote" ] && host_prompt="@$YELLOW$HOSTNAME$NOCOLOR"
+	[ -n "$remote" ] && host_prompt="$YELLOW$HOSTNAME$NOCOLOR"
 
 	# Show delimiter if user or host visible
 	local login_delimiter=
-	[ -n "$user_prompt" ] || [ -n "$host_prompt" ] && login_delimiter=":"
+	[ -n "$user_prompt" ] || [ -n "$host_prompt" ] && login_delimiter=" "
 
 	# Format prompt
-	first_line="$user_prompt$host_prompt$login_delimiter$WHITE\w$NOCOLOR$git_prompt$venv_prompt"
+	first_line="$user_prompt$host_delimiter$host_prompt$login_delimiter$WHITE\w$NOCOLOR$git_prompt$venv_prompt"
 	# Text (commands) inside \[...\] does not impact line length calculation which fixes stange bug when looking through the history
 	# $? is a status of last command, should be processed every time prompt prints
 	second_line="\`if [ \$? = 0 ]; then echo \[\$CYAN\]; else echo \[\$RED\]; fi\`\$prompt_symbol\[\$NOCOLOR\] "

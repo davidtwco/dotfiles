@@ -35,6 +35,7 @@ export ZSH_CACHE_DIR=$HOME/.zsh/cache
 	zplug "plugins/gem", from:oh-my-zsh
 	zplug "plugins/gitfast", from:oh-my-zsh
 	zplug "plugins/gitignore", from:oh-my-zsh
+	zplug "plugins/gpg-agent", from:oh-my-zsh
 	zplug "plugins/history", from:oh-my-zsh
 	zplug "plugins/httpie", from:oh-my-zsh
 	# zplug "plugins/mosh", from:oh-my-zsh

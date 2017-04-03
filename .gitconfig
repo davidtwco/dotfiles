@@ -1,6 +1,7 @@
 [user]
 	name = David Wood
 	email = david@davidtw.co
+	signingkey = 9F53F154
 [core]
 	editor = vim
 [push]
@@ -11,3 +12,5 @@
 	path = ~/.config/gitalias/gitalias.txt
 [alias]
 	ps = push
+[commit]
+	gpgsign = true

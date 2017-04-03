@@ -150,6 +150,13 @@ if [ -f ~/.bash_aliases ]; then
 fi
 # }}}
 
+# GPG Agent {{{
+# =========
+if which gpg-agent>/dev/null 2>&1; then
+	eval "$(gpg-agent --daemon)"
+fi
+# }}}
+
 # Prompt {{{
 # ======
 source $HOME/.bash_prompt

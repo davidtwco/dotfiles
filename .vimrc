@@ -140,6 +140,10 @@ call plug#begin('~/.vim/plugged')
 		Plug 'lumiliet/vim-twig'
 		" Jinja/Nunjucks Syntax.
 		Plug 'niftylettuce/vim-jinja'
+
+		" JavaScript ES2015+
+		Plug 'othree/yajs.vim'
+		Plug 'othree/es.next.syntax.vim'
 	" }}}
 
 	" Undo {{{

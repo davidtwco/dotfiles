@@ -6,13 +6,19 @@
 	editor = vim
 [push]
 	default = simple
+	followTags = true
 [color]
 	ui = auto
 [include]
 	path = ~/.config/gitalias/gitalias.txt
 [alias]
 	ps = push
+	prune = fetch --prune
+	undo = reset --soft HEAD^
+	stash-all = stash save --include-untracked
 [commit]
 	gpgsign = true
 [gpg]
 	program = gpg2
+[transfer]
+	fsckobjects = true

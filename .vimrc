@@ -215,8 +215,11 @@ if has("autocmd")
 	" Find the filetype using ':set ft?'
 	" Syntax of these languages is dependant on tabs/spaces.
 	au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-	au FileType python set ts=4 sw=4 expandtab smarttab sts=4 autoindent
-	au FileType yaml set ts=2 sw=2 expandtab nosmarttab
+	au FileType python setlocal ts=4 sw=4 expandtab smarttab sts=4 autoindent
+	au FileType yaml setlocal ts=2 sw=2 expandtab nosmarttab
+
+	" Always use spaces for the package.json file.
+	au BufNewFile,BufRead package.json setlocal ts=4 sw=4 expandtab nosmarttab sts=4
 endif
 " }}}
 

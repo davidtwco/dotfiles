@@ -63,6 +63,10 @@ call plug#begin('~/.vim/plugged')
 	" --------------------
 		" Markdown Preview (requires npm package - livedown).
 		Plug 'shime/vim-livedown', { 'for': 'markdown', 'on': 'LivedownPreview' }
+		" Distraction-free Writing.
+		Plug 'junegunn/goyo.vim', { 'for': 'markdown', 'on': 'Goyo' }
+		" Folding
+		Plug 'nelstrom/vim-markdown-folding', { 'for': 'markdown' }
 	" }}}
 
 	" Misc {{{
@@ -219,7 +223,7 @@ if has("autocmd")
 	au FileType yaml setlocal ts=2 sw=2 expandtab nosmarttab
 
 	" Always use spaces for the package.json file.
-	au BufNewFile,BufRead package.json setlocal ts=4 sw=4 expandtab nosmarttab sts=4
+	au BufNewFile,BufRead package.json setlocal ts=2 sw=2 expandtab nosmarttab sts=2
 endif
 " }}}
 

@@ -192,6 +192,8 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 " Ignore files in .gitignore.
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" Open files instead of switching to them.
+let g:ctrlp_switch_buffer = 'et'
 " }}}
 
 " Colors {{{
@@ -221,6 +223,7 @@ if has("autocmd")
 	au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 	au FileType python setlocal ts=4 sw=4 expandtab smarttab sts=4 autoindent
 	au FileType yaml setlocal ts=2 sw=2 expandtab nosmarttab
+    au FileType markdown setlocal ts=2 sw=2 expandtab nosmarttab " Specifically for frontmatter.
 
 	" Always use spaces for the package.json file.
 	au BufNewFile,BufRead package.json setlocal ts=2 sw=2 expandtab nosmarttab sts=2

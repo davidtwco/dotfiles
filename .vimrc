@@ -223,7 +223,7 @@ if has("autocmd")
 	au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 	au FileType python setlocal ts=4 sw=4 expandtab smarttab sts=4 autoindent
 	au FileType yaml setlocal ts=2 sw=2 expandtab nosmarttab
-    au FileType markdown setlocal ts=2 sw=2 expandtab nosmarttab " Specifically for frontmatter.
+	au FileType markdown setlocal ts=2 sw=2 expandtab nosmarttab " Specifically for frontmatter.
 
 	" Always use spaces for the package.json file.
 	au BufNewFile,BufRead package.json setlocal ts=2 sw=2 expandtab nosmarttab sts=2

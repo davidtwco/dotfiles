@@ -223,7 +223,10 @@ if has("autocmd")
 	au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 	au FileType python setlocal ts=4 sw=4 expandtab smarttab sts=4 autoindent
 	au FileType yaml setlocal ts=2 sw=2 expandtab nosmarttab
-	au FileType markdown setlocal ts=2 sw=2 expandtab nosmarttab " Specifically for frontmatter.
+	au FileType markdown setlocal ts=2 sw=2 expandtab nosmarttab " Mirror yaml for frontmatter.
+
+	" Enable spelling on Markdown files.
+	au FileType markdown setlocal spell
 
 	" Always use spaces for the package.json file.
 	au BufNewFile,BufRead package.json setlocal ts=2 sw=2 expandtab nosmarttab sts=2
@@ -316,6 +319,12 @@ let g:signify_realtime = 1
 " as they write the buffer.
 let g:signify_cursorhold_normal = 0
 let g:signify_cursorhold_insert = 0
+" }}}
+
+" Spelling {{{
+" ========
+set spelllang=en_gb
+set spellfile=~/.vim/spell/en_gb.utf-8.add
 " }}}
 
 " Tab Completion {{{

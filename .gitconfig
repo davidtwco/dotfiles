@@ -13,9 +13,9 @@
 	path = ~/.config/gitalias/gitalias.txt
 [alias]
 	ps = push
-	prune = fetch --prune
-	undo = reset --soft HEAD^
-	stash-all = stash save --include-untracked
+	# Overrides gitalias.txt `save` to include
+	# untracked files.
+	save = stash save --include-untracked
 [commit]
 	gpgsign = true
 [gpg]

@@ -59,6 +59,14 @@ call plug#begin('~/.vim/plugged')
 		Plug 'tpope/vim-fugitive'
 	" }}}
 
+	" Indentation {{{
+	" -----------
+		" Auto-detect indentation.
+		Plug 'tpope/vim-sleuth'
+		" Apply indentation from .editorconfig files.
+		Plug 'editorconfig/editorconfig-vim'
+	" }}}
+
 	" Markdown Integration {{{
 	" --------------------
 		" Markdown Preview (requires npm package - livedown).

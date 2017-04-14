@@ -221,15 +221,15 @@ if has("autocmd")
 	" Find the filetype using ':set ft?'
 	" Syntax of these languages is dependant on tabs/spaces.
 	au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-	au FileType python setlocal ts=4 sw=4 expandtab smarttab sts=4 autoindent
-	au FileType yaml setlocal ts=2 sw=2 expandtab nosmarttab
-	au FileType markdown setlocal ts=2 sw=2 expandtab nosmarttab " Mirror yaml for frontmatter.
+	au FileType python setlocal ts=4 sts=4 sw=4 expandtab smarttab autoindent
+	au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
 
-	" Enable spelling on Markdown files.
-	au FileType markdown setlocal spell
+	" Markdown indentation should mirror YAML for use in frontmatter, also
+	" enable spelling.
+	au FileType markdown setlocal ts=2 sts=2 sw=2 expandtab nosmarttab spell
 
 	" Always use spaces for the package.json file.
-	au BufNewFile,BufRead package.json setlocal ts=2 sw=2 expandtab nosmarttab sts=2
+	au BufNewFile,BufRead package.json setlocal ts=2 sts=2 sw=2 expandtab nosmarttab sts=2
 endif
 " }}}
 

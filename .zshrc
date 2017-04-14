@@ -16,6 +16,9 @@ export GPG_TTY=$(tty)
 
 # 10ms for key sequences
 export KEYTIMEOUT=1
+
+# Load PATH variable changes.
+source $HOME/.path
 # }}}
 
 # Plugins {{{

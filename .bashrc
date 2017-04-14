@@ -160,15 +160,7 @@ fi
 
 # Path {{{
 # ====
-# Set PATH so it includes user's private bin if it exists.
-if [ -d "$HOME/bin" ] ; then
-    export PATH="$HOME/bin:$PATH"
-fi
-
-# Set PATH so it includes Cargo if it exists.
-if [ -d "$HOME/.cargo/bin" ] ; then
-	export PATH="$HOME/.cargo/bin:$PATH"
-fi
+source $HOME/.path
 # }}}
 
 # Prompt {{{

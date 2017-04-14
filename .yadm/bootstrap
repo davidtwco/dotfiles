@@ -17,12 +17,17 @@ ln -s ~/.weechat/lua/matrix.lua ~/.weechat/lua/autoload/matrix.lua
 
 # Install vim-plug plugins.
 if command -v vim >/dev/null 2>&1; then
-	echo ":: Install Vim Plugins..."
+	echo ":: Install Vim plugins..."
 	vim '+PlugInstall' '+qall'
 fi
 
 # Install tpm plugins.
+echo ":: Install tmux plugins..."
 $HOME/.tmux/plugins/tpm/bin/install_plugins
 
 # Reload the bash configuration.
+echo ":: Reloading .bashrc"
 source "$HOME/.bashrc"
+
+# Print a small notice.
+echo ":: For Vim's YouCompleteMe plugin, you can browse to ~/.vim/plugged/YouCompleteMe and re-run ./install.py with extra flags to enable more languages."

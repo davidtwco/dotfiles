@@ -145,6 +145,9 @@ call plug#begin('~/.vim/plugged')
 		" Jinja/Nunjucks Syntax.
 		Plug 'niftylettuce/vim-jinja'
 
+		" Rust
+		Plug 'rust-lang/rust.vim'
+
 		" JavaScript ES2015+
 		Plug 'othree/yajs.vim'
 		Plug 'othree/es.next.syntax.vim'

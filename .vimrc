@@ -350,6 +350,14 @@ set list
 set listchars=tab:▸\ ,eol:¬
 " }}}
 
+" Timeout Lengths {{{
+" ===============
+" This should make pressing ESC more responsive.
+" Alternative to `set esckeys` as this breaks sequences
+" in INSERT mode that uses ESC.
+set timeoutlen=1000 ttimeoutlen=0
+" }}}
+
 " Tmuxline {{{
 " ========
 let g:tmuxline_powerline_separators = 0

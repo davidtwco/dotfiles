@@ -16,9 +16,20 @@ export GPG_TTY=$(tty)
 
 # 10ms for key sequences
 export KEYTIMEOUT=1
+# }}}
 
-# Load PATH variable changes.
-source $HOME/.path
+# Path {{{
+# ====
+# In zsh, the $PATH variable is tied to the $path variable.
+# This makes the $path variable act like a set.
+typeset -U path
+
+# Add our directories.
+path=("$HOME/bin" $path)
+path=("$HOME/.cargo/bin" $path)
+
+# Using the (N-/) glob qualifier we can remove paths that do not exist.
+path=($^path(N-/))
 # }}}
 
 # Plugins {{{

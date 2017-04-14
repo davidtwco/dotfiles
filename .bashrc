@@ -160,7 +160,22 @@ fi
 
 # Path {{{
 # ====
-source $HOME/.path
+# This function loops over its arguments,
+# checks if the paths exist, and then
+# if not already in the PATH, adds them.
+prependToPath() {
+	for a; do
+		if [ -d $a ] ; then
+			case ":${PATH:=$a}:" in
+				*:$a:*) ;;
+				*) PATH="$a:$PATH" ;;
+			esac;
+		fi
+	done
+}
+
+prependToPath $HOME/bin $HOME/.cargo/bin
+export $PATH
 # }}}
 
 # Prompt {{{

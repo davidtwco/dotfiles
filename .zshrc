@@ -13,6 +13,9 @@ export ZSH_CACHE_DIR=$HOME/.zsh/cache
 
 # Set the correct gpg tty.
 export GPG_TTY=$(tty)
+
+# 10ms for key sequences
+export KEYTIMEOUT=1
 # }}}
 
 # Plugins {{{

@@ -175,7 +175,7 @@ prependToPath() {
 }
 
 prependToPath $HOME/bin $HOME/.cargo/bin
-export $PATH
+export PATH="$PATH"
 # }}}
 
 # Prompt {{{

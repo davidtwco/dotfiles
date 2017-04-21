@@ -52,4 +52,9 @@ set convert-meta off
 
 # }}}
 
+# Key Sequence Timeouts {{{
+# =====================
+set keyseq-timeout 50
+# }}}
+
 # vim:foldmethod=marker:foldlevel=0

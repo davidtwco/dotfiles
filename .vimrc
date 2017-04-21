@@ -251,6 +251,7 @@ if has("autocmd")
 
 	" Enable Hard Mode by default on all files.
 	au VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+	au FileType help silent! call EasyMode()
 endif
 " }}}
 

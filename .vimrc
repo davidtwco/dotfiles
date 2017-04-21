@@ -383,7 +383,7 @@ set listchars=tab:▸\ ,eol:¬
 " This should make pressing ESC more responsive.
 " Alternative to `set esckeys` as this breaks sequences
 " in INSERT mode that uses ESC.
-set timeoutlen=500 ttimeoutlen=0
+set timeoutlen=250 ttimeoutlen=0
 " }}}
 
 " Tmuxline {{{

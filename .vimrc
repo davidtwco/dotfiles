@@ -1,4 +1,3 @@
-" David Wood's .vimrc Configuration
 " 	dotfiles: https://github.com/davidtwco/dotfiles
 " 	website: https://davidtw.co
 " =================================
@@ -57,6 +56,11 @@ call plug#begin('~/.vim/plugged')
 		Plug 'mhinz/vim-signify'
 		" Git wrapper.
 		Plug 'tpope/vim-fugitive'
+	" }}}
+
+	" Hard Mode {{{
+	" ---------
+		Plug 'wikitopian/hardmode'
 	" }}}
 
 	" Indentation {{{
@@ -244,6 +248,9 @@ if has("autocmd")
 
 	" Always use spaces for the package.json file.
 	au BufNewFile,BufRead package.json setlocal ts=2 sts=2 sw=2 expandtab nosmarttab sts=2
+
+	" Enable Hard Mode by default on all files.
+	au VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 endif
 " }}}
 
@@ -275,6 +282,12 @@ function! ToggleNumber()
 		set relativenumber
 	endif
 endfunc
+" }}}
+
+" Hard Mode {{{
+" =========
+" Leader+h toggles hard mode.
+nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 " }}}
 
 " Misc {{{

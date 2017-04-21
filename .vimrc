@@ -1,3 +1,4 @@
+" David Wood's .vimrc Configuration
 " 	dotfiles: https://github.com/davidtwco/dotfiles
 " 	website: https://davidtw.co
 " =================================
@@ -58,9 +59,9 @@ call plug#begin('~/.vim/plugged')
 		Plug 'tpope/vim-fugitive'
 	" }}}
 
-	" Hard Mode {{{
+	" Hard Time {{{
 	" ---------
-		Plug 'wikitopian/hardmode'
+		Plug 'takac/vim-hardtime'
 	" }}}
 
 	" Indentation {{{
@@ -263,10 +264,6 @@ if has("autocmd")
 	" Always use spaces for the package.json file.
 	au BufNewFile,BufRead package.json setlocal ts=2 sts=2 sw=2 expandtab nosmarttab sts=2
 
-	" Enable Hard Mode by default on all files.
-	au VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-	au FileType help silent! call EasyMode()
-
 	" If we edit a file named '.vimrc', reload our .vimrc.
 	" Adding this to a group ensures that any previous reload commands queued
 	" are removed.
@@ -312,10 +309,16 @@ function! ToggleNumber()
 endfunc
 " }}}
 
-" Hard Mode {{{
+" Hard Time {{{
 " =========
-" Leader+h toggles hard mode.
-nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
+" Removed '-' as this is used by vim-vinegar.
+let g:list_of_normal_keys = ["h", "j", "k", "l", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
+" On by default.
+let g:hardtime_default_on = 1
+" Display a message.
+let g:hardtime_showmsg = 1
+" Allow up to two regular movements.
+let g:hardtime_maxcount = 2
 " }}}
 
 " History {{{

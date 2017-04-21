@@ -156,6 +156,9 @@ call plug#begin('~/.vim/plugged')
 		" Rust
 		Plug 'rust-lang/rust.vim'
 
+		" tmux.conf
+		Plug 'tmux-plugins/vim-tmux'
+
 		" JavaScript ES2015+
 		Plug 'othree/yajs.vim'
 		Plug 'othree/es.next.syntax.vim'

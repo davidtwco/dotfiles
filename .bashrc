@@ -183,6 +183,25 @@ export PATH="$PATH"
 source $HOME/.bash_prompt
 # }}}
 
+# Vi Mode {{{
+# =======
+major=${BASH_VERSINFO[0]}
+minor=${BASH_VERSINFO[1]}
+if (( major > 4 )) || (( major == 4 && minor >= 4 )); then
+	# Enable Vi mode if we are on Bash 4.4 and up.
+	set -o vi
+	# Bash shows the mode at the start of the last line of the prompt.
+	bind "set show-mode-in-prompt on"
+	# We configure the insert mode and cmd mode strings using the
+	# colours defined above to match the colours in our Vim configuration
+	# and the style of the bash prompt.
+	#
+	# $prompt_symbol is borrowed from the $HOME/.bash_prompt file.
+	bind "set vi-ins-mode-string \1$CYAN\2$prompt_symbol\1$NOCOLOR\2"
+	bind "set vi-cmd-mode-string \1$GREEN\2$prompt_symbol\1$NOCOLOR\2"
+fi
+# }}}
+
 # SSH Agent {{{
 # =========
 env=~/.ssh/agent.env

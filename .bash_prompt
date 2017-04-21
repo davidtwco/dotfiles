@@ -72,9 +72,12 @@ function prompt_command() {
 	# Text (commands) inside \[...\] does not impact line length calculation which fixes stange bug when looking through the history
 	# $? is a status of last command, should be processed every time prompt prints
 	second_line="\`if [ \$? = 0 ]; then echo \[\$CYAN\]; else echo \[\$RED\]; fi\`\$prompt_symbol\[\$NOCOLOR\] "
-	PS1="\n$first_line\n$second_line"
 
-	# Multiline command
+	# Bash outputs the vi mode string at the start of the final line.
+	# Therefore, if enabled, we will have two prompt strings, one that displays
+	# the usual success/error of previous command, and one that indicates the
+	# vi mode.
+	PS1="\n$first_line\n$second_line"
 	PS2="\[$CYAN\]$prompt_symbol\[$NOCOLOR\] "
 
 	# Terminal title

@@ -263,19 +263,6 @@ if has("autocmd")
 
 	" Always use spaces for the package.json file.
 	au BufNewFile,BufRead package.json setlocal ts=2 sts=2 sw=2 expandtab nosmarttab sts=2
-
-	" If we edit a file named '.vimrc', reload our .vimrc.
-	" Adding this to a group ensures that any previous reload commands queued
-	" are removed.
-	augroup FileTypeVim
-		au!
-		au! BufWritePost .vimrc source $MYVIMRC
-		" Following line ensures that modeline is loaded.
-		au! BufWritePost .vimrc set modeline | doautocmd BufRead
-	augroup END
-
-	" Map <leader>v to edit the .vimrc file in a new tab.
-	nmap <leader>v :tabedit $MYVIMRC<CR>
 endif
 " }}}
 

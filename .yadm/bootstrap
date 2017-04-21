@@ -15,6 +15,11 @@ mkdir -p ~/.weechat/lua/autoload
 ln -s ~/.config/weechat-matrix-protocol-script/matrix.lua ~/.weechat/lua/matrix.lua
 ln -s ~/.weechat/lua/matrix.lua ~/.weechat/lua/autoload/matrix.lua
 
+# Making Vim backup directories.
+echo ":: Creating directories for Vim..."
+mkdir -p ~/.vim/backup
+mkdir -p ~/.vim/undo
+
 # Install vim-plug plugins.
 if command -v vim >/dev/null 2>&1; then
 	echo ":: Install Vim plugins..."

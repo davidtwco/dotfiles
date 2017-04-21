@@ -221,6 +221,20 @@ set background=dark
 colorscheme hybrid
 " }}}
 
+" Commenting {{{
+" ==========
+" Delete comment character when joining commented lines
+if v:version > 703 || v:version == 703 && has("patch541")
+	set formatoptions+=j
+endif
+" }}}
+
+" Deletion {{{
+" ========
+" We can delete backwards over anything.
+set backspace=indent,eol,start
+" }}}
+
 " File Navigation {{{
 " ===============
 " Map %% to the current opened file's path.
@@ -252,6 +266,19 @@ if has("autocmd")
 	" Enable Hard Mode by default on all files.
 	au VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 	au FileType help silent! call EasyMode()
+
+	" If we edit a file named '.vimrc', reload our .vimrc.
+	" Adding this to a group ensures that any previous reload commands queued
+	" are removed.
+	augroup FileTypeVim
+		au!
+		au! BufWritePost .vimrc source $MYVIMRC
+		" Following line ensures that modeline is loaded.
+		au! BufWritePost .vimrc set modeline | doautocmd BufRead
+	augroup END
+
+	" Map <leader>v to edit the .vimrc file in a new tab.
+	nmap <leader>v :tabedit $MYVIMRC<CR>
 endif
 " }}}
 
@@ -291,31 +318,9 @@ endfunc
 nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 " }}}
 
-" Misc {{{
+" History {{{
 " ====
 set history=1000	" Increase history.
-
-" If we edit a file named '.vimrc', reload our .vimrc.
-if has("autocmd")
-	" Adding this to a group ensures that any previous reload commands queued
-	" are removed.
-	augroup FileTypeVim
-		au!
-		au! BufWritePost .vimrc source $MYVIMRC
-		" Following line ensures that modeline is loaded.
-		au! BufWritePost .vimrc set modeline | doautocmd BufRead
-	augroup END
-endif
-" Map <leader>v to edit the .vimrc file in a new tab.
-nmap <leader>v :tabedit $MYVIMRC<CR>
-
-" Restore cursor position.
-if has("autocmd")
-	autocmd BufReadPost *
-				\ if line("'\"") > 1 && line("'\"") <= line("$") |
-				\   exe "normal! g`\"" |
-				\ endif
-endif
 " }}}
 
 " Mouse {{{
@@ -329,12 +334,23 @@ set mouse=r
 set modelines=1			" Sets the expected modeline format.
 " }}}
 
+" Reading {{{
+" =======
+set autoread		" Automatically reload files if changed from outside.
+" }}}
+
 " Searching {{{
 " =========
 set hlsearch		" Highlight matches.
 set incsearch		" Highlight matches as we type.
 set ignorecase		" Ignore case when searching.
 set smartcase		" Don't ignore case when different cases searched for.
+" }}}
+
+" Scrolling {{{
+" =========
+set scrolloff=5			" Keep a minimum of 5 line below the cursor.
+set sidescrolloff=5		" Keep a minimum of 5 columns left of the cursor.
 " }}}
 
 " Signify {{{
@@ -392,7 +408,7 @@ let g:tmuxline_powerline_separators = 0
 " }}}
 
 " UI & Visual Cues {{{
-" =========
+" ================
 set ruler			" Show ruler.
 set showcmd			" Show incomplete commands.
 set nocursorline	" Highlight the current line.

@@ -59,11 +59,6 @@ call plug#begin('~/.vim/plugged')
 		Plug 'tpope/vim-fugitive'
 	" }}}
 
-	" Hard Time {{{
-	" ---------
-		Plug 'takac/vim-hardtime'
-	" }}}
-
 	" Indentation {{{
 	" -----------
 		" Auto-detect indentation.
@@ -294,18 +289,6 @@ function! ToggleNumber()
 		set relativenumber
 	endif
 endfunc
-" }}}
-
-" Hard Time {{{
-" =========
-" Removed '-' as this is used by vim-vinegar.
-let g:list_of_normal_keys = ["h", "j", "k", "l", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
-" On by default.
-let g:hardtime_default_on = 1
-" Display a message.
-let g:hardtime_showmsg = 1
-" Allow up to two regular movements.
-let g:hardtime_maxcount = 2
 " }}}
 
 " History {{{

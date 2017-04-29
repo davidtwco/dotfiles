@@ -16,6 +16,9 @@ export GPG_TTY=$(tty)
 
 # 10ms for key sequences
 export KEYTIMEOUT=1
+
+# Ensure Vim and others use 256 colours.
+export TERM=xterm-256color
 # }}}
 
 # Path {{{

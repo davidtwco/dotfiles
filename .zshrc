@@ -5,8 +5,8 @@
 
 # General {{{
 # =======
-# Use vim keybindings.
-bindkey -v
+# Use default emacs keybindings.
+bindkey -e
 
 # Set a cache dir.
 export ZSH_CACHE_DIR=$HOME/.zsh/cache
@@ -16,6 +16,9 @@ export GPG_TTY=$(tty)
 
 # 10ms for key sequences
 export KEYTIMEOUT=1
+
+# Ensure editor is Vim
+export EDITOR=vim
 
 # Ensure Vim and others use 256 colours.
 export TERM=xterm-256color

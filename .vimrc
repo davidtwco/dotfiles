@@ -158,6 +158,8 @@ call plug#begin('~/.vim/plugged')
 
 		" tmux.conf
 		Plug 'tmux-plugins/vim-tmux'
+		" nginx.conf
+		Plug 'chr4/nginx.vim'
 
 		" JavaScript ES2015+
 		Plug 'othree/yajs.vim'

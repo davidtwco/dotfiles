@@ -166,6 +166,11 @@ call plug#begin('~/.vim/plugged')
 		Plug 'othree/es.next.syntax.vim'
 	" }}}
 
+	" Syntax Checking {{{
+	" ---------------
+		Plug 'neomake/neomake'
+	" }}}
+
 	" Undo {{{
 	" --------
 		" Visualize the undo tree.
@@ -260,6 +265,9 @@ if has("autocmd")
 
 	" Always use spaces for the package.json file.
 	au BufNewFile,BufRead package.json setlocal ts=2 sts=2 sw=2 expandtab nosmarttab sts=2
+
+	" Enable Neomake.
+	au! BufWritePost * Neomake
 endif
 " }}}
 

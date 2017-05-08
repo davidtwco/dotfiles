@@ -117,6 +117,14 @@ if which gpg-agent>/dev/null 2>&1; then
 fi
 # }}}
 
+# Environment Variables {{{
+# =====================
+export DOCKER_HOST=tcp://127.0.0.1:2375
+export EDITOR=vim
+export TERM=xterm-256color
+export GOPATH=$HOME/.go
+# }}}
+
 # Path {{{
 # ====
 # This function loops over its arguments,
@@ -133,7 +141,7 @@ prependToPath() {
 	done
 }
 
-prependToPath $HOME/bin $HOME/.cargo/bin
+prependToPath $HOME/bin $HOME/.cargo/bin $HOME/.go/bin
 export PATH="$PATH"
 # }}}
 
@@ -185,13 +193,6 @@ elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
 fi
 
 unset env
-# }}}
-
-# Environment Variables {{{
-# =====================
-export DOCKER_HOST=tcp://127.0.0.1:2375
-export EDITOR=vim
-export TERM=xterm-256color
 # }}}
 
 # tmux helper completion {{{

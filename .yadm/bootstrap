@@ -15,6 +15,9 @@ mkdir -p ~/.weechat/lua/autoload
 ln -s ~/.config/weechat-matrix-protocol-script/matrix.lua ~/.weechat/lua/matrix.lua
 ln -s ~/.weechat/lua/matrix.lua ~/.weechat/lua/autoload/matrix.lua
 
+# Make other directories
+mkdir -p ~/.go
+
 # Making Vim backup directories.
 echo ":: Creating directories for Vim..."
 mkdir -p ~/.vim/backup

@@ -28,6 +28,9 @@ export EDITOR=vim
 
 # Ensure Vim and others use 256 colours.
 export TERM=xterm-256color
+
+# Set Go directory
+export GOPATH=$HOME/.go
 # }}}
 
 # Path {{{
@@ -39,6 +42,7 @@ typeset -U path
 # Add our directories.
 path=("$HOME/bin" $path)
 path=("$HOME/.cargo/bin" $path)
+path=("$HOME/.go/bin" $path)
 
 # Using the (N-/) glob qualifier we can remove paths that do not exist.
 path=($^path(N-/))

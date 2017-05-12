@@ -18,6 +18,11 @@ ln -s ~/.weechat/lua/matrix.lua ~/.weechat/lua/autoload/matrix.lua
 # Make other directories
 mkdir -p ~/.go
 
+# Making yadm cache directories.
+echo ":: Creating directories for fasd..."
+mkdir -p ~/.zsh/cache/fasd-init-cache
+mkdir -p ~/.fasd-init-bash
+
 # Making Vim backup directories.
 echo ":: Creating directories for Vim..."
 mkdir -p ~/.vim/backup

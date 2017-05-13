@@ -15,8 +15,11 @@ mkdir -p ~/.weechat/lua/autoload
 ln -s ~/.config/weechat-matrix-protocol-script/matrix.lua ~/.weechat/lua/matrix.lua
 ln -s ~/.weechat/lua/matrix.lua ~/.weechat/lua/autoload/matrix.lua
 
-# Make other directories
+# Make other directories.
 mkdir -p ~/.go
+
+# Create .Xdefaults
+ln -s ~/.Xresources ~/.Xdefaults
 
 # Making yadm cache directories.
 echo ":: Creating directories for fasd..."

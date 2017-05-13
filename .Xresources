@@ -3,7 +3,16 @@
 ! 	website: https://davidtw.co
 ! =================================
 
-! Hybrid Colours
+! URxvt {{{
+! -----
+URxvt*font: xft:Meslo LG S for Powerline:antialias=true:size=10
+URxvt*scrollBar: false
+URxvt*scrollBar_right: true
+URxvt*scrollColor: #000000
+! }}}
+
+! Hybrid Colours {{{
+! --------------
 *background: #1D1F21
 *foreground: #C5C8C6
 ! black
@@ -30,5 +39,6 @@
 ! white
 *color7: #707880
 *color15: #C5C8C6
+! }}}
 
 ! vim:ft=xdefaults:foldmethod=marker:foldlevel=0

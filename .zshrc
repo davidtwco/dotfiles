@@ -11,7 +11,10 @@ bindkey "^?" backward-delete-char
 bindkey "^W" backward-kill-word
 bindkey "^H" backward-delete-char
 bindkey "^U" backward-kill-line
+bindkey "[3~" delete-char
+bindkey "[7~" beginning-of-line
 bindkey "[1~" beginning-of-line
+bindkey "[8~" end-of-line
 bindkey "[4~" end-of-line
 
 # Set a cache dir.

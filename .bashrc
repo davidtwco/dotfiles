@@ -3,24 +3,6 @@
 #	website: https://davidtw.co
 # ==================================================
 
-# Shell {{{
-# =====
-# We can't use chsh in Bash for Windows, so this works.
-if grep -q Microsoft /proc/version; then
-	# Launch tmux.
-	if which tmux>/dev/null 2>&1; then
-		if [[ -z $TMUX ]]; then
-			exec tmux
-		fi
-	fi
-
-	# Launch zsh if we can't use tmux.
-	# if [ -t 1 ]; then
-	# 	exec zsh
-	# fi
-fi
-# }}}
-
 # Colors {{{
 # ======
 RED="$(tput setaf 1)"

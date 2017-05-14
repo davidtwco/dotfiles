@@ -123,7 +123,7 @@ path=($^path(N-/))
 	fi
 
 	# Source up.sh
-	source .config/up/up.sh
+	source $HOME/.config/up/up.sh
 	# }}}
 
 # }}}

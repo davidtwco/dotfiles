@@ -351,7 +351,7 @@ let g:signify_cursorhold_insert = 0
 " Spelling {{{
 " ========
 set spelllang=en_gb
-set spellfile=~/.vim/spell/en_gb.utf-8.add
+set spellfile=~/.vim/spell/en-gb.utf-8.add
 " }}}
 
 " Tab Completion {{{

@@ -148,6 +148,9 @@ call plug#begin('~/.vim/plugged')
 	" ------
 		" Dockerfile Syntax.
 		Plug 'ekalinin/Dockerfile.vim'
+		" Ansible
+		Plug 'pearofducks/ansible-vim'
+
 		" Twig Syntax.
 		Plug 'lumiliet/vim-twig'
 		" Jinja/Nunjucks Syntax.

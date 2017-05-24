@@ -20,3 +20,8 @@
 	gpgsign = true
 [gpg]
 	program = gpg2
+[diff]
+	compactionHeuristic = true
+	indentHeuristic = true
+[submodule]
+	fetchJobs = true

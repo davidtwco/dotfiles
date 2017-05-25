@@ -150,6 +150,8 @@ call plug#begin('~/.vim/plugged')
 		Plug 'ekalinin/Dockerfile.vim'
 		" Ansible
 		Plug 'pearofducks/ansible-vim'
+		" Puppet
+		Plug 'rodjek/vim-puppet'
 
 		" Twig Syntax.
 		Plug 'lumiliet/vim-twig'

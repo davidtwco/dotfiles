@@ -34,6 +34,9 @@ export TERM=xterm-256color
 
 # Set Go directory
 export GOPATH=$HOME/.go
+
+# Allow Vagrant to access Windows outside of WSL.
+export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
 # }}}
 
 # Path {{{

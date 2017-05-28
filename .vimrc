@@ -228,6 +228,7 @@ let g:ctrlp_switch_buffer = 'et'
 " ======
 syntax enable
 set background=dark
+let g:hybrid_custom_term_colors = 1
 colorscheme hybrid
 " }}}
 

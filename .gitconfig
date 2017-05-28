@@ -24,4 +24,4 @@
 	compactionHeuristic = true
 	indentHeuristic = true
 [submodule]
-	fetchJobs = true
+	fetchJobs = 4

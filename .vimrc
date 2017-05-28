@@ -200,9 +200,9 @@ endif
 
 " Airline {{{
 " =======
-let g:airline_theme='hybrid'
-let g:airline_powerline_fonts = 0
-let g:airline_symbols_ascii = 1
+let g:airline_theme='base16'
+let g:airline_powerline_fonts = 1
+let g:airline_symbols_ascii = 0
 " }}}
 
 " Buffers {{{
@@ -395,7 +395,7 @@ set timeoutlen=250 ttimeoutlen=0
 
 " Tmuxline {{{
 " ========
-let g:tmuxline_powerline_separators = 0
+let g:tmuxline_powerline_separators = 1
 " }}}
 
 " UI & Visual Cues {{{

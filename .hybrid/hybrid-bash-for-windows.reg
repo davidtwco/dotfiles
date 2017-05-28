@@ -1,0 +1,36 @@
+Windows Registry Editor Version 5.00
+; Hybrid Colour Scheme
+; Values stored as 00-BB-GG-RR
+[HKEY_CURRENT_USER\Console]
+; Black
+"ColorTable00"=dword:00211f1d
+; Dark Gray
+"ColorTable08"=dword:00413b37
+; Blue
+"ColorTable01"=dword:009d815f
+; Light Blue
+"ColorTable09"=dword:00bea281
+; Green
+"ColorTable02"=dword:0040948c
+; Light Green
+"ColorTable10"=dword:0068bdb5
+; Cyan
+"ColorTable03"=dword:00878d5e
+; Light Cyan
+"ColorTable11"=dword:00b7be8a
+; Red
+"ColorTable04"=dword:004242a5
+; Light Red
+"ColorTable12"=dword:006666cc
+; Magenta
+"ColorTable05"=dword:008f6785
+; Light Magenta
+"ColorTable13"=dword:00bb94b2
+; Yellow
+"ColorTable06"=dword:005f93de
+; Light Yellow
+"ColorTable14"=dword:0074c6f0
+; Light Gray
+"ColorTable07"=dword:00807870
+; White
+"ColorTable15"=dword:00c6c8c5

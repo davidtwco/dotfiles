@@ -11,12 +11,12 @@ YELLOW="$(tput setaf 3)"
 BLUE="$(tput setaf 4)"
 MAGENTA="$(tput setaf 5)"
 CYAN="$(tput setaf 6)"
-WHITE="$(tput setaf 7)"
+WHITE="$(tput setaf 15)"
 GRAY="$(tput setaf 8)"
 BOLD="$(tput bold)"
 UNDERLINE="$(tput sgr 0 1)"
 INVERT="$(tput sgr 1 0)"
-NOCOLOR="$(tput sgr0)"
+NOCOLOR="$(tput sgr0)$WHITE"
 # }}}
 
 # General {{{

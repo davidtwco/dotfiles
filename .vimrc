@@ -67,6 +67,11 @@ call plug#begin('~/.vim/plugged')
 		Plug 'editorconfig/editorconfig-vim'
 	" }}}
 
+	" Linting {{{
+	" -------
+		Plug 'w0rp/ale'
+	" }}}
+
 	" Markdown Integration {{{
 	" --------------------
 		" Markdown Preview (requires npm package - livedown).
@@ -173,11 +178,6 @@ call plug#begin('~/.vim/plugged')
 		Plug 'othree/es.next.syntax.vim'
 	" }}}
 
-	" Syntax Checking {{{
-	" ---------------
-		Plug 'neomake/neomake'
-	" }}}
-
 	" Undo {{{
 	" --------
 		" Visualize the undo tree.
@@ -277,9 +277,6 @@ if has("autocmd")
 
 	" Set .reg files to be Window's registry files.
 	au BufNewFile,BufRead *.reg setlocal ft=registry
-
-	" Enable Neomake.
-	au! BufWritePost * Neomake
 endif
 " }}}
 

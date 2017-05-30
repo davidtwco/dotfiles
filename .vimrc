@@ -2,9 +2,7 @@
 " 	dotfiles: https://github.com/davidtwco/dotfiles
 " 	website: https://davidtw.co
 " =================================
-" The goal of this configuration is to enhance the default Vim configuration
-" without remapping from the defaults too much.
-
+"
 " Fold Bindings (incase you've forgotten):
 " ========================================
 " za		toggle one level
@@ -418,6 +416,16 @@ set laststatus=2	" Always show the status line.
 " Change undo and backup directories to keep things clean.
 set backupdir=~/.vim/backup
 set undodir=~/.vim/undo
+" }}}
+
+" YouCompleteMe {{{
+" =============
+" Add handy bindings for You Complete Me subcommands.
+nnoremap <leader>fi :YcmCompleter FixIt<CR>
+nnoremap <leader>gd :YcmCompleter GoTo<CR>
+nnoremap <leader>gt :YcmCompleter GetType<CR>
+nnoremap <leader>gp :YcmCompleter GetParent<CR>
+nnoremap <leader>sd :YcmShowDetailedDiagnostic<CR>
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0

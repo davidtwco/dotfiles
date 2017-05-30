@@ -124,7 +124,7 @@ prependToPath() {
 	done
 }
 
-prependToPath $HOME/bin $HOME/.cargo/bin $HOME/.go/bin
+prependToPath $HOME/bin $HOME/.cargo/bin $HOME/.go/bin $HOME/.local/bin
 export PATH="$PATH"
 # }}}
 

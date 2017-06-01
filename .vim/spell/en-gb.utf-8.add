@@ -18,3 +18,4 @@ config
 ConEmu
 zplug
 linter
+gpu

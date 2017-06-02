@@ -20,3 +20,4 @@ zplug
 linter
 gpu
 ccache
+dependencies

@@ -21,3 +21,12 @@ linter
 gpu
 ccache
 dependencies
+OpenCL
+hostname
+hostnames
+Puppetlabs
+GitLab
+webhook
+puppetdb
+ssh
+codeplay

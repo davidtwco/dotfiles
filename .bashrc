@@ -124,7 +124,7 @@ prependToPath() {
 	done
 }
 
-prependToPath $HOME/bin $HOME/.cargo/bin $HOME/.go/bin $HOME/.local/bin
+prependToPath $HOME/bin $HOME/.cargo/bin $HOME/.go/bin $HOME/.local/bin /opt/puppetlabs/bin
 export PATH="$PATH"
 # }}}
 

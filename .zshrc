@@ -50,6 +50,7 @@ path=("$HOME/bin" $path)
 path=("$HOME/.cargo/bin" $path)
 path=("$HOME/.go/bin" $path)
 path=("$HOME/.local/bin" $path)
+path=("/opt/puppetlabs/bin" $path)
 
 # Using the (N-/) glob qualifier we can remove paths that do not exist.
 path=($^path(N-/))

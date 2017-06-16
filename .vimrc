@@ -59,8 +59,6 @@ call plug#begin('~/.vim/plugged')
 
 	" Indentation {{{
 	" -----------
-		" Auto-detect indentation.
-		Plug 'tpope/vim-sleuth'
 		" Apply indentation from .editorconfig files.
 		Plug 'editorconfig/editorconfig-vim'
 	" }}}

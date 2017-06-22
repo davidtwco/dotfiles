@@ -86,6 +86,8 @@ call plug#begin('~/.vim/plugged')
 		Plug 'tpope/vim-repeat'
 		" Get character codes.
 		Plug 'tpope/vim-characterize'
+		" Replace and paste!
+		Plug 'davidtwco/vim-replace-paste'
 	" }}}
 
 	" OS Integration {{{

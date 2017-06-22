@@ -173,6 +173,9 @@ call plug#begin('~/.vim/plugged')
 		" nginx.conf
 		Plug 'chr4/nginx.vim'
 
+		" TOML
+		Plug 'cespare/vim-toml'
+
 		" JavaScript ES2015+
 		Plug 'othree/yajs.vim'
 		Plug 'othree/es.next.syntax.vim'

@@ -149,8 +149,10 @@ call plug#begin('~/.vim/plugged')
 
 	" Syntax {{{
 	" ------
-		" Dockerfile Syntax.
+		" Dockerfile Syntax
 		Plug 'ekalinin/Dockerfile.vim'
+		" Rockerfile Syntax
+		Plug 'NL057/rockerfile.vim'
 		" Ansible
 		Plug 'pearofducks/ansible-vim'
 		" Puppet

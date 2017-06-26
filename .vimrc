@@ -149,10 +149,11 @@ call plug#begin('~/.vim/plugged')
 
 	" Syntax {{{
 	" ------
-		" Dockerfile Syntax
+		" Dockerfile
 		Plug 'ekalinin/Dockerfile.vim'
-		" Rockerfile Syntax
+		" Rockerfile
 		Plug 'NL057/rockerfile.vim'
+
 		" Ansible
 		Plug 'pearofducks/ansible-vim'
 		" Puppet
@@ -160,13 +161,16 @@ call plug#begin('~/.vim/plugged')
 		" Vagrant
 		Plug 'hashivim/vim-vagrant'
 
-		" Twig Syntax.
+		" Twig
 		Plug 'lumiliet/vim-twig'
-		" Jinja/Nunjucks Syntax.
+		" Jinja/Nunjucks
 		Plug 'niftylettuce/vim-jinja'
 
 		" Rust
 		Plug 'rust-lang/rust.vim'
+		" JavaScript ES2015+
+		Plug 'othree/yajs.vim'
+		Plug 'othree/es.next.syntax.vim'
 
 		" tmux.conf
 		Plug 'tmux-plugins/vim-tmux'
@@ -175,10 +179,6 @@ call plug#begin('~/.vim/plugged')
 
 		" TOML
 		Plug 'cespare/vim-toml'
-
-		" JavaScript ES2015+
-		Plug 'othree/yajs.vim'
-		Plug 'othree/es.next.syntax.vim'
 	" }}}
 
 	" Undo {{{
@@ -281,6 +281,8 @@ if has("autocmd")
 
 	" Set .reg files to be Window's registry files.
 	au BufNewFile,BufRead *.reg setlocal ft=registry
+	" Set Jenkinsfile files to be Groovy files.
+	au BufNewFile,BufRead Jenkinsfile setlocal ft=groovy
 endif
 " }}}
 

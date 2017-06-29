@@ -37,3 +37,15 @@ WSL
 Powershell
 Parameterized
 namespaced
+Hostgroup
+Preseed
+Kickstart
+PXEGrub
+PXELinux
+iPXE
+Dropdown
+dropdown
+DHCP
+IPv4
+IPAM
+VLAN

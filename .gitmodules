@@ -16,3 +16,6 @@
 [submodule ".config/zplug"]
 	path = .config/zplug
 	url = https://github.com/zplug/zplug
+[submodule ".config/rfc"]
+	path = .config/rfc
+	url = git@github.com:bfontaine/rfc.git

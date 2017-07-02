@@ -37,6 +37,7 @@ WSL
 Powershell
 Parameterized
 namespaced
+<<<<<<< Updated upstream
 Hostgroup
 Preseed
 Kickstart
@@ -54,3 +55,7 @@ puppetizing
 Puppetize
 puppetized
 puppetization
+=======
+x509
+circuit
+>>>>>>> Stashed changes

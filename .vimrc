@@ -211,6 +211,16 @@ endif
 let g:airline_theme='base16'
 let g:airline_powerline_fonts = 1
 let g:airline_symbols_ascii = 0
+let g:airline#extensions#ale#enabled = 1
+" }}}
+
+" Ale {{{
+" ===
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+nmap <C-n> <Plug>(ale_next_wrap)
 " }}}
 
 " Buffers {{{

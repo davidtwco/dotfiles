@@ -161,6 +161,9 @@ call plug#begin('~/.vim/plugged')
 		" Vagrant
 		Plug 'hashivim/vim-vagrant'
 
+		" Powershell
+		Plug 'PProvost/vim-ps1'
+
 		" Twig
 		Plug 'lumiliet/vim-twig'
 		" Jinja/Nunjucks

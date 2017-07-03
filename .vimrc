@@ -101,6 +101,8 @@ call plug#begin('~/.vim/plugged')
 	" ------
 		" Works with Python virtual environments.
 		Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
+		" Automatic PEP8.
+		Plug 'tell-k/vim-autopep8', { 'on': 'Autopep8' }
 	" }}}
 
 	" Tabbing {{{

@@ -297,6 +297,8 @@ if has("autocmd")
 
 	" Set .reg files to be Window's registry files.
 	au BufNewFile,BufRead *.reg setlocal ft=registry
+	" Set .nuspec files to be XML files.
+	au BufNewFile,BufRead *.nuspec setlocal ft=xml
 	" Set Jenkinsfile files to be Groovy files.
 	au BufNewFile,BufRead Jenkinsfile setlocal ft=groovy
 endif

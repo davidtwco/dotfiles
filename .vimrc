@@ -400,7 +400,7 @@ set wildmenu
 " change depending on filetype.
 set tabstop=4					" Width of tab is 4.
 set softtabstop=4 				" Width of a 'space tab' (pressing tab when using spaces) is 4.
-set noexpandtab					" Use tabs rather than spaces.
+set expandtab					" Use spaces rather than tabs.
 set shiftwidth=4				" Indent by 4 when using '<', '>' operators.
 set smarttab					" Insert spaces or tabs to get to next indent.
 set autoindent					" Match indentation of the previous line.

@@ -440,9 +440,33 @@ set laststatus=2	" Always show the status line.
 
 " Undo/Backups {{{
 " ============
-" Change undo and backup directories to keep things clean.
+" Change swap directory.
+if isdirectory($HOME . '/.vim/swap') == 0
+	call mkdir($HOME . '/.vim/swap', 'p')
+endif
+set directory=~/.vim/swap
+
+" Change backup directory.
+if isdirectory($HOME . '/.vim/backup') == 0
+	call mkdir($HOME . '/.vim/backup', 'p')
+endif
 set backupdir=~/.vim/backup
-set undodir=~/.vim/undo
+
+if exists('+undofile')
+	" Change undo directory.
+	if isdirectory($HOME . '/.vim/undo') == 0
+		call mkdir($HOME . '/.vim/undo', 'p')
+	endif
+	set undodir=~/.vim/undo
+end
+
+if exists('+shada')
+	" Change SHAred DAta directory.
+  set shada+=n~/.nvim/shada
+else
+	" Change viminfo directory.
+  set viminfo+=n~/.vim/viminfo
+endif
 " }}}
 
 " YouCompleteMe {{{

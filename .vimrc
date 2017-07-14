@@ -287,6 +287,7 @@ if has("autocmd")
 	au FileType puppet setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
 	au FileType ruby setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
 	au FileType rust setlocal ts=4 sts=4 sw=4 expandtab nosmarttab
+    au FileType ps1 setlocal ts=4 sts=4 sw=4 expandtab nosmarttab
 
 	" Markdown indentation should mirror YAML for use in frontmatter, also
 	" enable spelling.

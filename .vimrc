@@ -329,10 +329,13 @@ function! ToggleNumber()
 	if(&relativenumber == 1)
 		set norelativenumber
 		set number
+        echom "Switched to absolute line numbers."
 	else
 		set relativenumber
+        echom "Switched to relative line numbers."
 	endif
 endfunc
+nmap <silent> <leader>l :call ToggleNumber()<CR>
 " }}}
 
 " History {{{
@@ -436,6 +439,7 @@ set showmatch		" Show matching brackets.
 set mat=5			" Matching bracket duration.
 set visualbell		" Shut up, Vim.
 set laststatus=2	" Always show the status line.
+set relativenumber  " Use Relative Line Numbers.
 " }}}
 
 " Undo/Backups {{{

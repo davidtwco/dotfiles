@@ -287,7 +287,7 @@ if has("autocmd")
 	au FileType puppet setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
 	au FileType ruby setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
 	au FileType rust setlocal ts=4 sts=4 sw=4 expandtab nosmarttab
-    au FileType ps1 setlocal ts=4 sts=4 sw=4 expandtab nosmarttab
+	au FileType ps1 setlocal ts=4 sts=4 sw=4 expandtab nosmarttab
 
 	" Markdown indentation should mirror YAML for use in frontmatter, also
 	" enable spelling.
@@ -462,10 +462,10 @@ end
 
 if exists('+shada')
 	" Change SHAred DAta directory.
-  set shada+=n~/.nvim/shada
+	set shada+=n~/.nvim/shada
 else
 	" Change viminfo directory.
-  set viminfo+=n~/.vim/viminfo
+	set viminfo+=n~/.vim/viminfo
 endif
 " }}}
 
@@ -479,4 +479,4 @@ nnoremap <leader>gp :YcmCompleter GetParent<CR>
 nnoremap <leader>sd :YcmShowDetailedDiagnostic<CR>
 " }}}
 
-" vim:foldmethod=marker:foldlevel=0
+" vim:foldmethod=marker:foldlevel=0:ts=4:sts=4:sw=4:noexpandtab

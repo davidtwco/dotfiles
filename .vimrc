@@ -327,10 +327,10 @@ function! ToggleNumber()
 	if(&relativenumber == 1)
 		set norelativenumber
 		set number
-        echom "Switched to absolute line numbers."
+		echom "Switched to absolute line numbers."
 	else
 		set relativenumber
-        echom "Switched to relative line numbers."
+		echom "Switched to relative line numbers."
 	endif
 endfunc
 nmap <silent> <leader>l :call ToggleNumber()<CR>

@@ -150,6 +150,9 @@ autoload -Uz promptinit; promptinit
 VIM_PROMPT="❯"
 PROMPT='%(?.%F{magenta}.%F{red})${VIM_PROMPT}%f '
 
+PURE_GIT_DOWN_ARROW='↓'
+PURE_GIT_UP_ARROW='↑'
+
 prompt_pure_update_vim_prompt() {
 	zle || {
 		print "error: pure_update_vim_prompt must be called when zle is active"

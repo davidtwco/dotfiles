@@ -177,6 +177,12 @@ fi
 
 	# Source up.sh
 	source $HOME/.config/up/up.sh
+
+	# tmux helper completion.
+	source ~/.bin/tmuxinator.zsh
+	if which tmuxp>/dev/null 2>&1; then
+		eval "$(_TMUXP_COMPLETE=source tmuxp)"
+	fi
 	# }}}
 
 # }}}

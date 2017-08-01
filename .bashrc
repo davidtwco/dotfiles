@@ -3,6 +3,19 @@
 #	website: https://davidtw.co
 # ==================================================
 
+# Shell {{{
+# =====
+# Due to limitations in Bash for Windows, in order to use
+# an alternate shell, we must launch it from here. We cannot
+# use chsh.
+if grep -q Microsoft /proc/version; then
+    # If we have zsh installed, use it.
+    if which zsh>/dev/null 2>&1; then
+        exec zsh
+    fi
+fi
+# }}}
+
 # Colors {{{
 # ======
 RED="$(tput setaf 1)"

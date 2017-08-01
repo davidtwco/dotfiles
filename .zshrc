@@ -69,39 +69,14 @@ path=($^path(N-/))
 	zplug "mafredri/zsh-async", from:github
 	zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 
-	# zplug "plugins/adb", from:oh-my-zsh
-	# zplug "plugins/bower", from:oh-my-zsh
-	# zplug "plugins/cargo", from:oh-my-zsh
-	# zplug "plugins/cloudapp", from:oh-my-zsh
-	zplug "plugins/command-not-found", from:oh-my-zsh
-	# zplug "plugins/composer", from:oh-my-zsh
-	zplug "plugins/debian", from:oh-my-zsh
-	# zplug "plugins/django", from:oh-my-zsh
-	zplug "plugins/docker", from:oh-my-zsh
-	zplug "plugins/fasd", from:oh-my-zsh
-	zplug "plugins/gem", from:oh-my-zsh
-	zplug "plugins/gitfast", from:oh-my-zsh
-	zplug "plugins/gitignore", from:oh-my-zsh
-	zplug "plugins/gpg-agent", from:oh-my-zsh
-	zplug "plugins/history", from:oh-my-zsh
-	zplug "plugins/httpie", from:oh-my-zsh
-	# zplug "plugins/mosh", from:oh-my-zsh
-	# zplug "plugins/nmap", from:oh-my-zsh
-	zplug "plugins/npm", from:oh-my-zsh
-	zplug "plugins/pep8", from:oh-my-zsh
-	zplug "plugins/pip", from:oh-my-zsh
-	zplug "plugins/postgres", from:oh-my-zsh
-	zplug "plugins/python", from:oh-my-zsh
-	# zplug "plugins/rust", from:oh-my-zsh
-	zplug "plugins/ssh-agent", from:oh-my-zsh
-	zplug "plugins/systemd", from:oh-my-zsh
-	zplug "plugins/sudo", from:oh-my-zsh
-	zplug "plugins/tmux", from:oh-my-zsh
-	# zplug "plugins/vagrant", from:oh-my-zsh
-	zplug "plugins/vundle", from:oh-my-zsh
-	# zplug "plugins/web-search", from:oh-my-zsh
-	# zplug "plugins/yarn", from:oh-my-zsh
-	# zplug "plugins/yii2", from:oh-my-zsh
+	zplug "modules/docker", from:prezto
+	zplug "modules/fasd", from:prezto
+	zplug "modules/git", from:prezto
+	zplug "modules/gpg", from:prezto
+	zplug "modules/node", from:prezto
+	zplug "modules/python", from:prezto
+	zplug "modules/ssh", from:prezto
+	zplug "modules/tmux", from:prezto
 
 	zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2
 	zplug "zsh-users/zsh-completions", from:github

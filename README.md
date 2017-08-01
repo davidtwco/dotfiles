@@ -4,4 +4,3 @@ dotfiles configuration managed by [yadm](https://thelocehiliosan.github.io/yadm/
 ## Current Issues (using Bash for Windows)
 - In [vim-airline](https://github.com/vim-airline/vim-airline) and [Tmuxline](https://github.com/edkolev/tmuxline.vim), the backgrounds behind the Powerline sections aren't often filled in. Seems related to [bug #1463](https://github.com/vim-airline/vim-airline/issues/1463).
 - [ConEmu](http://conemu.github.io/) currently works best, however [using this config](.ConEmu.xml), holding the arrow keys down for extended periods of time causes escape to be pressed. This seems to be related to [bug #1147](https://github.com/Maximus5/ConEmu/issues/1147).
-- [zplug](https://github.com/zplug/zplug) currently doesn't work due to [bug #411](https://github.com/zplug/zplug/issues/411), has improved in recent releases.

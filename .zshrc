@@ -112,8 +112,8 @@ fi
 	if which antibody>/dev/null 2>&1; then
 		# If plugins have not been generated, then generate them.
 		if [[ ! -e "$HOME/.zsh_plugins.sh" ]]; then
-            # Load antibody.
-            source <(antibody init)
+			# Load antibody.
+			source <(antibody init)
 
 			# Update and install plugins.
 			bash -c 'antibody bundle < "$HOME/.antibody_bundle" >> "$HOME/.zsh_plugins.sh"'

@@ -148,7 +148,8 @@ fi
 autoload -Uz promptinit; promptinit
 
 VIM_PROMPT="❯"
-PROMPT='%(?.%F{magenta}.%F{red})${VIM_PROMPT}%f '
+PROMPT='%(12V.%F{242}${psvar[12]}%f .)'
+PROMPT+='%(?.%F{magenta}.%F{red})${VIM_PROMPT}%f '
 
 PURE_GIT_DOWN_ARROW='↓'
 PURE_GIT_UP_ARROW='↑'

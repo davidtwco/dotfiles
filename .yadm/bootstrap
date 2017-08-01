@@ -57,7 +57,7 @@ else
 fi
 
 # Update and install plugins.
-antibody bundle < "$HOME/.antibody_bundle" > "$HOME/.zsh_plugins.sh"
+bash -c 'antibody bundle < "$HOME/.antibody_bundle" >> "$HOME/.zsh_plugins.sh"'
 antibody update
 
 # Print a small notice.

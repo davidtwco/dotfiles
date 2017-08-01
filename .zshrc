@@ -145,6 +145,14 @@ SAVEHIST=1000
 HISTFILE=~/.zsh_history
 # }}}
 
+# Aliases {{{
+# =======
+# Load our aliases.
+if [ -f ~/.aliases ]; then
+	. ~/.aliases
+fi
+# }}}
+
 # Completion {{{
 # ==========
 # Use modern completion system

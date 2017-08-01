@@ -6,7 +6,11 @@
 # General {{{
 # =======
 # Use vim keybindings.
+set -o vi
 bindkey -v
+
+# Bind keys for Surface and other
+# strange keyboards.
 bindkey "^?" backward-delete-char
 bindkey "^W" backward-kill-word
 bindkey "^H" backward-delete-char

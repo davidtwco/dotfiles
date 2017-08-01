@@ -37,6 +37,9 @@ export GOPATH=$HOME/.go
 
 # Allow Vagrant to access Windows outside of WSL.
 export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+
+# Disable control flow, allows CTRL+S to be used.
+stty -ixon
 # }}}
 
 # Path {{{

@@ -3,6 +3,11 @@
 # 	website: https://davidtw.co
 # =================================
 
+# Vi Mode {{{
+# =======
+set editing-mode vi
+# }}}
+
 # Smarter Tab-Complete {{{
 # ====================
 

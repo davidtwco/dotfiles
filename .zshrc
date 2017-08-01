@@ -62,35 +62,21 @@ path=($^path(N-/))
 # Plugins {{{
 # =================
 
-	# zplug {{{
+	# antibody {{{
 	# -------
-	source ~/.config/zplug/init.zsh
+	if which antibody>/dev/null 2>&1; then
+		# Load antibody.
+		source <(antibody init)
 
-	zplug "mafredri/zsh-async", from:github
-	zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
-
-	zplug "modules/docker", from:prezto
-	zplug "modules/fasd", from:prezto
-	zplug "modules/git", from:prezto
-	zplug "modules/gpg", from:prezto
-	zplug "modules/node", from:prezto
-	zplug "modules/python", from:prezto
-	zplug "modules/ssh", from:prezto
-	zplug "modules/tmux", from:prezto
-
-	zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2
-	zplug "zsh-users/zsh-completions", from:github
-
-	# Install plugins if there are plugins that have not been installed
-	if ! zplug check; then
-		printf "Install? [y/N]: "
-		if read -q; then
-			echo; zplug install
+		# If plugins have not been generated, then generate them.
+		if [[ ! -e "$HOME/.zsh_plugins.sh" ]]; then
+			# Update and install plugins.
+			antibody bundle < "$HOME/.antibody_bundle" > "$HOME/.zsh_plugins.sh"
+			antibody update
 		fi
+		# Load plugins.
+		source "$HOME/.zsh_plugins.sh"
 	fi
-
-	# Apply Changes
-	zplug load
 	# }}}
 
 	# Other {{{
@@ -113,8 +99,7 @@ path=($^path(N-/))
 
 # Prompt {{{
 # =====
-autoload -Uz promptinit
-promptinit
+autoload -Uz promptinit; promptinit
 
 VIM_PROMPT="❯"
 PROMPT='%(?.%F{magenta}.%F{red})${VIM_PROMPT}%f '
@@ -156,7 +141,12 @@ fi
 # Completion {{{
 # ==========
 # Use modern completion system
-autoload -Uz compinit && compinit -d
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+	compinit;
+else
+	compinit -C;
+fi
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate

@@ -13,9 +13,6 @@
 [submodule ".config/weechat-matrix-protocol-script"]
 	path = .config/weechat-matrix-protocol-script
 	url = https://github.com/torhve/weechat-matrix-protocol-script.git
-[submodule ".config/zplug"]
-	path = .config/zplug
-	url = https://github.com/zplug/zplug
 [submodule ".config/rfc"]
 	path = .config/rfc
 	url = git@github.com:bfontaine/rfc.git

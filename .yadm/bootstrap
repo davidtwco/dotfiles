@@ -49,5 +49,16 @@ $HOME/.tmux/plugins/tpm/bin/install_plugins
 echo ":: Reloading .bashrc"
 source "$HOME/.bashrc"
 
+# Install Antibody for zsh.
+if which brew >/dev/null 2>&1; then
+	brew install getantibody/tap/antibody || brew upgrade antibody
+else
+	curl -sL https://git.io/antibody | sh -s
+fi
+
+# Update and install plugins.
+antibody bundle < "$HOME/.antibody_bundle" > "$HOME/.zsh_plugins.sh"
+antibody update
+
 # Print a small notice.
 echo ":: For Vim's YouCompleteMe plugin, you can browse to ~/.vim/plugged/YouCompleteMe and re-run ./install.py with extra flags to enable more languages."

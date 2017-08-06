@@ -5,11 +5,11 @@
 [![tpm][tpm-badge]][tpm]
 [![say thanks][st-badge]][st]
 
-dotfiles configuration managed by [yadm](https://thelocehiliosan.github.io/yadm/). Originally created in Bash for Windows, has been tested on regular Ubuntu too. Contains:
-
 <p align="center">
   <img alt="Screenshot" src=".yadm/screenshot.png" />
 </p>
+
+dotfiles configuration managed by [yadm](https://thelocehiliosan.github.io/yadm/). Originally created in Bash for Windows, has been tested on regular Ubuntu too. Contains:
 
 - Vim/Neovim configuration
 - tmux configuration

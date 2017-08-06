@@ -8,7 +8,7 @@
 dotfiles configuration managed by [yadm](https://thelocehiliosan.github.io/yadm/). Originally created in Bash for Windows, has been tested on regular Ubuntu too. Contains:
 
 <p align="center">
-  <img alt="Screenshot" style="-webkit-box-shadow: 0px 2px 10px 1px rgba(0,0,0,0.25); -moz-box-shadow: 0px 2px 10px 1px rgba(0,0,0,0.25); box-shadow: 0px 2px 10px 1px rgba(0,0,0,0.25);" src=".docs/screenshot.png" />
+  <img alt="Screenshot" src=".yadm/screenshot.png" />
 </p>
 
 - Vim/Neovim configuration

@@ -42,6 +42,9 @@ export GOPATH=$HOME/.go
 # Allow Vagrant to access Windows outside of WSL.
 export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
 
+# Connect to Docker over TCP. Allows connections to Docker for Windows.
+export DOCKER_HOST=tcp://127.0.0.1:2375
+
 # Disable control flow, allows CTRL+S to be used.
 stty -ixon
 # }}}

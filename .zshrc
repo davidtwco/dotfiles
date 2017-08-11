@@ -20,10 +20,6 @@ bindkey "[1~" beginning-of-line
 bindkey "[8~" end-of-line
 bindkey "[4~" end-of-line
 
-# Bind keys for zsh-history-substring-search
-bindkey "OA" history-substring-search-up
-bindkey "OB" history-substring-search-down
-
 # Bind keys for history search
 bindkey "" history-incremental-pattern-search-backward
 
@@ -170,6 +166,11 @@ fi
 		# Load plugins.
 		source "$HOME/.zsh_plugins.sh"
 	fi
+
+	# Bind keys for zsh-history-substring-search
+	bindkey "OA" history-substring-search-up
+	bindkey "OB" history-substring-search-down
+
 	# }}}
 
 	# Other {{{
@@ -223,4 +224,4 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 # }}}
 
-# vim:foldmethod=marker:foldlevel=0
+# vim:foldmethod=marker:foldlevel=0:noexpandtab

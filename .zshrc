@@ -9,8 +9,7 @@
 set -o vi
 bindkey -v
 
-# Bind keys for Surface and other
-# strange keyboards.
+# Bind keys for Surface and other strange keyboards.
 bindkey "^?" backward-delete-char
 bindkey "^W" backward-kill-word
 bindkey "^H" backward-delete-char
@@ -20,6 +19,13 @@ bindkey "[7~" beginning-of-line
 bindkey "[1~" beginning-of-line
 bindkey "[8~" end-of-line
 bindkey "[4~" end-of-line
+
+# Bind keys for zsh-history-substring-search
+bindkey "OA" history-substring-search-up
+bindkey "OB" history-substring-search-down
+
+# Bind keys for history search
+bindkey "" history-incremental-pattern-search-backward
 
 # Set a cache dir.
 export ZSH_CACHE_DIR=$HOME/.zsh/cache

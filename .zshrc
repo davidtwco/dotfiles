@@ -62,7 +62,9 @@ export NODE_REPL_HISTORY="$HOME/.node_history"
 export NODE_REPL_MODE='sloppy'
 
 # Connect to Docker over TCP. Allows connections to Docker for Windows.
-export DOCKER_HOST=tcp://127.0.0.1:2375
+if grep -q Microsoft /proc/version; then
+	export DOCKER_HOST=tcp://127.0.0.1:2375
+fi
 # }}}
 
 # SSH Agent {{{

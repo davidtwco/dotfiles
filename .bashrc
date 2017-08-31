@@ -96,7 +96,10 @@ fi
 
 # Environment Variables {{{
 # =====================
-export DOCKER_HOST=tcp://127.0.0.1:2375
+if grep -q Microsoft /proc/version; then
+	export DOCKER_HOST=tcp://127.0.0.1:2375
+fi
+
 export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
 export EDITOR=vim
 export TERM=xterm-256color

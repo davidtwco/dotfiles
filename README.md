@@ -17,7 +17,7 @@ dotfiles configuration managed by [yadm](https://thelocehiliosan.github.io/yadm/
 - zsh configuration
 - Weechat configuration
 - Custom Iosevka font
-- ConEmu configuration
+- ~~ConEmu configuration~~
 
 [license]: https://github.com/davidtwco/dotfiles
 [license-badge]: https://img.shields.io/github/license/davidtwco/dotfiles.svg?style=flat-square
@@ -83,6 +83,8 @@ antibody update
 If you wish to use the Iosevka font with these dotfiles, then you can [follow the instructions on the Iosevka repo](https://github.com/be5invis/Iosevka#installation) to download the font pre-built, or use the configuration files in the [iosevka folder](.yadm/iosevka) to [build the font from source](https://github.com/be5invis/Iosevka#build-your-own-style).
 
 ## Bash for Windows and ConEmu
+If using the Windows Insider builds (16251 and higher) then the Windows Store version of Ubuntu for Bash on Windows can be used and will support full 256 colours. Else, follow the instructions below for ConEmu - there may be various issues.
+
 It is recommended that ConEmu is used if you are using Bash for Windows. The [ConEmu configuration](.ConEmu.xml) is included in the repository and can be imported into ConEmu.
 
 In order to use 256 colours, we need to use the WSL Bridge. The reasoning for this is explained below (excerpt from the [ConEmu documentation for Bash on Windows](https://conemu.github.io/en/BashOnWindows.html)):

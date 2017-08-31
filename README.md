@@ -17,7 +17,6 @@ dotfiles configuration managed by [yadm](https://thelocehiliosan.github.io/yadm/
 - zsh configuration
 - Weechat configuration
 - Custom Iosevka font
-- ~~ConEmu configuration~~
 
 [license]: https://github.com/davidtwco/dotfiles
 [license-badge]: https://img.shields.io/github/license/davidtwco/dotfiles.svg?style=flat-square
@@ -83,26 +82,9 @@ antibody update
 If you wish to use the Iosevka font with these dotfiles, then you can [follow the instructions on the Iosevka repo](https://github.com/be5invis/Iosevka#installation) to download the font pre-built, or use the configuration files in the [iosevka folder](.yadm/iosevka) to [build the font from source](https://github.com/be5invis/Iosevka#build-your-own-style).
 
 ## Bash for Windows and ConEmu
-If using the Windows Insider builds (16251 and higher) then the Windows Store version of Ubuntu for Bash on Windows can be used and will support full 256 colours. Else, follow the instructions below for ConEmu - there may be various issues.
+If using the Windows Insider builds (16251 and higher) then the Windows Store version of Ubuntu for Bash on Windows can be used and will work best. If you are on a earlier build, [use ConEmu](.yadm/docs/CONEMU.md).
 
-It is recommended that ConEmu is used if you are using Bash for Windows. The [ConEmu configuration](.ConEmu.xml) is included in the repository and can be imported into ConEmu.
-
-In order to use 256 colours, we need to use the WSL Bridge. The reasoning for this is explained below (excerpt from the [ConEmu documentation for Bash on Windows](https://conemu.github.io/en/BashOnWindows.html)):
-
-> Despite the fact WSL binaries runs in Windows console window, they are not native Windows console applications (obviously) and they are not using native Windows Console API.
-
-> When you run `%windir%\system32\bash.exe` this native Windows process starts ‘linux kernel’ outside of Windows console, and linux applications commuticate with conhost without use of Windows Console API.
-
-> That means ConEmu can’t ‘hook’ linux processes! Unfortunately bash.exe which may be hooked is only a sort of a loader for WSL, bash.exe does not do console output and all ANSI sequences are processed before ConEmu can see them. WSL process all ANSI and writes stripped output directly to conhost.
-
-> Another problem is that due to mistake in WSL design, keypresses written to conhost input buffer using standard Windows API function WriteConsoleInput are not converted into xterm keyboard sequences. But when user presses same key directly in RealConsole they are converted properly.
-
-Therefore, we will need to create the following task:
-
-Setting                            | Value
--------                            | -----
-Task (assuming folder is `C:\WSL`) | `set "PATH=%ConEmuBaseDirShort%\wsl;%PATH%" & %ConEmuBaseDirShort%\conemu-cyg-64.exe --wsl -cur_console:pm:/mnt`
-Task Parameters                    | `-icon "%USERPROFILE%\AppData\Local\lxss\bash.ico"`
+In previous versions of Windows, there were issues with full 256 colour support and font selection (both in rendering and using desired fonts) amongst other things. ConEmu will work well in these cases, if used with WSLBridge, there may be issues with the mouse and the Home/End keys, else it should work fine.
 
 ## Hybrid Colour Scheme
 There are registry scripts to configure the colour scheme of Windows' command prompt and default console to match the Hybrid colour scheme used by Vim. You can [find those scripts in the hybrid folder](.yadm/hybrid).

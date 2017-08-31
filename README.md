@@ -80,10 +80,10 @@ antibody update
 ```
 
 ## Iosevka Font
-If you wish to use the Iosevka font with these dotfiles, then you can [follow the instructions on the Iosevka repo](https://github.com/be5invis/Iosevka#installation) to download the font pre-built, or use the configuration files in the [.iosevka folder](.iosevka) to [build the font from source](https://github.com/be5invis/Iosevka#build-your-own-style).
+If you wish to use the Iosevka font with these dotfiles, then you can [follow the instructions on the Iosevka repo](https://github.com/be5invis/Iosevka#installation) to download the font pre-built, or use the configuration files in the [iosevka folder](.yadm/iosevka) to [build the font from source](https://github.com/be5invis/Iosevka#build-your-own-style).
 
 ## Bash for Windows and ConEmu
 It is recommended that ConEmu is used if you are using Bash for Windows. The [ConEmu configuration](.ConEmu.xml) is included in the repository and can be imported into ConEmu.
 
 ## Hybrid Colour Scheme
-There are registry scripts to configure the colour scheme of Windows' command prompt and default console to match the Hybrid colour scheme used by Vim. You can [find those scripts in the .hybrid folder](.hybrid).
+There are registry scripts to configure the colour scheme of Windows' command prompt and default console to match the Hybrid colour scheme used by Vim. You can [find those scripts in the hybrid folder](.yadm/hybrid).

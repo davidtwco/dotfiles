@@ -9,10 +9,10 @@
 # an alternate shell, we must launch it from here. We cannot
 # use chsh.
 if grep -q Microsoft /proc/version; then
-    # If we have zsh installed, use it.
-    if which zsh>/dev/null 2>&1; then
-        exec zsh
-    fi
+	# If we have zsh installed, use it.
+	if which zsh>/dev/null 2>&1; then
+		exec zsh
+	fi
 fi
 # }}}
 
@@ -197,4 +197,4 @@ if which fasd>/dev/null 2>&1; then
 fi
 # }}}
 
-# vim:foldmethod=marker:foldlevel=0
+# vim:foldmethod=marker:foldlevel=0:noexpandtab

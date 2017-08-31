@@ -110,6 +110,9 @@ path=($^path(N-/))
 # Use modern completion system.
 autoload -Uz compinit; compinit -i
 
+# Add any completions.
+fpath+=~/.yadm/completions
+
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
@@ -130,6 +133,12 @@ zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# tmux helper completion.
+source ~/.yadm/completions/tmuxinator.zsh
+if which tmuxp>/dev/null 2>&1; then
+	eval "$(_TMUXP_COMPLETE=source tmuxp)"
+fi
 # }}}
 
 # History {{{
@@ -190,12 +199,6 @@ fi
 
 	# Source up.sh
 	source $HOME/.config/up/up.sh
-
-	# tmux helper completion.
-	source ~/.bin/tmuxinator.zsh
-	if which tmuxp>/dev/null 2>&1; then
-		eval "$(_TMUXP_COMPLETE=source tmuxp)"
-	fi
 	# }}}
 
 # }}}

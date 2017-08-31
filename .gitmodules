@@ -2,17 +2,17 @@
 	path = .tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
 [submodule ".config/gitalias"]
-	path = .config/gitalias
+	path = .yadm/external/gitalias
 	url = https://github.com/GitAlias/gitalias.git
 [submodule ".config/up"]
-	path = .config/up
+	path = .yadm/external/up
 	url = https://github.com/shannonmoeller/up.git
 [submodule ".config/vim-plug"]
-	path = .config/vim-plug
+	path = .yadm/external/vim-plug
 	url = https://github.com/junegunn/vim-plug
 [submodule ".config/weechat-matrix-protocol-script"]
-	path = .config/weechat-matrix-protocol-script
+	path = .yadm/external/weechat-matrix-protocol
 	url = https://github.com/torhve/weechat-matrix-protocol-script.git
 [submodule ".config/rfc"]
-	path = .config/rfc
+	path = .yadm/external/rfc
 	url = git@github.com:bfontaine/rfc.git

@@ -8,16 +8,16 @@ echo ":: Initialize submodules..."
 yadm submodule update --recursive --init
 
 # Adjust file permissions.
-chmod +x ~/.config/rfc/rfc
+chmod +x ~/.yadm/external/rfc/rfc
 
 # Make our symlinks.
 echo ":: Creating symlinks..."
 mkdir -p ~/.vim/autoload
-ln -s ~/.config/vim-plug/plug.vim ~/.vim/autoload/plug.vim
+ln -s ~/.yadm/external/vim-plug/plug.vim ~/.vim/autoload/plug.vim
 mkdir -p ~/.weechat/lua/autoload
-ln -s ~/.config/weechat-matrix-protocol-script/matrix.lua ~/.weechat/lua/matrix.lua
+ln -s ~/.yadm/external/weechat-matrix-protocol/matrix.lua ~/.weechat/lua/matrix.lua
 ln -s ~/.weechat/lua/matrix.lua ~/.weechat/lua/autoload/matrix.lua
-ln -s ~/.config/rfc/rfc ~/.local/bin/rfc
+ln -s ~/.yadm/external/rfc/rfc ~/.local/bin/rfc
 
 # Make other directories.
 mkdir -p ~/.go
@@ -50,7 +50,7 @@ echo ":: Reloading .bashrc"
 source "$HOME/.bashrc"
 
 # Install Antibody for zsh.
-if which brew >/dev/null 2>&1; then
+if command -v brew >/dev/null 2>&1; then
 	brew install getantibody/tap/antibody || brew upgrade antibody
 else
 	curl -sL https://git.io/antibody | sh -s

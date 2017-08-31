@@ -10,7 +10,7 @@
 [color]
 	ui = auto
 [include]
-	path = ~/.config/gitalias/gitalias.txt
+	path = ~/.yadm/external/gitalias/gitalias.txt
 [alias]
 	ps = push
 	# Overrides gitalias.txt `save` to include

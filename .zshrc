@@ -212,7 +212,7 @@ fi
 	fi
 
 	# Source up.sh
-	source $HOME/.config/up/up.sh
+	source $HOME/.yadm/external/up/up.sh
 	# }}}
 
 # }}}

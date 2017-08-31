@@ -3,8 +3,8 @@
 #	website: https://davidtw.co
 # ==================================================
 
-# General {{{
-# =======
+# Bindings {{{
+# ========
 # Use vim keybindings.
 set -o vi
 bindkey -v
@@ -23,6 +23,12 @@ bindkey "[4~" end-of-line
 # Bind keys for history search
 bindkey "" history-incremental-pattern-search-backward
 
+# Disable control flow, allows CTRL+S to be used.
+stty -ixon
+# }}}
+
+# Environment {{{
+# ===========
 # Set a cache dir.
 export ZSH_CACHE_DIR=$HOME/.zsh/cache
 
@@ -46,9 +52,6 @@ export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
 
 # Connect to Docker over TCP. Allows connections to Docker for Windows.
 export DOCKER_HOST=tcp://127.0.0.1:2375
-
-# Disable control flow, allows CTRL+S to be used.
-stty -ixon
 # }}}
 
 # SSH Agent {{{
@@ -148,7 +151,7 @@ fi
 # }}}
 
 # Plugins {{{
-# =================
+# =======
 
 	# antibody {{{
 	# -------
@@ -198,7 +201,7 @@ fi
 # }}}
 
 # Prompt {{{
-# =====
+# ======
 autoload -Uz promptinit; promptinit
 
 VIM_PROMPT="❯"

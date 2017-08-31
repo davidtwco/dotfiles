@@ -145,8 +145,13 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # tmux helper completion.
 source ~/.yadm/completions/tmuxinator.zsh
-if which tmuxp>/dev/null 2>&1; then
+if command -v tmuxp>/dev/null 2>&1; then
 	eval "$(_TMUXP_COMPLETE=source tmuxp)"
+fi
+
+# npm completion
+if command -v npm>/dev/null 2>&1; then
+	source <(npm completion)
 fi
 # }}}
 

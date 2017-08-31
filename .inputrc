@@ -7,7 +7,9 @@
 # ========
 # Fix bindings for beginning of line and end of line on some machines
 "OH": beginning-of-line
+"[1~": beginning-of-line
 "OF": end-of-line
+"[4~": end-of-line
 
 # Use the text that has already been typed as the prefix for searching through
 # commands (basically more intelligent Up/Down behavior)

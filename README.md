@@ -95,18 +95,11 @@ In order to use 256 colours, we need to use the WSL Bridge. The reasoning for th
 
 > Another problem is that due to mistake in WSL design, keypresses written to conhost input buffer using standard Windows API function WriteConsoleInput are not converted into xterm keyboard sequences. But when user presses same key directly in RealConsole they are converted properly.
 
-Therefore, we will need to do the following:
-
-1. Create a folder to store WSLBridge files.
-2. Download the latest release of the [Cygwin connector](https://github.com/Maximus5/cygwin-connector/releases).
-3. Download the `wslbridge-*-cygwin64.tar.gz` file from the [wslbridge](https://github.com/rprichard/wslbridge/releases) project.
-4. Get the `cygwin1.dll` file from a Cygwin or wsltty installation.
-5. Ensure that `wslbridge.exe`, `cygwin1.dll`, `wslbridge-backend`, and `conemu-cyg-64.exe` files are in the previously created folder.
-6. Create a new task in ConEmu (likely already done if using the included configuration file) with the following contents:
+Therefore, we will need to create the following task:
 
 Setting                            | Value
 -------                            | -----
-Task (assuming folder is `C:\WSL`) | `C:\WSL\conemu-cyg-64.exe /cygdrive/c/WSL/wslbridge.exe -cur_console:p5nm:/mnt`
+Task (assuming folder is `C:\WSL`) | `set "PATH=%ConEmuBaseDirShort%\wsl;%PATH%" & %ConEmuBaseDirShort%\conemu-cyg-64.exe --wsl -cur_console:pm:/mnt`
 Task Parameters                    | `-icon "%USERPROFILE%\AppData\Local\lxss\bash.ico"`
 
 ## Hybrid Colour Scheme

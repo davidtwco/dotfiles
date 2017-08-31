@@ -50,6 +50,15 @@ export GOPATH=$HOME/.go
 # Allow Vagrant to access Windows outside of WSL.
 export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
 
+# Don't clear the screen when leaving man.
+export MANPAGER='less -X'
+
+# Enable persistent REPL history for node.
+export NODE_REPL_HISTORY="$HOME/.node_history"
+
+# Use sloppy mode by default, matching web browsers.
+export NODE_REPL_MODE='sloppy'
+
 # Connect to Docker over TCP. Allows connections to Docker for Windows.
 export DOCKER_HOST=tcp://127.0.0.1:2375
 # }}}

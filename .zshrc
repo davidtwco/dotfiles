@@ -42,7 +42,9 @@ export KEYTIMEOUT=1
 export EDITOR=vim
 
 # Ensure Vim and others use 256 colours.
-export TERM=xterm-256color
+if [[ "$TERM" != "screen"* && "$TERM" != "tmux"* ]]; then
+	export TERM=xterm-256color
+fi
 
 # Set Go directory
 export GOPATH=$HOME/.go

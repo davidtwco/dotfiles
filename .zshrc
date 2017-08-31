@@ -143,11 +143,8 @@ zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# tmux helper completion.
+# tmuxinator completion.
 source ~/.yadm/completions/tmuxinator.zsh
-if command -v tmuxp>/dev/null 2>&1; then
-	eval "$(_TMUXP_COMPLETE=source tmuxp)"
-fi
 
 # npm completion
 if command -v npm>/dev/null 2>&1; then

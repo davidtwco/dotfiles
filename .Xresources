@@ -42,4 +42,4 @@ URxvt*scrollColor: #000000
 *color15: #C5C8C6
 ! }}}
 
-! vim:ft=xdefaults:foldmethod=marker:foldlevel=0
+! vim:ft=xdefaults:foldmethod=marker:foldlevel=0:noexpandtab

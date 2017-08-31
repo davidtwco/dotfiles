@@ -14,3 +14,5 @@ if [ -n "$BASH_VERSION" ]; then
 		. "$HOME/.bashrc"
 	fi
 fi
+
+# vim:foldmethod=marker:foldlevel=0:noexpandtab

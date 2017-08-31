@@ -89,4 +89,4 @@ function prompt_command() {
 # Show prompt only if Git is installed.
 command -v git >/dev/null 2>&1 && PROMPT_COMMAND=prompt_command
 
-# vim:ft=sh:foldmethod=marker:foldlevel=0
+# vim:ft=sh:foldmethod=marker:foldlevel=0:noexpandtab

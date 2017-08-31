@@ -1,0 +1,25 @@
+[main]
+
+# timeout to connect to client, in seconds
+client_timeout = 2
+
+# Visual theme. Possible values: manni, igor, xcode, vim, autumn, vs, rrt,
+# native, perldoc, borland, tango, emacs, friendly, monokai, paraiso-dark,
+# colorful, murphy, bw, pastie, paraiso-light, trac, default, fruity
+theme = default
+
+# Whether to suggest long option names. Default is 'True'. If 'False',
+# short option names are suggested.
+suggest_long_option_names = True
+
+# Use fuzzy matching mode (default is to use simple substring match).
+fuzzy_match = False
+
+# log_file location.
+log_file = ~/.wharfee.log
+
+# Default log level. Possible values: "CRITICAL", "ERROR", "WARNING", "INFO"
+# and "DEBUG".
+log_level = INFO
+
+# vim:foldmethod=marker:foldlevel=0:noexpandtab

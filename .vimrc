@@ -479,6 +479,9 @@ nnoremap <leader>gd :YcmCompleter GoTo<CR>
 nnoremap <leader>gt :YcmCompleter GetType<CR>
 nnoremap <leader>gp :YcmCompleter GetParent<CR>
 nnoremap <leader>sd :YcmShowDetailedDiagnostic<CR>
+
+" Do not confirm usage of .ycm_extra_conf.py
+let g:ycm_confirm_extra_conf = 0
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0:ts=4:sts=4:sw=4:noexpandtab

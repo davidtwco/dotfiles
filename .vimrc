@@ -322,6 +322,18 @@ function! <SID>StripTrailingWhitespaces()
 endfun
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
+" Toggle between paste and no paste.
+function! TogglePaste()
+	if(&paste == 1)
+		set nopaste
+		echom "Switched to no paste."
+	else
+		set paste
+		echom "Switched to paste."
+	endif
+endfunc
+nmap <silent> <leader>p :call TogglePaste()<CR>
+
 " Toggle between absolute line numbers and relative line numbers.
 function! ToggleNumber()
 	if(&relativenumber == 1)

@@ -17,6 +17,7 @@ ln -s ~/.yadm/external/vim-plug/plug.vim ~/.vim/autoload/plug.vim
 mkdir -p ~/.weechat/lua/autoload
 ln -s ~/.yadm/external/weechat-matrix-protocol/matrix.lua ~/.weechat/lua/matrix.lua
 ln -s ~/.weechat/lua/matrix.lua ~/.weechat/lua/autoload/matrix.lua
+mkdir -p ~/.local/bin
 ln -s ~/.yadm/external/rfc/rfc ~/.local/bin/rfc
 
 # Make other directories.

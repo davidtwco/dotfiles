@@ -31,6 +31,6 @@ Windows Registry Editor Version 5.00
 ; Light Yellow
 "ColorTable14"=dword:0074c6f0
 ; Light Gray
-"ColorTable07"=dword:00807870
+"ColorTable07"=dword:00c6c8c5
 ; White
-"ColorTable15"=dword:00c6c8c5
+"ColorTable15"=dword:00807870

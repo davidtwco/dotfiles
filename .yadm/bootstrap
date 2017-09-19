@@ -27,9 +27,10 @@ mkdir -p ~/.go
 ln -s ~/.Xresources ~/.Xdefaults
 
 # Making yadm cache directories.
-echo ":: Creating directories for fasd..."
-mkdir -p ~/.zsh/cache/fasd-init-cache
-mkdir -p ~/.fasd-init-bash
+echo ":: Creating cache for fasd..."
+mkdir -p ~/.zsh/cache/
+touch ~/.zsh/cache/fasd-init-cache
+touch ~/.fasd-init-bash
 
 # Making Vim backup directories.
 echo ":: Creating directories for Vim..."

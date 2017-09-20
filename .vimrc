@@ -300,6 +300,8 @@ if has("autocmd")
 	au BufNewFile,BufRead *.reg setlocal ft=registry
 	" Set .nuspec files to be XML files.
 	au BufNewFile,BufRead *.nuspec setlocal ft=xml
+	" Set .hocon files to be Hocon files.
+	au BufNewFile,BufRead *.hocon setlocal ft=hocon
 	" Set Jenkinsfile files to be Groovy files.
 	au BufNewFile,BufRead Jenkinsfile setlocal ft=groovy
 endif

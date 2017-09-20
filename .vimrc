@@ -182,6 +182,8 @@ call plug#begin('~/.vim/plugged')
 
 		" TOML
 		Plug 'cespare/vim-toml'
+		" Hocon
+		Plug 'GEverding/vim-hocon'
 	" }}}
 
 	" Undo {{{

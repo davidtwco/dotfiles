@@ -245,9 +245,14 @@ let g:ctrlp_switch_buffer = 'et'
 " Colors {{{
 " ======
 syntax enable
+
 set background=dark
+
 let g:hybrid_custom_term_colors = 1
-colorscheme hybrid
+try
+	colorscheme hybrid
+	highlight ColorColumn ctermbg=8 guibg=lightgrey
+endtry
 " }}}
 
 " Commenting {{{

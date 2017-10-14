@@ -510,4 +510,10 @@ nnoremap <leader>sd :YcmShowDetailedDiagnostic<CR>
 let g:ycm_confirm_extra_conf = 0
 " }}}
 
+" Wrapping {{{
+" ========
+" Colour 40 columns after column 80.
+let &colorcolumn="80,".join(range(120, 1000, 40), ",")
+" }}}
+
 " vim:foldmethod=marker:foldlevel=0:ts=4:sts=4:sw=4:noexpandtab

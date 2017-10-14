@@ -357,6 +357,11 @@ nmap <silent> <leader>l :call ToggleNumber()<CR>
 set history=1000	" Increase history.
 " }}}
 
+" Mappings {{{
+" ========
+nnoremap <leader>h :noh<return><esc>
+" }}}
+
 " Mouse {{{
 " ==============
 " Disable the mouse.

@@ -5,7 +5,7 @@
 
 set nocompatible              " be iMproved, required
 
-" Plugins
+" Plugins {{{
 " =======
 call plug#begin('~/.vim/plugged')
 
@@ -114,9 +114,6 @@ Plug 'GEverding/vim-hocon'
 call plug#end()
 " }}}
 
-" Configuration
-" =============
-
 " Ack {{{
 " ===
 " Use the silver searcher if available.
@@ -172,7 +169,7 @@ set backspace=indent,eol,start
 " File Navigation {{{
 " ===============
 " Map %% to the current opened file's path.
-cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
 " Map helpful commands for editing files in that directory. (leader defaults
 " to \)
 map <leader>ew :e %%
@@ -315,7 +312,9 @@ endfunction
 
 " Mappings {{{
 " ========
-nnoremap <leader>h :noh<return><esc>
+nnoremap <leader>h :noh<CR><ESC>
+nnoremap <leader>t :tabnew<CR>
+nnoremap <leader>r :so $MYVIMRC<CR>
 " }}}
 
 " Mouse {{{

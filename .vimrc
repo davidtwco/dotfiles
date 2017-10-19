@@ -30,6 +30,8 @@ Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
+" Detect indentation heuristically.
+Plug 'tpope/vim-sleuth'
 " Apply indentation from .editorconfig files.
 Plug 'editorconfig/editorconfig-vim'
 
@@ -358,6 +360,13 @@ let g:signify_cursorhold_normal = 0
 let g:signify_cursorhold_insert = 0
 " }}}
 
+" Sleuth {{{
+" ======
+" vim-sleuth defaults to the tabstop value if it
+" cannot detect. Make sure that this is four.
+set ts=4
+" }}}
+
 " Spelling {{{
 " ========
 set spelllang=en_gb
@@ -369,22 +378,6 @@ set spellfile=~/.vim/spell/en-gb.utf-8.add
 " Turn on wildmenu for file name tab completion.
 set wildmode=longest,list,full
 set wildmenu
-" }}}
-
-" Tabs & Spaces {{{
-" =============
-" In general, prefer using tabs for indentation and spaces for alignment. May
-" change depending on filetype.
-set tabstop=4                  " Width of tab is 4.
-set softtabstop=4              " Width of a 'space tab' (pressing tab when using spaces) is 4.
-set expandtab                  " Use spaces rather than tabs.
-set shiftwidth=4               " Indent by 4 when using '<', '>' operators.
-set smarttab                   " Insert spaces or tabs to get to next indent.
-set autoindent                 " Match indentation of the previous line.
-
-" Display the tab characters and end of line characters.
-set list
-set listchars=tab:▸\ ,eol:¬
 " }}}
 
 " Timeout Lengths {{{
@@ -415,6 +408,10 @@ set laststatus=2    " Always show the status line.
 set relativenumber  " Use Relative Line Numbers.
 set noshowmode      " Don't display '-- INSERT --', handled by statusline.
 let &colorcolumn="100,".join(range(140, 1000, 40), ",") " Colour 40 columns after column 80.
+
+" Display the tab characters and end of line characters.
+set list
+set listchars=tab:▸\ ,eol:¬
 " }}}
 
 " Undo/Backups {{{

@@ -446,6 +446,47 @@ else
     " Change viminfo directory.
     set viminfo+=n~/.vim/viminfo//
 endif
+
+" I've prefixed these functions with an underscore as I'll
+" never want to run them directly.
+
+function! _EchoSwapMessage(message)
+    if has("autocmd")
+        augroup EchoSwapMessage
+            autocmd!
+            " Echo the message after entering a file, useful for when
+            " we're entering a file (like on SwapExists) and our echo will be
+            " eaten.
+            autocmd BufWinEnter * echohl WarningMsg
+            exec 'autocmd BufWinEnter * echon "\r'.printf("%-60s", a:message).'"'
+            autocmd BufWinEnter * echohl NONE
+
+            " Remove these auto commands so that they don't run on entering
+            " the next buffer.
+            autocmd BufWinEnter * augroup EchoSwapMessage
+            autocmd BufWinEnter * autocmd!
+            autocmd BufWinEnter * augroup END
+        augroup END
+    endif
+endfunction
+
+function! _HandleSwap(filename)
+    " If the swap file is old, delete. If it is new, recover.
+    if getftime(v:swapname) < getftime(a:filename)
+        let v:swapchoice = 'e'
+        call _EchoSwapMessage("Deleted older swapfile.")
+    else
+        let v:swapchoice = 'r'
+        call _EchoSwapMessage("Detected newer swapfile, recovering.")
+    endif
+endfunc
+
+if has("autocmd")
+    augroup AutoSwap
+        autocmd!
+        autocmd! SwapExists * call _HandleSwap(expand('<afile>:p'))
+    augroup END
+endif
 " }}}
 
 " YouCompleteMe {{{

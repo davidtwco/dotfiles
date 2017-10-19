@@ -1,86 +1,51 @@
 " David Wood's .vimrc Configuration
-" 	dotfiles: https://github.com/davidtwco/dotfiles
-" 	website: https://davidtw.co
+"  dotfiles: https://github.com/davidtwco/dotfiles
+"  website: https://davidtw.co
 " =================================
-"
-" Fold Bindings (incase you've forgotten):
-" ========================================
-" za		toggle one level
-" zc		close one level
-" zo		open one level
-" zA		toggle all levels
-" zC		close all levels
-" zO		open all levels
-" zr		open one level everywhere
-" zR		open all levels everywhere
-" zm		close one level everywhere
-" zM		close all levels everywhere
 
 set nocompatible              " be iMproved, required
 
 " Plugins
 " =======
-
-" vim-plug {{{
-" ================
 call plug#begin('~/.vim/plugged')
 
-" Colour Schemes {{{
-" --------------
+" Colour Schemes
 Plug 'w0ng/vim-hybrid'
-" }}}
 
-" Autocomplete {{{
-" ------------
+" Autocomplete
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-" }}}
 
-" Commenting {{{
-" ----------
 " Comments.
 Plug 'tpope/vim-commentary'
-" }}}
 
-" File Browsing/Search {{{
-" --------
 " Improvements to netrw.
 Plug 'tpope/vim-vinegar'
 " Fuzzy file search.
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" }}}
 
-" Git Integration {{{
-" ---
 " Show Git changes.
 Plug 'mhinz/vim-signify'
 " Git wrapper.
 Plug 'tpope/vim-fugitive'
-" }}}
+Plug 'tpope/vim-rhubarb'
 
-" Indentation {{{
-" -----------
 " Apply indentation from .editorconfig files.
 Plug 'editorconfig/editorconfig-vim'
-" }}}
 
-" Linting {{{
-" -------
+" Linting
 Plug 'w0rp/ale'
-" }}}
 
-" Markdown Integration {{{
-" --------------------
 " Markdown Preview (requires npm package - livedown).
 Plug 'shime/vim-livedown', { 'for': 'markdown', 'on': 'LivedownPreview' }
 " Distraction-free Writing.
 Plug 'junegunn/goyo.vim', { 'for': 'markdown', 'on': 'Goyo' }
 " Folding
 Plug 'nelstrom/vim-markdown-folding', { 'for': 'markdown' }
-" }}}
 
-" Misc {{{
-" ---------------------
+" Navigation
+Plug 'justinmk/vim-sneak'
+
 " Word variation helper.
 Plug 'tpope/vim-abolish'
 " Improve '.' (repeat) for plugin maps.
@@ -89,55 +54,35 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-characterize'
 " Replace and paste!
 Plug 'davidtwco/vim-replace-paste'
-" }}}
 
-" OS Integration {{{
-" --------------
 if has("unix")
-	Plug 'tpope/vim-eunuch'
+    " Unix helpers
+    Plug 'tpope/vim-eunuch'
 endif
-" }}}
 
-" Python Integration {{{
-" ------
-" Works with Python virtual environments.
+" Work with Python virtual environments.
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
-" }}}
 
-" Tabbing {{{
-" -------
 " Line up text.
 Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tab', 'AddTabularPattern', 'AddTabularPipeline'] }
-" }}}
 
-" tmux Integration {{{
-" ------------
 " Easy navigation between vim splits and tmux panes.
 Plug 'christoomey/vim-tmux-navigator'
 " Functions that interact with tmux.
 Plug 'tpope/vim-tbone'
 " Generate statuslines for tmux.
 Plug 'edkolev/tmuxline.vim'
-" }}}
 
-" Searching {{{
-" ---------
+" Searching
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
-" }}}
 
-" Session Saving {{{
-" --------------
+" Session Saving
 Plug 'tpope/vim-obsession'
-" }}}
 
-" Statusline {{{
-" ----------
+" Statusline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" }}}
 
-" Surroundings {{{
-" ----
 " Enhanced '%' functionality.
 Plug 'geoffharcourt/vim-matchit'
 " Handy bracket matchings.
@@ -146,52 +91,23 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 " Auto-adds 'end' where appropriate.
 Plug 'tpope/vim-endwise'
-" }}}
 
-" Syntax {{{
-" ------
-" Dockerfile
-Plug 'ekalinin/Dockerfile.vim'
-" Rockerfile
-Plug 'NL057/rockerfile.vim'
-
-" Ansible
-Plug 'pearofducks/ansible-vim'
-" Puppet
-Plug 'rodjek/vim-puppet'
-" Vagrant
-Plug 'hashivim/vim-vagrant'
-
-" Powershell
-Plug 'PProvost/vim-ps1'
-
-" Twig
-Plug 'lumiliet/vim-twig'
-" Jinja/Nunjucks
-Plug 'niftylettuce/vim-jinja'
-
-" Rust
-Plug 'rust-lang/rust.vim'
-" JavaScript ES2015+
-Plug 'othree/yajs.vim'
-Plug 'othree/es.next.syntax.vim'
-
-" tmux.conf
-Plug 'tmux-plugins/vim-tmux'
-" nginx.conf
-Plug 'chr4/nginx.vim'
-
-" TOML
-Plug 'cespare/vim-toml'
-" Hocon
-Plug 'GEverding/vim-hocon'
-" }}}
-
-" Undo {{{
-" --------
 " Visualize the undo tree.
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
-" }}}
+
+" Polyglot - adds a bunch of syntax handling for different languages
+" and tools, check if new languages are included before adding them
+" manually.
+Plug 'sheerun/vim-polyglot'
+
+" Rockerfile
+Plug 'NL057/rockerfile.vim'
+" Vagrant
+Plug 'hashivim/vim-vagrant'
+" Jinja/Nunjucks
+Plug 'niftylettuce/vim-jinja'
+" Hocon
+Plug 'GEverding/vim-hocon'
 
 call plug#end()
 " }}}
@@ -203,7 +119,7 @@ call plug#end()
 " ===
 " Use the silver searcher if available.
 if executable('ag')
-	let g:ackprg = 'ag --vimgrep'
+    let g:ackprg = 'ag --vimgrep'
 endif
 " }}}
 
@@ -240,8 +156,8 @@ set background=dark
 
 let g:hybrid_custom_term_colors = 1
 try
-	colorscheme hybrid
-	highlight ColorColumn ctermbg=8 guibg=lightgrey
+    colorscheme hybrid
+    highlight ColorColumn ctermbg=8 guibg=lightgrey
 endtry
 " }}}
 
@@ -249,7 +165,7 @@ endtry
 " ==========
 " Delete comment character when joining commented lines
 if v:version > 703 || v:version == 703 && has("patch541")
-	set formatoptions+=j
+    set formatoptions+=j
 endif
 " }}}
 
@@ -274,31 +190,31 @@ map <leader>et :tabe %%
 " File Type Specific {{{
 " ==================
 if has("autocmd")
-	" Find the filetype using ':set ft?'
-	" Syntax of these languages is dependant on tabs/spaces.
-	au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-	au FileType python setlocal ts=4 sts=4 sw=4 expandtab smarttab autoindent
-	au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
-	au FileType puppet setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
-	au FileType ruby setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
-	au FileType rust setlocal ts=4 sts=4 sw=4 expandtab nosmarttab
-	au FileType ps1 setlocal ts=4 sts=4 sw=4 expandtab nosmarttab
+    " Find the filetype using ':set ft?'
+    " Syntax of these languages is dependant on tabs/spaces.
+    au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+    au FileType python setlocal ts=4 sts=4 sw=4 expandtab smarttab autoindent
+    au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
+    au FileType puppet setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
+    au FileType ruby setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
+    au FileType rust setlocal ts=4 sts=4 sw=4 expandtab nosmarttab
+    au FileType ps1 setlocal ts=4 sts=4 sw=4 expandtab nosmarttab
 
-	" Markdown indentation should mirror YAML for use in frontmatter, also
-	" enable spelling.
-	au FileType markdown setlocal ts=2 sts=2 sw=2 expandtab nosmarttab spell
+    " Markdown indentation should mirror YAML for use in frontmatter, also
+    " enable spelling.
+    au FileType markdown setlocal ts=2 sts=2 sw=2 expandtab nosmarttab spell
 
-	" Always use spaces for the package.json file.
-	au BufNewFile,BufRead package.json setlocal ts=2 sts=2 sw=2 expandtab nosmarttab sts=2
+    " Always use spaces for the package.json file.
+    au BufNewFile,BufRead package.json setlocal ts=2 sts=2 sw=2 expandtab nosmarttab sts=2
 
-	" Set .reg files to be Window's registry files.
-	au BufNewFile,BufRead *.reg setlocal ft=registry
-	" Set .nuspec files to be XML files.
-	au BufNewFile,BufRead *.nuspec setlocal ft=xml
-	" Set .hocon files to be Hocon files.
-	au BufNewFile,BufRead *.hocon setlocal ft=hocon
-	" Set Jenkinsfile files to be Groovy files.
-	au BufNewFile,BufRead Jenkinsfile setlocal ft=groovy
+    " Set .reg files to be Window's registry files.
+    au BufNewFile,BufRead *.reg setlocal ft=registry
+    " Set .nuspec files to be XML files.
+    au BufNewFile,BufRead *.nuspec setlocal ft=xml
+    " Set .hocon files to be Hocon files.
+    au BufNewFile,BufRead *.hocon setlocal ft=hocon
+    " Set Jenkinsfile files to be Groovy files.
+    au BufNewFile,BufRead Jenkinsfile setlocal ft=groovy
 endif
 " }}}
 
@@ -314,35 +230,35 @@ set foldmethod=indent		" Fold based on indentation (for Python)
 " =========
 " Strip trailing whitespace on saving a file.
 function! <SID>StripTrailingWhitespaces()
-	let l = line(".")
-	let c = col(".")
-	%s/\s\+$//e
-	call cursor(l, c)
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
 endfun
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " Toggle between paste and no paste.
 function! TogglePaste()
-	if(&paste == 1)
-		set nopaste
-		echom "Switched to no paste."
-	else
-		set paste
-		echom "Switched to paste."
-	endif
+    if(&paste == 1)
+        set nopaste
+        echom "Switched to no paste."
+    else
+        set paste
+        echom "Switched to paste."
+    endif
 endfunc
 nmap <silent> <leader>p :call TogglePaste()<CR>
 
 " Toggle between absolute line numbers and relative line numbers.
 function! ToggleNumber()
-	if(&relativenumber == 1)
-		set norelativenumber
-		set number
-		echom "Switched to absolute line numbers."
-	else
-		set relativenumber
-		echom "Switched to relative line numbers."
-	endif
+    if(&relativenumber == 1)
+        set norelativenumber
+        set number
+        echom "Switched to absolute line numbers."
+    else
+        set relativenumber
+        echom "Switched to relative line numbers."
+    endif
 endfunc
 nmap <silent> <leader>l :call ToggleNumber()<CR>
 " }}}
@@ -480,30 +396,30 @@ set relativenumber  " Use Relative Line Numbers.
 " ============
 " Change swap directory.
 if isdirectory($HOME . '/.vim/swap') == 0
-	call mkdir($HOME . '/.vim/swap', 'p')
+    call mkdir($HOME . '/.vim/swap', 'p')
 endif
 set directory=~/.vim/swap
 
 " Change backup directory.
 if isdirectory($HOME . '/.vim/backup') == 0
-	call mkdir($HOME . '/.vim/backup', 'p')
+    call mkdir($HOME . '/.vim/backup', 'p')
 endif
 set backupdir=~/.vim/backup
 
 if exists('+undofile')
-	" Change undo directory.
-	if isdirectory($HOME . '/.vim/undo') == 0
-		call mkdir($HOME . '/.vim/undo', 'p')
-	endif
-	set undodir=~/.vim/undo
+    " Change undo directory.
+    if isdirectory($HOME . '/.vim/undo') == 0
+        call mkdir($HOME . '/.vim/undo', 'p')
+    endif
+    set undodir=~/.vim/undo
 end
 
 if exists('+shada')
-	" Change SHAred DAta directory.
-	set shada+=n~/.nvim/shada
+    " Change SHAred DAta directory.
+    set shada+=n~/.nvim/shada
 else
-	" Change viminfo directory.
-	set viminfo+=n~/.vim/viminfo
+    " Change viminfo directory.
+    set viminfo+=n~/.vim/viminfo
 endif
 " }}}
 

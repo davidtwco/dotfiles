@@ -193,12 +193,9 @@ if has("autocmd")
     " Find the filetype using ':set ft?'
     " Syntax of these languages is dependant on tabs/spaces.
     au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-    au FileType python setlocal ts=4 sts=4 sw=4 expandtab smarttab autoindent
     au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
     au FileType puppet setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
     au FileType ruby setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
-    au FileType rust setlocal ts=4 sts=4 sw=4 expandtab nosmarttab
-    au FileType ps1 setlocal ts=4 sts=4 sw=4 expandtab nosmarttab
 
     " Markdown indentation should mirror YAML for use in frontmatter, also
     " enable spelling.
@@ -220,10 +217,10 @@ endif
 
 " Folding {{{
 " =======
-set foldenable				" Enable folding.
-set foldlevelstart=10		" Open 10 levels of folds by default.
-set foldnestmax=10			" 10 nested folds max.
-set foldmethod=indent		" Fold based on indentation (for Python)
+set foldenable               " Enable folding.
+set foldlevelstart=10        " Open 10 levels of folds by default.
+set foldnestmax=10           " 10 nested folds max.
+set foldmethod=indent        " Fold based on indentation (for Python)
 " }}}
 
 " Functions {{{
@@ -285,7 +282,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " History {{{
 " ====
-set history=1000	" Increase history.
+set history=1000    " Increase history.
 " }}}
 
 " Mappings {{{
@@ -301,26 +298,26 @@ set mouse=r
 
 " Organization {{{
 " ============
-set modelines=1			" Sets the expected modeline format.
+set modelines=1            " Sets the expected modeline format.
 " }}}
 
 " Reading {{{
 " =======
-set autoread		" Automatically reload files if changed from outside.
+set autoread        " Automatically reload files if changed from outside.
 " }}}
 
 " Searching {{{
 " =========
-set hlsearch		" Highlight matches.
-set incsearch		" Highlight matches as we type.
-set ignorecase		" Ignore case when searching.
-set smartcase		" Don't ignore case when different cases searched for.
+set hlsearch        " Highlight matches.
+set incsearch       " Highlight matches as we type.
+set ignorecase      " Ignore case when searching.
+set smartcase       " Don't ignore case when different cases searched for.
 " }}}
 
 " Scrolling {{{
 " =========
-set scrolloff=5			" Keep a minimum of 5 line below the cursor.
-set sidescrolloff=5		" Keep a minimum of 5 columns left of the cursor.
+set scrolloff=5            " Keep a minimum of 5 line below the cursor.
+set sidescrolloff=5        " Keep a minimum of 5 columns left of the cursor.
 " }}}
 
 " Signify {{{
@@ -352,12 +349,12 @@ set wildmenu
 " =============
 " In general, prefer using tabs for indentation and spaces for alignment. May
 " change depending on filetype.
-set tabstop=4					" Width of tab is 4.
-set softtabstop=4 				" Width of a 'space tab' (pressing tab when using spaces) is 4.
-set expandtab					" Use spaces rather than tabs.
-set shiftwidth=4				" Indent by 4 when using '<', '>' operators.
-set smarttab					" Insert spaces or tabs to get to next indent.
-set autoindent					" Match indentation of the previous line.
+set tabstop=4                  " Width of tab is 4.
+set softtabstop=4              " Width of a 'space tab' (pressing tab when using spaces) is 4.
+set expandtab                  " Use spaces rather than tabs.
+set shiftwidth=4               " Indent by 4 when using '<', '>' operators.
+set smarttab                   " Insert spaces or tabs to get to next indent.
+set autoindent                 " Match indentation of the previous line.
 
 " Display the tab characters and end of line characters.
 set list
@@ -379,17 +376,19 @@ let g:tmuxline_powerline_separators = 1
 
 " UI & Visual Cues {{{
 " ================
-set ruler			" Show ruler.
-set showcmd			" Show incomplete commands.
-set nocursorline	" Highlight the current line.
-set lazyredraw		" Lazy redraw.
-set number			" Line Numbers
-set report=0		" Display messages for changes (ie. yank, delete, etc.)
-set showmatch		" Show matching brackets.
-set mat=5			" Matching bracket duration.
-set visualbell		" Shut up, Vim.
-set laststatus=2	" Always show the status line.
+set ruler           " Show ruler.
+set showcmd         " Show incomplete commands.
+set nocursorline    " Highlight the current line.
+set lazyredraw      " Lazy redraw.
+set number          " Line Numbers
+set report=0        " Display messages for changes (ie. yank, delete, etc.)
+set showmatch       " Show matching brackets.
+set mat=5           " Matching bracket duration.
+set visualbell      " Shut up, Vim.
+set laststatus=2    " Always show the status line.
 set relativenumber  " Use Relative Line Numbers.
+set noshowmode      " Don't display '-- INSERT --', handled by statusline.
+let &colorcolumn="100,".join(range(140, 1000, 40), ",") " Colour 40 columns after column 80.
 " }}}
 
 " Undo/Backups {{{
@@ -434,12 +433,6 @@ nnoremap <leader>sd :YcmShowDetailedDiagnostic<CR>
 
 " Do not confirm usage of .ycm_extra_conf.py
 let g:ycm_confirm_extra_conf = 0
-" }}}
-
-" Wrapping {{{
-" ========
-" Colour 40 columns after column 80.
-let &colorcolumn="80,".join(range(120, 1000, 40), ",")
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0:ts=4:sts=4:sw=4

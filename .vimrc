@@ -415,32 +415,36 @@ set listchars=tab:▸\ ,eol:¬
 
 " Undo/Backups {{{
 " ============
+" If a path ends in '//' then the swap file name
+" is built from the entire path. No more issues between
+" projects.
+
 " Change swap directory.
 if isdirectory($HOME . '/.vim/swap') == 0
     call mkdir($HOME . '/.vim/swap', 'p')
 endif
-set directory=~/.vim/swap
+set directory=~/.vim/swap//
 
 " Change backup directory.
 if isdirectory($HOME . '/.vim/backup') == 0
     call mkdir($HOME . '/.vim/backup', 'p')
 endif
-set backupdir=~/.vim/backup
+set backupdir=~/.vim/backup//
 
 if exists('+undofile')
     " Change undo directory.
     if isdirectory($HOME . '/.vim/undo') == 0
         call mkdir($HOME . '/.vim/undo', 'p')
     endif
-    set undodir=~/.vim/undo
+    set undodir=~/.vim/undo//
 end
 
 if exists('+shada')
     " Change SHAred DAta directory.
-    set shada+=n~/.nvim/shada
+    set shada+=n~/.nvim/shada//
 else
     " Change viminfo directory.
-    set viminfo+=n~/.vim/viminfo
+    set viminfo+=n~/.vim/viminfo//
 endif
 " }}}
 

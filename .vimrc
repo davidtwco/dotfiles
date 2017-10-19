@@ -46,7 +46,8 @@ call plug#begin('~/.vim/plugged')
 		" Improvements to netrw.
 		Plug 'tpope/vim-vinegar'
 		" Fuzzy file search.
-		Plug 'ctrlpvim/ctrlp.vim'
+		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+		Plug 'junegunn/fzf.vim'
 	" }}}
 
 	" Git Integration {{{
@@ -231,17 +232,6 @@ nmap <C-n> <Plug>(ale_next_wrap)
 set hidden
 " }}}
 
-" CtrlP {{{
-" =====
-" Map CTRLP to use CTRL+P.
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-" Ignore files in .gitignore.
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-" Open files instead of switching to them.
-let g:ctrlp_switch_buffer = 'et'
-" }}}
-
 " Colors {{{
 " ======
 syntax enable
@@ -355,6 +345,26 @@ function! ToggleNumber()
 	endif
 endfunc
 nmap <silent> <leader>l :call ToggleNumber()<CR>
+" }}}
+
+" fzf {{{
+" ===
+nnoremap <c-p> :Files<CR>
+nnoremap <leader>pf :Files<CR>
+nnoremap <leader>pg :GFiles<CR>
+nnoremap <leader>pc :Commits<CR>
+nnoremap <leader>pb :Buffers<CR>
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 " }}}
 
 " History {{{

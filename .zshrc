@@ -3,6 +3,13 @@
 #	website: https://davidtw.co
 # ==================================================
 
+# Functions {{{
+# =========
+_has() {
+	which $1>/dev/null 2>&1
+}
+# }}}
+
 # Bindings {{{
 # ========
 # Use vim keybindings.
@@ -96,7 +103,7 @@ unset env
 # GPG Agent {{{
 # =========
 export GPG_TTY=$(tty)
-if which gpg-agent>/dev/null 2>&1; then
+if _has gpg-agent; then
 	eval "$(gpg-agent --daemon)"
 fi
 # }}}
@@ -113,6 +120,7 @@ path=("$HOME/.cargo/bin" $path)
 path=("$HOME/.go/bin" $path)
 path=("$HOME/.local/bin" $path)
 path=("/opt/puppetlabs/bin" $path)
+path=("$HOME/.fzf/bin" $path)
 
 # Using the (N-/) glob qualifier we can remove paths that do not exist.
 path=($^path(N-/))
@@ -151,7 +159,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 source ~/.yadm/completions/tmuxinator.zsh
 
 # npm completion
-if command -v npm>/dev/null 2>&1; then
+if _has npm; then
 	source <(npm completion)
 fi
 # }}}
@@ -174,48 +182,69 @@ if [ -f ~/.aliases ]; then
 fi
 # }}}
 
-# Plugins {{{
+# antibody {{{
 # =======
+if _has antibody; then
+	# If plugins have not been generated, then generate them.
+	if [[ ! -e "$HOME/.zsh_plugins.sh" ]]; then
+		# Load antibody.
+		source <(antibody init)
 
-	# antibody {{{
-	# -------
-	if which antibody>/dev/null 2>&1; then
-		# If plugins have not been generated, then generate them.
-		if [[ ! -e "$HOME/.zsh_plugins.sh" ]]; then
-			# Load antibody.
-			source <(antibody init)
-
-			# Update and install plugins.
-			bash -c 'antibody bundle < "$HOME/.antibody_bundle" >> "$HOME/.zsh_plugins.sh"'
-			antibody update
-		fi
-
-		# Load plugins.
-		source "$HOME/.zsh_plugins.sh"
+		# Update and install plugins.
+		bash -c 'antibody bundle < "$HOME/.antibody_bundle" >> "$HOME/.zsh_plugins.sh"'
+		antibody update
 	fi
 
-	# Bind keys for zsh-history-substring-search
-	bindkey "OA" history-substring-search-up
-	bindkey "OB" history-substring-search-down
+	# Load plugins.
+	source "$HOME/.zsh_plugins.sh"
+fi
 
-	# }}}
+# Bind keys for zsh-history-substring-search
+bindkey "OA" history-substring-search-up
+bindkey "OB" history-substring-search-down
 
-	# Other {{{
-	# -----
-	# Initialize fasd if it is installed.
-	if which fasd>/dev/null 2>&1; then
-		fasd_cache="$ZSH_CACHE_DIR/fasd-init-cache"
-		if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-			fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install >| "$fasd_cache"
-		fi
-		source "$fasd_cache"
-		unset fasd_cache
+# }}}
+
+# fasd {{{
+# =====
+if _has fasd; then
+	fasd_cache="$ZSH_CACHE_DIR/fasd-init-cache"
+	if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+		fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install >| "$fasd_cache"
 	fi
+	source "$fasd_cache"
+	unset fasd_cache
+fi
+# }}}
 
-	# Source up.sh
-	source $HOME/.yadm/external/up/up.sh
-	# }}}
+# fzf {{{
+# ===
+# fzf via Homebrew
+if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
+	source /usr/local/opt/fzf/shell/key-bindings.zsh
+	source /usr/local/opt/fzf/shell/completion.zsh
+fi
 
+# fzf via local installation
+if [ -f ~/.fzf.zsh ]; then
+	source ~/.fzf.zsh
+fi
+
+# fzf + ag configuration
+if _has fzf && _has ag; then
+	export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+	export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+	export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+	export FZF_DEFAULT_OPTS='
+	--color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
+	--color info:108,prompt:109,spinner:108,pointer:168,marker:168
+	'
+fi
+# }}}
+
+# up {{{
+# ==
+source $HOME/.yadm/external/up/up.sh
 # }}}
 
 # Prompt {{{
@@ -231,18 +260,18 @@ PURE_GIT_UP_ARROW='↑'
 
 prompt_pure_update_vim_prompt() {
 	zle || {
-		print "error: pure_update_vim_prompt must be called when zle is active"
-		return 1
-	}
-	VIM_PROMPT=${${KEYMAP/vicmd/❮}/(main|viins)/❯}
-	zle .reset-prompt
+	print "error: pure_update_vim_prompt must be called when zle is active"
+	return 1
+}
+VIM_PROMPT=${${KEYMAP/vicmd/❮}/(main|viins)/❯}
+zle .reset-prompt
 }
 
 function zle-line-init zle-keymap-select {
-	prompt_pure_update_vim_prompt
+prompt_pure_update_vim_prompt
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
 # }}}
 
-# vim:foldmethod=marker:foldlevel=0:noexpandtab
+# vim:foldmethod=marker:foldlevel=0

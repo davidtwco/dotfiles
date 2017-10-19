@@ -200,4 +200,10 @@ if which fasd>/dev/null 2>&1; then
 fi
 # }}}
 
+# fzf {{{
+# ===
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# }}}
+
 # vim:foldmethod=marker:foldlevel=0:noexpandtab
+

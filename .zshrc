@@ -6,7 +6,7 @@
 # Functions {{{
 # =========
 _has() {
-	which $1>/dev/null 2>&1
+    which $1>/dev/null 2>&1
 }
 # }}}
 
@@ -50,7 +50,7 @@ export EDITOR=vim
 
 # Ensure Vim and others use 256 colours.
 if [[ "$TERM" != "screen"* && "$TERM" != "tmux"* ]]; then
-	export TERM=xterm-256color
+    export TERM=xterm-256color
 fi
 
 # Set Go directory
@@ -70,7 +70,7 @@ export NODE_REPL_MODE='sloppy'
 
 # Connect to Docker over TCP. Allows connections to Docker for Windows.
 if grep -q Microsoft /proc/version; then
-	export DOCKER_HOST=tcp://127.0.0.1:2375
+    export DOCKER_HOST=tcp://127.0.0.1:2375
 fi
 # }}}
 
@@ -81,8 +81,8 @@ env=~/.ssh/agent.env
 agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
 
 agent_start () {
-	(umask 077; ssh-agent >| "$env")
-	. "$env" >| /dev/null ;
+    (umask 077; ssh-agent >| "$env")
+    . "$env" >| /dev/null ;
 }
 
 agent_load_env
@@ -91,10 +91,10 @@ agent_load_env
 agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
 
 if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
-	agent_start
-	ssh-add
+    agent_start
+    ssh-add
 elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-	ssh-add
+    ssh-add
 fi
 
 unset env
@@ -104,7 +104,7 @@ unset env
 # =========
 export GPG_TTY=$(tty)
 if _has gpg-agent; then
-	eval "$(gpg-agent --daemon)"
+    eval "$(gpg-agent --daemon)"
 fi
 # }}}
 
@@ -160,7 +160,7 @@ source ~/.yadm/completions/tmuxinator.zsh
 
 # npm completion
 if _has npm; then
-	source <(npm completion)
+    source <(npm completion)
 fi
 # }}}
 
@@ -178,25 +178,25 @@ HISTFILE=~/.zsh_history
 # =======
 # Load our aliases.
 if [ -f ~/.aliases ]; then
-	. ~/.aliases
+    . ~/.aliases
 fi
 # }}}
 
 # antibody {{{
 # =======
 if _has antibody; then
-	# If plugins have not been generated, then generate them.
-	if [[ ! -e "$HOME/.zsh_plugins.sh" ]]; then
-		# Load antibody.
-		source <(antibody init)
+    # If plugins have not been generated, then generate them.
+    if [[ ! -e "$HOME/.zsh_plugins.sh" ]]; then
+        # Load antibody.
+        source <(antibody init)
 
-		# Update and install plugins.
-		bash -c 'antibody bundle < "$HOME/.antibody_bundle" >> "$HOME/.zsh_plugins.sh"'
-		antibody update
-	fi
+        # Update and install plugins.
+        bash -c 'antibody bundle < "$HOME/.antibody_bundle" >> "$HOME/.zsh_plugins.sh"'
+        antibody update
+    fi
 
-	# Load plugins.
-	source "$HOME/.zsh_plugins.sh"
+    # Load plugins.
+    source "$HOME/.zsh_plugins.sh"
 fi
 
 # Bind keys for zsh-history-substring-search
@@ -208,12 +208,12 @@ bindkey "OB" history-substring-search-down
 # fasd {{{
 # =====
 if _has fasd; then
-	fasd_cache="$ZSH_CACHE_DIR/fasd-init-cache"
-	if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-		fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install >| "$fasd_cache"
-	fi
-	source "$fasd_cache"
-	unset fasd_cache
+    fasd_cache="$ZSH_CACHE_DIR/fasd-init-cache"
+    if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+        fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install >| "$fasd_cache"
+    fi
+    source "$fasd_cache"
+    unset fasd_cache
 fi
 # }}}
 
@@ -221,24 +221,24 @@ fi
 # ===
 # fzf via Homebrew
 if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
-	source /usr/local/opt/fzf/shell/key-bindings.zsh
-	source /usr/local/opt/fzf/shell/completion.zsh
+    source /usr/local/opt/fzf/shell/key-bindings.zsh
+    source /usr/local/opt/fzf/shell/completion.zsh
 fi
 
 # fzf via local installation
 if [ -f ~/.fzf.zsh ]; then
-	source ~/.fzf.zsh
+    source ~/.fzf.zsh
 fi
 
 # fzf + ag configuration
 if _has fzf && _has ag; then
-	export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
-	export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-	export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
-	export FZF_DEFAULT_OPTS='
-	--color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
-	--color info:108,prompt:109,spinner:108,pointer:168,marker:168
-	'
+    export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_DEFAULT_OPTS='
+    --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
+    --color info:108,prompt:109,spinner:108,pointer:168,marker:168
+    '
 fi
 # }}}
 
@@ -259,9 +259,9 @@ PURE_GIT_DOWN_ARROW='↓'
 PURE_GIT_UP_ARROW='↑'
 
 prompt_pure_update_vim_prompt() {
-	zle || {
-	print "error: pure_update_vim_prompt must be called when zle is active"
-	return 1
+    zle || {
+    print "error: pure_update_vim_prompt must be called when zle is active"
+    return 1
 }
 VIM_PROMPT=${${KEYMAP/vicmd/❮}/(main|viins)/❯}
 zle .reset-prompt

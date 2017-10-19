@@ -25,173 +25,173 @@ set nocompatible              " be iMproved, required
 " ================
 call plug#begin('~/.vim/plugged')
 
-	" Colour Schemes {{{
-	" --------------
-		Plug 'w0ng/vim-hybrid'
-	" }}}
+" Colour Schemes {{{
+" --------------
+Plug 'w0ng/vim-hybrid'
+" }}}
 
-	" Autocomplete {{{
-	" ------------
-		Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-	" }}}
+" Autocomplete {{{
+" ------------
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" }}}
 
-	" Commenting {{{
-	" ----------
-		" Comments.
-		Plug 'tpope/vim-commentary'
-	" }}}
+" Commenting {{{
+" ----------
+" Comments.
+Plug 'tpope/vim-commentary'
+" }}}
 
-	" File Browsing/Search {{{
-	" --------
-		" Improvements to netrw.
-		Plug 'tpope/vim-vinegar'
-		" Fuzzy file search.
-		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-		Plug 'junegunn/fzf.vim'
-	" }}}
+" File Browsing/Search {{{
+" --------
+" Improvements to netrw.
+Plug 'tpope/vim-vinegar'
+" Fuzzy file search.
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" }}}
 
-	" Git Integration {{{
-	" ---
-		" Show Git changes.
-		Plug 'mhinz/vim-signify'
-		" Git wrapper.
-		Plug 'tpope/vim-fugitive'
-	" }}}
+" Git Integration {{{
+" ---
+" Show Git changes.
+Plug 'mhinz/vim-signify'
+" Git wrapper.
+Plug 'tpope/vim-fugitive'
+" }}}
 
-	" Indentation {{{
-	" -----------
-		" Apply indentation from .editorconfig files.
-		Plug 'editorconfig/editorconfig-vim'
-	" }}}
+" Indentation {{{
+" -----------
+" Apply indentation from .editorconfig files.
+Plug 'editorconfig/editorconfig-vim'
+" }}}
 
-	" Linting {{{
-	" -------
-		Plug 'w0rp/ale'
-	" }}}
+" Linting {{{
+" -------
+Plug 'w0rp/ale'
+" }}}
 
-	" Markdown Integration {{{
-	" --------------------
-		" Markdown Preview (requires npm package - livedown).
-		Plug 'shime/vim-livedown', { 'for': 'markdown', 'on': 'LivedownPreview' }
-		" Distraction-free Writing.
-		Plug 'junegunn/goyo.vim', { 'for': 'markdown', 'on': 'Goyo' }
-		" Folding
-		Plug 'nelstrom/vim-markdown-folding', { 'for': 'markdown' }
-	" }}}
+" Markdown Integration {{{
+" --------------------
+" Markdown Preview (requires npm package - livedown).
+Plug 'shime/vim-livedown', { 'for': 'markdown', 'on': 'LivedownPreview' }
+" Distraction-free Writing.
+Plug 'junegunn/goyo.vim', { 'for': 'markdown', 'on': 'Goyo' }
+" Folding
+Plug 'nelstrom/vim-markdown-folding', { 'for': 'markdown' }
+" }}}
 
-	" Misc {{{
-	" ---------------------
-		" Word variation helper.
-		Plug 'tpope/vim-abolish'
-		" Improve '.' (repeat) for plugin maps.
-		Plug 'tpope/vim-repeat'
-		" Get character codes.
-		Plug 'tpope/vim-characterize'
-		" Replace and paste!
-		Plug 'davidtwco/vim-replace-paste'
-	" }}}
+" Misc {{{
+" ---------------------
+" Word variation helper.
+Plug 'tpope/vim-abolish'
+" Improve '.' (repeat) for plugin maps.
+Plug 'tpope/vim-repeat'
+" Get character codes.
+Plug 'tpope/vim-characterize'
+" Replace and paste!
+Plug 'davidtwco/vim-replace-paste'
+" }}}
 
-	" OS Integration {{{
-	" --------------
-		if has("unix")
-			Plug 'tpope/vim-eunuch'
-		endif
-	" }}}
+" OS Integration {{{
+" --------------
+if has("unix")
+	Plug 'tpope/vim-eunuch'
+endif
+" }}}
 
-	" Python Integration {{{
-	" ------
-		" Works with Python virtual environments.
-		Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
-	" }}}
+" Python Integration {{{
+" ------
+" Works with Python virtual environments.
+Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
+" }}}
 
-	" Tabbing {{{
-	" -------
-		" Line up text.
-		Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tab', 'AddTabularPattern', 'AddTabularPipeline'] }
-	" }}}
+" Tabbing {{{
+" -------
+" Line up text.
+Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tab', 'AddTabularPattern', 'AddTabularPipeline'] }
+" }}}
 
-	" tmux Integration {{{
-	" ------------
-		" Easy navigation between vim splits and tmux panes.
-		Plug 'christoomey/vim-tmux-navigator'
-		" Functions that interact with tmux.
-		Plug 'tpope/vim-tbone'
-		" Generate statuslines for tmux.
-		Plug 'edkolev/tmuxline.vim'
-	" }}}
+" tmux Integration {{{
+" ------------
+" Easy navigation between vim splits and tmux panes.
+Plug 'christoomey/vim-tmux-navigator'
+" Functions that interact with tmux.
+Plug 'tpope/vim-tbone'
+" Generate statuslines for tmux.
+Plug 'edkolev/tmuxline.vim'
+" }}}
 
-	" Searching {{{
-	" ---------
-		Plug 'mileszs/ack.vim', { 'on': 'Ack' }
-	" }}}
+" Searching {{{
+" ---------
+Plug 'mileszs/ack.vim', { 'on': 'Ack' }
+" }}}
 
-	" Session Saving {{{
-	" --------------
-		Plug 'tpope/vim-obsession'
-	" }}}
+" Session Saving {{{
+" --------------
+Plug 'tpope/vim-obsession'
+" }}}
 
-	" Statusline {{{
-	" ----------
-		Plug 'vim-airline/vim-airline'
-		Plug 'vim-airline/vim-airline-themes'
-	" }}}
+" Statusline {{{
+" ----------
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" }}}
 
-	" Surroundings {{{
-	" ----
-		" Enhanced '%' functionality.
-		Plug 'geoffharcourt/vim-matchit'
-		" Handy bracket matchings.
-		Plug 'tpope/vim-unimpaired'
-		" Surroundings ("", '', {}, etc.).
-		Plug 'tpope/vim-surround'
-		" Auto-adds 'end' where appropriate.
-		Plug 'tpope/vim-endwise'
-	" }}}
+" Surroundings {{{
+" ----
+" Enhanced '%' functionality.
+Plug 'geoffharcourt/vim-matchit'
+" Handy bracket matchings.
+Plug 'tpope/vim-unimpaired'
+" Surroundings ("", '', {}, etc.).
+Plug 'tpope/vim-surround'
+" Auto-adds 'end' where appropriate.
+Plug 'tpope/vim-endwise'
+" }}}
 
-	" Syntax {{{
-	" ------
-		" Dockerfile
-		Plug 'ekalinin/Dockerfile.vim'
-		" Rockerfile
-		Plug 'NL057/rockerfile.vim'
+" Syntax {{{
+" ------
+" Dockerfile
+Plug 'ekalinin/Dockerfile.vim'
+" Rockerfile
+Plug 'NL057/rockerfile.vim'
 
-		" Ansible
-		Plug 'pearofducks/ansible-vim'
-		" Puppet
-		Plug 'rodjek/vim-puppet'
-		" Vagrant
-		Plug 'hashivim/vim-vagrant'
+" Ansible
+Plug 'pearofducks/ansible-vim'
+" Puppet
+Plug 'rodjek/vim-puppet'
+" Vagrant
+Plug 'hashivim/vim-vagrant'
 
-		" Powershell
-		Plug 'PProvost/vim-ps1'
+" Powershell
+Plug 'PProvost/vim-ps1'
 
-		" Twig
-		Plug 'lumiliet/vim-twig'
-		" Jinja/Nunjucks
-		Plug 'niftylettuce/vim-jinja'
+" Twig
+Plug 'lumiliet/vim-twig'
+" Jinja/Nunjucks
+Plug 'niftylettuce/vim-jinja'
 
-		" Rust
-		Plug 'rust-lang/rust.vim'
-		" JavaScript ES2015+
-		Plug 'othree/yajs.vim'
-		Plug 'othree/es.next.syntax.vim'
+" Rust
+Plug 'rust-lang/rust.vim'
+" JavaScript ES2015+
+Plug 'othree/yajs.vim'
+Plug 'othree/es.next.syntax.vim'
 
-		" tmux.conf
-		Plug 'tmux-plugins/vim-tmux'
-		" nginx.conf
-		Plug 'chr4/nginx.vim'
+" tmux.conf
+Plug 'tmux-plugins/vim-tmux'
+" nginx.conf
+Plug 'chr4/nginx.vim'
 
-		" TOML
-		Plug 'cespare/vim-toml'
-		" Hocon
-		Plug 'GEverding/vim-hocon'
-	" }}}
+" TOML
+Plug 'cespare/vim-toml'
+" Hocon
+Plug 'GEverding/vim-hocon'
+" }}}
 
-	" Undo {{{
-	" --------
-		" Visualize the undo tree.
-		Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
-	" }}}
+" Undo {{{
+" --------
+" Visualize the undo tree.
+Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
+" }}}
 
 call plug#end()
 " }}}
@@ -526,4 +526,4 @@ let g:ycm_confirm_extra_conf = 0
 let &colorcolumn="80,".join(range(120, 1000, 40), ",")
 " }}}
 
-" vim:foldmethod=marker:foldlevel=0:ts=4:sts=4:sw=4:noexpandtab
+" vim:foldmethod=marker:foldlevel=0:ts=4:sts=4:sw=4

@@ -9,10 +9,10 @@
 # an alternate shell, we must launch it from here. We cannot
 # use chsh.
 if grep -q Microsoft /proc/version; then
-	# If we have zsh installed, use it.
-	if which zsh>/dev/null 2>&1; then
-		exec zsh
-	fi
+    # If we have zsh installed, use it.
+    if which zsh>/dev/null 2>&1; then
+        exec zsh
+    fi
 fi
 # }}}
 
@@ -36,8 +36,8 @@ NOCOLOR="$(tput sgr0)"
 # =======
 # If not running interactively, don't do anything.
 case $- in
-	*i*);;
-	*) return;;
+    *i*);;
+    *) return;;
 esac
 
 # Don't put duplicate lines or lines starting with space in the history.
@@ -60,7 +60,7 @@ shopt -s checkwinsize
 
 # Set variable identifying the chroot you work in (used in the prompt below).
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-	debian_chroot=$(cat /etc/debian_chroot)
+    debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # Disable control flow, allows CTRL+S to be used.
@@ -70,11 +70,11 @@ stty -ixon
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-	if [ -f /usr/share/bash-completion/bash_completion ]; then
-		. /usr/share/bash-completion/bash_completion
-	elif [ -f /etc/bash_completion ]; then
-		. /etc/bash_completion
-	fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 # }}}
 
@@ -82,7 +82,7 @@ fi
 # =======
 # Load our aliases.
 if [ -f ~/.aliases ]; then
-	. ~/.aliases
+    . ~/.aliases
 fi
 # }}}
 
@@ -90,14 +90,14 @@ fi
 # =========
 export GPG_TTY=$(tty)
 if which gpg-agent>/dev/null 2>&1; then
-	eval "$(gpg-agent --daemon)"
+    eval "$(gpg-agent --daemon)"
 fi
 # }}}
 
 # Environment Variables {{{
 # =====================
 if grep -q Microsoft /proc/version; then
-	export DOCKER_HOST=tcp://127.0.0.1:2375
+    export DOCKER_HOST=tcp://127.0.0.1:2375
 fi
 
 export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
@@ -112,14 +112,14 @@ export GOPATH=$HOME/.go
 # checks if the paths exist, and then
 # if not already in the PATH, adds them.
 prependToPath() {
-	for a; do
-		if [ -d $a ] ; then
-			case ":${PATH:=$a}:" in
-				*:$a:*) ;;
-				*) PATH="$a:$PATH" ;;
-			esac;
-		fi
-	done
+    for a; do
+        if [ -d $a ] ; then
+            case ":${PATH:=$a}:" in
+                *:$a:*) ;;
+                *) PATH="$a:$PATH" ;;
+            esac;
+        fi
+    done
 }
 
 prependToPath $HOME/bin $HOME/.cargo/bin $HOME/.go/bin $HOME/.local/bin /opt/puppetlabs/bin
@@ -136,17 +136,17 @@ source $HOME/.bash_prompt
 major=${BASH_VERSINFO[0]}
 minor=${BASH_VERSINFO[1]}
 if (( major > 4 )) || (( major == 4 && minor >= 4 )); then
-	# Enable Vi mode if we are on Bash 4.4 and up.
-	set -o vi
-	# Bash shows the mode at the start of the last line of the prompt.
-	bind "set show-mode-in-prompt on"
-	# We configure the insert mode and cmd mode strings using the
-	# colours defined above to match the colours in our Vim configuration
-	# and the style of the bash prompt.
-	#
-	# $prompt_symbol is borrowed from the $HOME/.bash_prompt file.
-	bind "set vi-ins-mode-string \1$CYAN\2$prompt_symbol\1$NOCOLOR\2"
-	bind "set vi-cmd-mode-string \1$GREEN\2$prompt_symbol\1$NOCOLOR\2"
+    # Enable Vi mode if we are on Bash 4.4 and up.
+    set -o vi
+    # Bash shows the mode at the start of the last line of the prompt.
+    bind "set show-mode-in-prompt on"
+    # We configure the insert mode and cmd mode strings using the
+    # colours defined above to match the colours in our Vim configuration
+    # and the style of the bash prompt.
+    #
+    # $prompt_symbol is borrowed from the $HOME/.bash_prompt file.
+    bind "set vi-ins-mode-string \1$CYAN\2$prompt_symbol\1$NOCOLOR\2"
+    bind "set vi-cmd-mode-string \1$GREEN\2$prompt_symbol\1$NOCOLOR\2"
 fi
 # }}}
 
@@ -157,8 +157,8 @@ env=~/.ssh/agent.env
 agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
 
 agent_start () {
-	(umask 077; ssh-agent >| "$env")
-	. "$env" >| /dev/null ;
+    (umask 077; ssh-agent >| "$env")
+    . "$env" >| /dev/null ;
 }
 
 agent_load_env
@@ -167,10 +167,10 @@ agent_load_env
 agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
 
 if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
-	agent_start
-	ssh-add
+    agent_start
+    ssh-add
 elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-	ssh-add
+    ssh-add
 fi
 
 unset env
@@ -180,7 +180,7 @@ unset env
 # =======================
 source ~/.bin/tmuxinator.bash # tmuxinator
 if which tmuxp>/dev/null 2>&1; then
-	eval "$(_TMUXP_COMPLETE=source tmuxp)" # tmuxp
+    eval "$(_TMUXP_COMPLETE=source tmuxp)" # tmuxp
 fi
 # }}}
 
@@ -192,11 +192,11 @@ source $HOME/.yadm/external/up/up.sh
 # fasd {{{
 # ====
 if which fasd>/dev/null 2>&1; then
-	fasd_cache="$HOME/.fasd-init-bash"
-	if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-		fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
-	fi
-	unset fasd_cache
+    fasd_cache="$HOME/.fasd-init-bash"
+    if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+        fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
+    fi
+    unset fasd_cache
 fi
 # }}}
 
@@ -205,5 +205,4 @@ fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 # }}}
 
-# vim:foldmethod=marker:foldlevel=0:noexpandtab
-
+# vim:foldmethod=marker:foldlevel=0

@@ -22,4 +22,4 @@ log_file = ~/.wharfee.log
 # and "DEBUG".
 log_level = INFO
 
-# vim:foldmethod=marker:foldlevel=0:noexpandtab
+# vim:foldmethod=marker:foldlevel=0

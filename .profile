@@ -9,10 +9,10 @@
 
 # Is bash running?
 if [ -n "$BASH_VERSION" ]; then
-	# Include .bashrc if it exists.
-	if [ -f "$HOME/.bashrc" ]; then
-		. "$HOME/.bashrc"
-	fi
+    # Include .bashrc if it exists.
+    if [ -f "$HOME/.bashrc" ]; then
+        . "$HOME/.bashrc"
+    fi
 fi
 
-# vim:foldmethod=marker:foldlevel=0:noexpandtab
+# vim:foldmethod=marker:foldlevel=0

@@ -1,32 +1,32 @@
 [user]
-	name = David Wood
-	email = david@davidtw.co
-	signingkey = 9F53F154
+    name = David Wood
+    email = david@davidtw.co
+    signingkey = 9F53F154
 [core]
-	editor = vim
+    editor = vim
 [push]
-	default = simple
-	followTags = true
+    default = simple
+    followTags = true
 [color]
-	ui = auto
+    ui = auto
 [include]
-	path = ~/.yadm/external/gitalias/gitalias.txt
+    path = ~/.yadm/external/gitalias/gitalias.txt
 [alias]
-	ps = push
-	# Overrides gitalias.txt `save` to include
-	# untracked files.
-	save = stash save --include-untracked
+    ps = push
+    # Overrides gitalias.txt `save` to include
+    # untracked files.
+    save = stash save --include-untracked
 [commit]
-	gpgsign = true
+    gpgsign = true
 [gpg]
-	program = gpg2
+    program = gpg2
 [diff]
-	compactionHeuristic = true
-	indentHeuristic = true
+    compactionHeuristic = true
+    indentHeuristic = true
 [submodule]
-	fetchJobs = 4
+    fetchJobs = 4
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true

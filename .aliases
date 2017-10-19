@@ -6,32 +6,32 @@
 # If fasd is installed and in use, add a bunch of
 # aliases for it.
 if command -v fasd >/dev/null 2>&1; then
-	# Any
-	alias a='fasd -a'
+    # Any
+    alias a='fasd -a'
 
-	# Show/search/select
-	alias s='fasd -si'
+    # Show/search/select
+    alias s='fasd -si'
 
-	# Directory
-	alias d='fasd -d'
+    # Directory
+    alias d='fasd -d'
 
-	# File
-	alias f='fasd -f'
+    # File
+    alias f='fasd -f'
 
-	# Interactive directory selection
-	alias sd='fasd -sid'
+    # Interactive directory selection
+    alias sd='fasd -sid'
 
-	# Interactive file selection
-	alias sf='fasd -sif'
+    # Interactive file selection
+    alias sf='fasd -sif'
 
-	# cd - same functionality as j in autojump
-	alias z='fasd_cd -d'
+    # cd - same functionality as j in autojump
+    alias z='fasd_cd -d'
 
-	# Interactive cd
-	alias zz='fasd_cd -d -i'
+    # Interactive cd
+    alias zz='fasd_cd -d -i'
 
-	# Vim
-	alias v='fasd -f -e vim'
+    # Vim
+    alias v='fasd -f -e vim'
 fi
 
 # 'rm' will prompt once before
@@ -41,14 +41,14 @@ alias rm='rm -I'
 
 # Enable color support of ls and also add handy aliases.
 if [ -x /usr/bin/dircolors ]; then
-	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-	alias ls='ls --color=auto'
-	#alias dir='dir --color=auto'
-	#alias vdir='vdir --color=auto'
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
 
-	alias grep='grep --color=auto'
-	alias fgrep='fgrep --color=auto'
-	alias egrep='egrep --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 fi
 
 # More ls aliases.
@@ -58,19 +58,14 @@ alias l='ls -CF'
 
 # Replace 'ls' with exa if it is available.
 if command -v exa >/dev/null 2>&1; then
-	alias ls="exa --git --color=automatic"
-	alias ll="exa --all --long --git --color=automatic"
-	alias la="exa --all --binary --group --header --long --git --color=automatic"
-	alias l="exa --git --color=automatic"
-fi
-
-# Alias 'cat' with colours if we have pygmentize.
-if command -v pygmentize >/dev/null 2>&1; then
-	alias c='pygmentize -O style=borland -f console256 -g'
+    alias ls="exa --git --color=automatic"
+    alias ll="exa --all --long --git --color=automatic"
+    alias la="exa --all --binary --group --header --long --git --color=automatic"
+    alias l="exa --git --color=automatic"
 fi
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# vim:foldmethod=marker:foldlevel=0:noexpandtab
+# vim:foldmethod=marker:foldlevel=0:ft=zsh

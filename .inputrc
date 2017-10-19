@@ -67,4 +67,4 @@ set convert-meta off
 set keyseq-timeout 50
 # }}}
 
-# vim:foldmethod=marker:foldlevel=0:noexpandtab
+# vim:foldmethod=marker:foldlevel=0

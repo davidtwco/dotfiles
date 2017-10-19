@@ -80,8 +80,8 @@ Plug 'mileszs/ack.vim', { 'on': 'Ack' }
 Plug 'tpope/vim-obsession'
 
 " Statusline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+Plug 'cocopon/lightline-hybrid.vim'
 
 " Enhanced '%' functionality.
 Plug 'geoffharcourt/vim-matchit'
@@ -121,14 +121,6 @@ call plug#end()
 if executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
-" }}}
-
-" Airline {{{
-" =======
-let g:airline_theme='base16'
-let g:airline_powerline_fonts = 1
-let g:airline_symbols_ascii = 0
-let g:airline#extensions#ale#enabled = 1
 " }}}
 
 " Ale {{{
@@ -283,6 +275,40 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " History {{{
 " ====
 set history=1000    " Increase history.
+" }}}
+
+" Lightline {{{
+" =========
+let g:lightline = {
+\     'colorscheme': 'hybrid',
+\     'active': {
+\       'left': [
+\           [ 'mode' ],
+\           [ 'paste', 'spell', 'gitbranch', 'readonly', 'filename' ]
+\       ]
+\     },
+\     'component_function': {
+\       'gitbranch': 'fugitive#head',
+\       'readonly': 'LightlineReadonly',
+\       'fileformat': 'LightlineFileformat',
+\       'filetype': 'LightlineFiletype'
+\     }
+\ }
+
+function! LightlineFilename()
+    let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+    let modified = &modified ? ' +' : ''
+    return filename . modified
+endfunction
+function! LightlineFileformat()
+    return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+function! LightlineFiletype()
+    return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+function! LightlineReadonly()
+    return &readonly && &filetype !=# 'help' ? 'RO' : ''
+endfunction
 " }}}
 
 " Mappings {{{

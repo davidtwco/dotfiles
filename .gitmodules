@@ -10,9 +10,6 @@
 [submodule "vim-plug"]
 	path = .yadm/external/vim-plug
 	url = https://github.com/junegunn/vim-plug
-[submodule "weechat-matrix-protocol-script"]
-	path = .yadm/external/weechat-matrix-protocol
-	url = https://github.com/torhve/weechat-matrix-protocol-script.git
 [submodule "rfc"]
 	path = .yadm/external/rfc
 	url = git@github.com:bfontaine/rfc.git

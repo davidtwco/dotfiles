@@ -284,20 +284,66 @@ let g:lightline = {
 \       'left': [
 \           [ 'mode' ],
 \           [ 'paste', 'spell', 'gitbranch', 'readonly', 'filename' ]
+\       ],
+\       'right': [
+\           [ 'lineinfo' ],
+\           [ 'percent' ],
+\           [ 'obsession', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ]
 \       ]
 \     },
 \     'component_function': {
 \       'gitbranch': 'fugitive#head',
+\       'obsession': 'ObsessionStatus',
 \       'readonly': 'LightlineReadonly',
 \       'fileformat': 'LightlineFileformat',
-\       'filetype': 'LightlineFiletype'
+\       'filetype': 'LightlineFiletype',
+\       'filename': 'LightlineFilename'
 \     }
 \ }
 
 function! LightlineFilename()
-    let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+    " Get the full path of the current file.
+    let filepath =  expand('%:p')
     let modified = &modified ? ' +' : ''
-    return filename . modified
+
+    " If the filename is empty, then display
+    " nothing as appropriate.
+    if empty(filepath)
+        return '[No Name]' . modified
+    endif
+
+    " Find the correct expansion depending on whether Vim has
+    " autochdir.
+    let mod = (exists('+acd') && &acd) ? ':~' : ':~:.'
+
+    " Apply the above expansion to the expanded file path and split
+    " by the separator.
+    let shortened_filepath = fnamemodify(filepath, mod)
+
+    if len(shortened_filepath) < 45
+        return shortened_filepath.modified
+    endif
+
+    " Ensure that we have the correct slash for the OS.
+    let dirsep = has('win32') && ! &shellslash ? '\' : '/'
+    " Check if the filepath was shortened above.
+    let was_shortened = filepath != shortened_filepath
+
+    " Split the filepath.
+    let filepath_parts = split(shortened_filepath, dirsep)
+
+    " Take the first character from each part of the path (except the tidle and filename).
+    let initial_position = was_shortened ? 0 : 1
+    let excluded_parts = filepath_parts[initial_position:-2]
+    let shortened_paths = map(excluded_parts, 'v:val[0]')
+
+    " Recombine the shortened paths with the tilde and filename.
+    let combined_parts = shortened_paths + [filepath_parts[-1]]
+    let combined_parts = (was_shortened ? [] : [filepath_parts[0]]) + combined_parts
+
+    " Recombine into a single string.
+    let finalpath = join(combined_parts, dirsep)
+    return finalpath . modified
 endfunction
 function! LightlineFileformat()
     return winwidth(0) > 70 ? &fileformat : ''

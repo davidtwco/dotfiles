@@ -16,7 +16,7 @@ mkdir -p ~/.vim/autoload
 ln -s ~/.yadm/external/vim-plug/plug.vim ~/.vim/autoload/plug.vim
 mkdir -p ~/.local/bin
 ln -s ~/.yadm/external/rfc/rfc ~/.local/bin/rfc
-chmod -R 600 ~/.local/bin
+chmod -R 700 ~/.local/bin
 
 # Make other directories.
 mkdir -p ~/.go
@@ -40,6 +40,9 @@ if command -v vim >/dev/null 2>&1; then
     echo ":: Install Vim plugins..."
     vim '+PlugInstall' '+qall'
 fi
+
+# Ensure we don't have a wide open executable directory.
+chmod -R 700 ~/.fzf/bin
 
 # Install tpm plugins.
 echo ":: Install tmux plugins..."

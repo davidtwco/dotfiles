@@ -42,7 +42,7 @@ if command -v vim >/dev/null 2>&1; then
 fi
 
 # Ensure we don't have a wide open executable directory.
-chmod -R 700 ~/.fzf/bin
+chmod -R 700 ~/.fzf
 
 # Install tpm plugins.
 echo ":: Install tmux plugins..."

@@ -407,9 +407,9 @@ let g:signify_cursorhold_insert = 0
 
 " Sleuth {{{
 " ======
-" vim-sleuth defaults to the tabstop value if it
-" cannot detect. Make sure that this is four.
+" Set defaults for when detection fails or in new files.
 set ts=4
+set expandtab
 " }}}
 
 " Spelling {{{

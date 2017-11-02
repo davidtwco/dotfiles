@@ -365,8 +365,8 @@ nnoremap <leader>r :so $MYVIMRC<CR>
 
 " Mouse {{{
 " ==============
-" Disable the mouse.
-set mouse=r
+" Enable the mouse.
+set mouse=a
 " }}}
 
 " Organization {{{

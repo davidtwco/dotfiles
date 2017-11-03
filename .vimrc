@@ -74,6 +74,9 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-tbone'
 " Generate statuslines for tmux.
 Plug 'edkolev/tmuxline.vim'
+" Focus events & clipboard
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Searching
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }

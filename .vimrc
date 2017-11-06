@@ -493,11 +493,11 @@ if exists('+undofile')
 end
 
 if exists('+shada')
-    " Change SHAred DAta directory.
-    set shada+=n~/.nvim/shada//
+    " Change SHAred DAta path.
+    set shada+=n~/.nvim/shada
 else
-    " Change viminfo directory.
-    set viminfo+=n~/.vim/viminfo//
+    " Change viminfo path.
+    set viminfo+=n~/.vim/viminfo
 endif
 
 " I've prefixed these functions with an underscore as I'll

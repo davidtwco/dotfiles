@@ -196,14 +196,10 @@ fi
 # antibody {{{
 # =======
 if _has antibody; then
-    # If plugins have not been generated, then generate them.
+    # If plugins have not been downloaded, then download and static load in future.
     if [[ ! -e "$HOME/.zsh_plugins.sh" ]]; then
-        # Load antibody.
-        source <(antibody init)
-
-        # Update and install plugins.
-        bash -c 'antibody bundle < "$HOME/.antibody_bundle" >> "$HOME/.zsh_plugins.sh"'
-        antibody update
+        # Fetch plugins.
+        antibody bundle < "$HOME/.antibody_bundle" > "$HOME/.zsh_plugins.sh"
     fi
 
     # Load plugins.

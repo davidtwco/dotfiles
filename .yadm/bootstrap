@@ -60,8 +60,7 @@ else
 fi
 
 # Update and install plugins.
-bash -c 'antibody bundle < "$HOME/.antibody_bundle" >> "$HOME/.zsh_plugins.sh"'
-antibody update
+antibody bundle < "$HOME/.antibody_bundle" > "$HOME/.zsh_plugins.sh"
 
 # Print a small notice.
 echo ":: For Vim's YouCompleteMe plugin, you can browse to ~/.vim/plugged/YouCompleteMe and re-run ./install.py with extra flags to enable more languages."

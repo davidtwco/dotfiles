@@ -53,10 +53,12 @@ echo ":: Reloading .bashrc"
 source "$HOME/.bashrc"
 
 # Install Antibody for zsh.
-if command -v brew >/dev/null 2>&1; then
-    brew install getantibody/tap/antibody || brew upgrade antibody
-else
-    curl -sL https://git.io/antibody | sh -s
+if ! command -v antibody >/dev/null 2>&1; then
+    if command -v brew >/dev/null 2>&1; then
+        brew install getantibody/tap/antibody || brew upgrade antibody
+    else
+        curl -sL https://git.io/antibody | sh -s
+    fi
 fi
 
 # Update and install plugins.

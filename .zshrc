@@ -39,8 +39,12 @@ stty -ixon
 # Set a cache dir.
 export ZSH_CACHE_DIR=$HOME/.zsh/cache
 
-# Set the correct gpg tty.
-export GPG_TTY=$(tty)
+# Ensure we're using the correct locale.
+if grep ^en_GB.UTF-8 /etc/locale.gen 1>/dev/null; then
+    export LANG=en_GB.UTF-8
+elif grep ^en_US.UTF-8 /etc/locale.gen 1>/dev/null; then
+    export LANG=en_US.UTF-8
+fi
 
 # 10ms for key sequences
 export KEYTIMEOUT=1

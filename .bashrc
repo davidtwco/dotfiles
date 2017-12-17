@@ -107,6 +107,13 @@ if grep -q Microsoft /proc/version; then
     export DOCKER_HOST=tcp://127.0.0.1:2375
 fi
 
+# Ensure we're using the correct locale.
+if grep ^en_GB.UTF-8 /etc/locale.gen 1>/dev/null; then
+    export LANG=en_GB.UTF-8
+elif grep ^en_US.UTF-8 /etc/locale.gen 1>/dev/null; then
+    export LANG=en_US.UTF-8
+fi
+
 export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
 export EDITOR=vim
 export TERM=xterm-256color

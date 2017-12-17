@@ -104,7 +104,7 @@ unset env
 # =========
 export GPG_TTY=$(tty)
 if _has gpg-agent; then
-    eval "$(gpg-agent --daemon)"
+    eval "$(gpgconf --launch gpg-agent)"
 fi
 # }}}
 

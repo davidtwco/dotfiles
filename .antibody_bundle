@@ -5,4 +5,4 @@ zsh-users/zsh-autosuggestions
 # These plugins must be last.
 sindresorhus/pure
 zdharma/fast-syntax-highlighting
-zsh-users/zsh-history-substring-search
+zdharma/history-search-multi-word

@@ -159,7 +159,7 @@ SAVEHIST=10000000
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
-setopt NO_SHARE_HISTORY             # Share history between all sessions.
+setopt NO_SHARE_HISTORY          # Share history between all sessions.
 setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
 setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
 setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
@@ -190,11 +190,6 @@ if _has antibody; then
     # Load plugins.
     source "$HOME/.zsh_plugins.sh"
 fi
-
-# Bind keys for zsh-history-substring-search
-bindkey "OA" history-substring-search-up
-bindkey "OB" history-substring-search-down
-
 # }}}
 
 # fasd {{{
@@ -259,15 +254,15 @@ PURE_GIT_UP_ARROW='↑'
 
 prompt_pure_update_vim_prompt() {
     zle || {
-    print "error: pure_update_vim_prompt must be called when zle is active"
-    return 1
-}
-VIM_PROMPT=${${KEYMAP/vicmd/❮}/(main|viins)/❯}
-zle .reset-prompt
+        print "error: pure_update_vim_prompt must be called when zle is active"
+        return 1
+    }
+    VIM_PROMPT=${${KEYMAP/vicmd/❮}/(main|viins)/❯}
+    zle .reset-prompt
 }
 
 function zle-line-init zle-keymap-select {
-prompt_pure_update_vim_prompt
+    prompt_pure_update_vim_prompt
 }
 zle -N zle-line-init
 zle -N zle-keymap-select

@@ -18,6 +18,9 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 " Comments.
 Plug 'tpope/vim-commentary'
 
+" Ctags
+Plug 'ludovicchabant/vim-gutentags'
+
 " Improvements to netrw.
 Plug 'tpope/vim-vinegar'
 " Fuzzy file search.
@@ -297,11 +300,12 @@ let g:lightline = {
 \       'right': [
 \           [ 'lineinfo' ],
 \           [ 'percent' ],
-\           [ 'obsession', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ]
+\           [ 'obsession', 'gutentags', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ]
 \       ]
 \     },
 \     'component_function': {
 \       'gitbranch': 'fugitive#head',
+\       'gutentags': 'LightlineGutentags',
 \       'obsession': 'ObsessionStatus',
 \       'readonly': 'LightlineReadonly',
 \       'fileformat': 'LightlineFileformat',
@@ -359,6 +363,9 @@ function! LightlineFileformat()
 endfunction
 function! LightlineFiletype()
     return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+function! LightlineGutentags()
+    return gutentags#statusline('Generating tags... ')
 endfunction
 function! LightlineReadonly()
     return &readonly && &filetype !=# 'help' ? 'RO' : ''

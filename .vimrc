@@ -270,6 +270,7 @@ nnoremap <leader>pf :Files<CR>
 nnoremap <leader>pg :GFiles<CR>
 nnoremap <leader>pc :Commits<CR>
 nnoremap <leader>pb :Buffers<CR>
+nnoremap <leader>pt :Tags<CR>
 
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)

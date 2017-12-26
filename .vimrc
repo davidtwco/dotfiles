@@ -80,6 +80,8 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Searching
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
+" Improved incremental search
+Plug 'haya14busa/is.vim'
 
 " Session Saving
 Plug 'tpope/vim-obsession'
@@ -365,7 +367,6 @@ endfunction
 
 " Mappings {{{
 " ========
-nnoremap <leader>h :noh<CR><ESC>
 nnoremap <leader>t :tabnew<CR>
 nnoremap <leader>r :so $MYVIMRC<CR>
 " }}}

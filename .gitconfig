@@ -4,6 +4,7 @@
     signingkey = 9F53F154
 [core]
     editor = vim
+    excludesfile = /home/david/.gitignore_global
 [push]
     default = simple
     followTags = true

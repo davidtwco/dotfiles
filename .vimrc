@@ -13,7 +13,14 @@ call plug#begin('~/.vim/plugged')
 Plug 'w0ng/vim-hybrid'
 
 " Autocomplete
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
 " Comments.
 Plug 'tpope/vim-commentary'
@@ -178,6 +185,27 @@ endif
 set backspace=indent,eol,start
 " }}}
 
+" Deoplete {{{
+" ========
+let g:deoplete#enable_at_startup = 1
+
+" Disable delay
+let g:neocomplete#auto_complete_delay = 0
+
+" Use smartcase
+let g:neocomplete#enable_smart_case = 1
+
+" Use tabs for completion.
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ deoplete#mappings#manual_complete()
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+" }}}
+
 " File Navigation {{{
 " ===============
 " Map %% to the current opened file's path.
@@ -260,7 +288,7 @@ function! ToggleNumber()
         echom "Switched to relative line numbers."
     endif
 endfunc
-nmap <silent> <leader>l :call ToggleNumber()<CR>
+nmap <silent> <leader>tl :call ToggleNumber()<CR>
 " }}}
 
 " fzf {{{
@@ -289,6 +317,39 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 set history=1000    " Increase history.
 " }}}
 
+" Language Server {{{
+" ===============
+nnoremap <buffer> <leader>ld :call LanguageClient_textDocument_definition()<CR>
+nnoremap <buffer> <leader>lh :call LanguageClient_textDocument_hover()<CR>
+nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<CR>
+nnoremap <buffer> <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+nnoremap <buffer> <leader>lf :call LanguageClient_textDocument_formatting()<CR>
+
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {}
+
+" https://github.com/rust-lang-nursery/rls
+if executable('rls')
+    let g:LanguageClient_serverCommands.rust = ['rustup', 'run', 'stable', 'rls']
+endif
+
+" pip install python-language-server
+if executable('pyls')
+    let g:LanguageClient_serverCommands.python = ['pyls']
+endif
+
+" npm install -g javascript-typescript-langserver
+if executable('javascript-typescript-stdio')
+    let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
+    let g:LanguageClient_serverCommands['javascript.jsx'] = ['javascript-typescript-stdio']
+    let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
+    let g:LanguageClient_serverCommands.html = ['html-languageserver', '--stdio']
+    let g:LanguageClient_serverCommands.css = ['css-languageserver', '--stdio']
+    let g:LanguageClient_serverCommands.less = ['css-languageserver', '--stdio']
+    let g:LanguageClient_serverCommands.json = ['json-languageserver', '--stdio']
+endif
+" }}}
+
 " Lightline {{{
 " =========
 let g:lightline = {
@@ -301,12 +362,14 @@ let g:lightline = {
 \       'right': [
 \           [ 'lineinfo' ],
 \           [ 'percent' ],
-\           [ 'obsession', 'gutentags', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ]
+\           [ 'obsession', 'languageserver', 'gutentags', 'fileformat',
+\             'fileencoding', 'filetype', 'charvaluehex' ]
 \       ]
 \     },
 \     'component_function': {
 \       'gitbranch': 'fugitive#head',
 \       'gutentags': 'LightlineGutentags',
+\       'languageserver': 'LightlineLanguageServer',
 \       'obsession': 'ObsessionStatus',
 \       'readonly': 'LightlineReadonly',
 \       'fileformat': 'LightlineFileformat',
@@ -367,6 +430,10 @@ function! LightlineFiletype()
 endfunction
 function! LightlineGutentags()
     return gutentags#statusline('Generating tags... ')
+endfunction
+function! LightlineLanguageServer()
+    let status = LanguageClient_statusLine()
+    return status == '[]' ? '' : status
 endfunction
 function! LightlineReadonly()
     return &readonly && &filetype !=# 'help' ? 'RO' : ''
@@ -549,19 +616,6 @@ if has("autocmd")
         autocmd! SwapExists * call _HandleSwap(expand('<afile>:p'))
     augroup END
 endif
-" }}}
-
-" YouCompleteMe {{{
-" =============
-" Add handy bindings for You Complete Me subcommands.
-nnoremap <leader>fi :YcmCompleter FixIt<CR>
-nnoremap <leader>gd :YcmCompleter GoTo<CR>
-nnoremap <leader>gt :YcmCompleter GetType<CR>
-nnoremap <leader>gp :YcmCompleter GetParent<CR>
-nnoremap <leader>sd :YcmShowDetailedDiagnostic<CR>
-
-" Do not confirm usage of .ycm_extra_conf.py
-let g:ycm_confirm_extra_conf = 0
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0:ts=4:sts=4:sw=4

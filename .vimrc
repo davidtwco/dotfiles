@@ -333,6 +333,12 @@ if executable('rls')
     let g:LanguageClient_serverCommands.rust = ['rustup', 'run', 'stable', 'rls']
 endif
 
+" https://github.com/jacobdufault/cquery
+if executable('cquery')
+    let g:LanguageClient_serverCommands.c = ['cquery']
+    let g:LanguageClient_serverCommands.cpp = ['cquery']
+endif
+
 " pip install python-language-server
 if executable('pyls')
     let g:LanguageClient_serverCommands.python = ['pyls']

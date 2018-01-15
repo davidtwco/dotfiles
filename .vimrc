@@ -339,8 +339,8 @@ endif
 
 " https://github.com/jacobdufault/cquery
 if executable('cquery')
-    let g:LanguageClient_serverCommands.c = ['cquery']
-    let g:LanguageClient_serverCommands.cpp = ['cquery']
+    let g:LanguageClient_serverCommands.c = ['cquery', '--language-server']
+    let g:LanguageClient_serverCommands.cpp = ['cquery', '--language-server']
 endif
 
 " pip install python-language-server

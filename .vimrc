@@ -135,6 +135,10 @@ call plug#end()
 if executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
+
+" Disable automatic switching to search result.
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
 " }}}
 
 " Ale {{{

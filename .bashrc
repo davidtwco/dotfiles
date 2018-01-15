@@ -157,6 +157,7 @@ prependToPath() {
 }
 
 prependToPath $HOME/bin $HOME/.cargo/bin $HOME/.go/bin $HOME/.local/bin /opt/puppetlabs/bin
+prependToPath $HOME/.gem/ruby/2.5.0/bin
 export PATH="$PATH"
 # }}}
 

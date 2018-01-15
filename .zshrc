@@ -126,6 +126,7 @@ path=("$HOME/.go/bin" $path)
 path=("$HOME/.local/bin" $path)
 path=("/opt/puppetlabs/bin" $path)
 path=("$HOME/.fzf/bin" $path)
+path=("$HOME/.gem/ruby/2.5.0/bin" $path)
 
 # Using the (N-/) glob qualifier we can remove paths that do not exist.
 path=($^path(N-/))

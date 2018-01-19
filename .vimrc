@@ -100,6 +100,11 @@ Plug 'tpope/vim-obsession'
 Plug 'itchyny/lightline.vim'
 Plug 'cocopon/lightline-hybrid.vim'
 
+" Terminal
+if has('nvim')
+    Plug 'vimlab/split-term.vim'
+endif
+
 " Enhanced '%' functionality.
 Plug 'geoffharcourt/vim-matchit'
 " Handy bracket matchings.

@@ -115,7 +115,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 
 " Visualize the undo tree.
-Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
+Plug 'simnalamburt/mundo.vim'
 
 " Polyglot - adds a bunch of syntax handling for different languages
 " and tools, check if new languages are included before adding them

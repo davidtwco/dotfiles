@@ -156,6 +156,10 @@ let g:ale_linters = {
 \   'asm': [],
 \}
 
+let g:ale_pattern_options = {
+\   '.*\.tex\.njk$': { 'ale_enabled': 0 },
+\}
+
 nmap <C-n> <Plug>(ale_next_wrap)
 " }}}
 

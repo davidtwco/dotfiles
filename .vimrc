@@ -122,6 +122,8 @@ Plug 'simnalamburt/mundo.vim'
 " manually.
 Plug 'sheerun/vim-polyglot'
 
+" Pandoc
+Plug 'vim-pandoc/vim-pandoc-syntax'
 " Rockerfile
 Plug 'NL057/rockerfile.vim'
 " Vagrant
@@ -256,6 +258,8 @@ if has("autocmd")
     au BufNewFile,BufRead *.hocon setlocal ft=hocon
     " Set Jenkinsfile files to be Groovy files.
     au BufNewFile,BufRead Jenkinsfile setlocal ft=groovy
+    " Set markdown files to be highlighted with the Pandoc plugin.
+    au BufNewFile,BufFilePre,BufRead *.md setlocal ft=markdown.pandoc
 endif
 " }}}
 

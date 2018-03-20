@@ -420,7 +420,7 @@ function! LightlineFilename()
     " by the separator.
     let shortened_filepath = fnamemodify(filepath, mod)
 
-    if len(shortened_filepath) < 45
+    if len(shortened_filepath) < 65
         return shortened_filepath.modified
     endif
 

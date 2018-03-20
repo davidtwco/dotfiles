@@ -452,7 +452,7 @@ function! LightlineFiletype()
     return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
 function! LightlineGutentags()
-    return gutentags#statusline('Generating tags... ')
+    return gutentags#statusline('')
 endfunction
 function! LightlineLanguageServer()
     let status = LanguageClient_statusLine()

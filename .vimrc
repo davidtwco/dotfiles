@@ -467,6 +467,9 @@ endfunction
 " ========
 nnoremap <leader>t :tabnew<CR>
 nnoremap <leader>r :so $MYVIMRC<CR>
+
+" w!! will save a file opened without sudo.
+cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 " }}}
 
 " Mouse {{{

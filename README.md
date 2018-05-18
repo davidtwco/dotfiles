@@ -1,7 +1,7 @@
 # dotfiles
 [![license][license-badge]][license]
 [![antibody][ab-badge]][ab]
-[![vim-plug][vp-badge]][vp]
+[![minpac][mp-badge]][mp]
 [![tpm][tpm-badge]][tpm]
 [![say thanks][st-badge]][st]
 
@@ -22,8 +22,8 @@ dotfiles configuration managed by [yadm](https://thelocehiliosan.github.io/yadm/
 [license-badge]: https://img.shields.io/github/license/davidtwco/dotfiles.svg?style=flat-square
 [ab]: https://github.com/getantibody/antibody
 [ab-badge]: https://img.shields.io/badge/powered%20by-antibody-blue.svg?style=flat-square
-[vp]: https://github.com/junegunn/vim-plug
-[vp-badge]: https://img.shields.io/badge/powered%20by-vim--plug-blue.svg?style=flat-square
+[mp]: https://github.com/k-takata/minpac
+[mp-badge]: https://img.shields.io/badge/powered%20by-minpac-blue.svg?style=flat-square
 [tpm]: https://github.com/tmux-plugins/tpm
 [tpm-badge]: https://img.shields.io/badge/powered%20by-tpm-blue.svg?style=flat-square
 [st]: https://saythanks.io/to/davidtwco

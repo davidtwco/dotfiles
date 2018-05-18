@@ -7,9 +7,12 @@
 [submodule "up"]
 	path = .yadm/external/up
 	url = https://github.com/shannonmoeller/up.git
-[submodule "vim-plug"]
-	path = .yadm/external/vim-plug
-	url = https://github.com/junegunn/vim-plug
 [submodule "rfc"]
 	path = .yadm/external/rfc
-	url = git@github.com:bfontaine/rfc.git
+	url = https://github.com/bfontaine/rfc.git
+[submodule "fzf"]
+	path = .fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "minpac"]
+	path = .vim/pack/minpac/opt/minpac
+	url = https://github.com/k-takata/minpac.git

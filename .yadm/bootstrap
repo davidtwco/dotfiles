@@ -7,13 +7,14 @@ cd "$HOME"
 echo ":: Initialize submodules..."
 yadm submodule update --recursive --init
 
+# Install fzf
+$HOME/.fzf/install --all
+
 # Adjust file permissions.
 chmod +x ~/.yadm/external/rfc/rfc
 
 # Make our symlinks.
 echo ":: Creating symlinks..."
-mkdir -p ~/.vim/autoload
-ln -s ~/.yadm/external/vim-plug/plug.vim ~/.vim/autoload/plug.vim
 mkdir -p ~/.local/bin
 ln -s ~/.yadm/external/rfc/rfc ~/.local/bin/rfc
 chmod -R 700 ~/.local/bin
@@ -38,7 +39,7 @@ mkdir -p ~/.vim/undo
 # Install vim-plug plugins.
 if command -v vim >/dev/null 2>&1; then
     echo ":: Install Vim plugins..."
-    vim '+PlugInstall' '+qall'
+    vim '+PackUpdate' '+qall'
 fi
 
 # Ensure we don't have a wide open executable directory.

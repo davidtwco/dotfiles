@@ -3,138 +3,148 @@
 "  website: https://davidtw.co
 " =================================
 
-set nocompatible              " be iMproved, required
+" For a paranoia.
+" Normally `:set nocp` is not needed, because it is done automatically
+" when .vimrc is found.
+if &compatible
+  " `:set nocp` has many side effects. Therefore this should be done
+  " only when 'compatible' is set.
+  set nocompatible
+endif
 
-" Plugins {{{
+" When using minpac, we need to add fzf to the runtime path manually.
+set rtp+=~/.fzf
+
+" Plugins
 " =======
-call plug#begin('~/.vim/plugged')
+if exists('*minpac#init')
+    " minpac is loaded.
+    call minpac#init()
+    call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-" Colour Schemes
-Plug 'w0ng/vim-hybrid'
+    " Colour Schemes
+    call minpac#add('w0ng/vim-hybrid')
 
-" Autocomplete
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
+    " Autocomplete
+    call minpac#add('autozimu/LanguageClient-neovim')
+    if has('nvim')
+        call minpac#add('Shougo/deoplete.nvim')
+    else
+        call minpac#add('Shougo/deoplete.nvim')
+        call minpac#add('roxma/nvim-yarp')
+        call minpac#add('roxma/vim-hug-neovim-rpc')
+    endif
+
+    " Comments.
+    call minpac#add('tpope/vim-commentary')
+
+    " Ctags
+    call minpac#add('ludovicchabant/vim-gutentags')
+
+    " Improvements to netrw.
+    call minpac#add('tpope/vim-vinegar')
+    " Fuzzy file search.
+    call minpac#add('junegunn/fzf.vim')
+
+    " Show Git changes.
+    call minpac#add('mhinz/vim-signify')
+    " Git wrapper.
+    call minpac#add('tpope/vim-fugitive', {'type': 'opt'})
+    call minpac#add('tpope/vim-rhubarb', {'type': 'opt'})
+
+    " Detect indentation heuristically.
+    call minpac#add('tpope/vim-sleuth')
+    " Apply indentation from .editorconfig files.
+    call minpac#add('editorconfig/editorconfig-vim')
+
+    " Linting
+    call minpac#add('w0rp/ale')
+
+    " Markdown Preview (requires npm package - livedown).
+    call minpac#add('shime/vim-livedown', {'type': 'opt'})
+    " Distraction-free Writing.
+    call minpac#add('junegunn/goyo.vim', {'type': 'opt'})
+    " Folding
+    call minpac#add('nelstrom/vim-markdown-folding')
+
+    " Navigation
+    call minpac#add('justinmk/vim-sneak')
+
+    " Word variation helper.
+    call minpac#add('tpope/vim-abolish', {'type': 'opt'})
+    " Improve '.' (repeat) for plugin maps.
+    call minpac#add('tpope/vim-repeat')
+    " Get character codes.
+    call minpac#add('tpope/vim-characterize', {'type': 'opt'})
+    " Replace and paste!
+    call minpac#add('davidtwco/vim-replace-paste')
+
+    if has("unix")
+        " Unix helpers
+        call minpac#add('tpope/vim-eunuch')
+    endif
+
+    " Work with Python virtual environments.
+    call minpac#add('jmcantrell/vim-virtualenv', {'type': 'opt'})
+
+    " Line up text.
+    call minpac#add('godlygeek/tabular', {'type': 'opt'})
+
+    " Easy navigation between vim splits and tmux panes.
+    call minpac#add('christoomey/vim-tmux-navigator')
+    " Functions that interact with tmux.
+    call minpac#add('tpope/vim-tbone', {'type': 'opt'})
+    " Generate statuslines for tmux.
+    call minpac#add('edkolev/tmuxline.vim', {'type': 'opt'})
+    " Focus events & clipboard
+    call minpac#add('roxma/vim-tmux-clipboard')
+    call minpac#add('tmux-plugins/vim-tmux-focus-events')
+
+    " Searching
+    call minpac#add('wincent/ferret')
+    " Improved incremental search
+    call minpac#add('haya14busa/is.vim')
+
+    " Session Saving
+    call minpac#add('tpope/vim-obsession', {'type': 'opt'})
+
+    " Statusline
+    call minpac#add('itchyny/lightline.vim')
+    call minpac#add('cocopon/lightline-hybrid.vim')
+
+    " Terminal
+    if has('nvim')
+        call minpac#add('vimlab/split-term.vim')
+    endif
+
+    " Enhanced '%' functionality.
+    call minpac#add('geoffharcourt/vim-matchit')
+    " Handy bracket matchings.
+    call minpac#add('tpope/vim-unimpaired')
+    " Surroundings ("", '', {}, etc.).
+    call minpac#add('tpope/vim-surround')
+    " Auto-adds 'end' where appropriate.
+    call minpac#add('tpope/vim-endwise')
+
+    " Visualize the undo tree.
+    call minpac#add('simnalamburt/mundo.vim', {'type': 'opt'})
+
+    " Polyglot - adds a bunch of syntax handling for different languages
+    " and tools, check if new languages are included before adding them
+    " manually.
+    call minpac#add('sheerun/vim-polyglot')
+
+    " Pandoc
+    call minpac#add('vim-pandoc/vim-pandoc-syntax')
+    " Rockerfile
+    call minpac#add('NL057/rockerfile.vim')
+    " Vagrant
+    call minpac#add('hashivim/vim-vagrant')
+    " Jinja/Nunjucks
+    call minpac#add('niftylettuce/vim-jinja')
+    " Hocon
+    call minpac#add('GEverding/vim-hocon')
 endif
-
-" Comments.
-Plug 'tpope/vim-commentary'
-
-" Ctags
-Plug 'ludovicchabant/vim-gutentags'
-
-" Improvements to netrw.
-Plug 'tpope/vim-vinegar'
-" Fuzzy file search.
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
-" Show Git changes.
-Plug 'mhinz/vim-signify'
-" Git wrapper.
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-
-" Detect indentation heuristically.
-Plug 'tpope/vim-sleuth'
-" Apply indentation from .editorconfig files.
-Plug 'editorconfig/editorconfig-vim'
-
-" Linting
-Plug 'w0rp/ale'
-
-" Markdown Preview (requires npm package - livedown).
-Plug 'shime/vim-livedown', { 'for': 'markdown', 'on': 'LivedownPreview' }
-" Distraction-free Writing.
-Plug 'junegunn/goyo.vim', { 'for': 'markdown', 'on': 'Goyo' }
-" Folding
-Plug 'nelstrom/vim-markdown-folding', { 'for': 'markdown' }
-
-" Navigation
-Plug 'justinmk/vim-sneak'
-
-" Word variation helper.
-Plug 'tpope/vim-abolish'
-" Improve '.' (repeat) for plugin maps.
-Plug 'tpope/vim-repeat'
-" Get character codes.
-Plug 'tpope/vim-characterize'
-" Replace and paste!
-Plug 'davidtwco/vim-replace-paste'
-
-if has("unix")
-    " Unix helpers
-    Plug 'tpope/vim-eunuch'
-endif
-
-" Work with Python virtual environments.
-Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
-
-" Line up text.
-Plug 'godlygeek/tabular', { 'on': ['Tabularize', 'Tab', 'AddTabularPattern', 'AddTabularPipeline'] }
-
-" Easy navigation between vim splits and tmux panes.
-Plug 'christoomey/vim-tmux-navigator'
-" Functions that interact with tmux.
-Plug 'tpope/vim-tbone'
-" Generate statuslines for tmux.
-Plug 'edkolev/tmuxline.vim'
-" Focus events & clipboard
-Plug 'roxma/vim-tmux-clipboard'
-Plug 'tmux-plugins/vim-tmux-focus-events'
-
-" Searching
-Plug 'wincent/ferret'
-" Improved incremental search
-Plug 'haya14busa/is.vim'
-
-" Session Saving
-Plug 'tpope/vim-obsession'
-
-" Statusline
-Plug 'itchyny/lightline.vim'
-Plug 'cocopon/lightline-hybrid.vim'
-
-" Terminal
-if has('nvim')
-    Plug 'vimlab/split-term.vim'
-endif
-
-" Enhanced '%' functionality.
-Plug 'geoffharcourt/vim-matchit'
-" Handy bracket matchings.
-Plug 'tpope/vim-unimpaired'
-" Surroundings ("", '', {}, etc.).
-Plug 'tpope/vim-surround'
-" Auto-adds 'end' where appropriate.
-Plug 'tpope/vim-endwise'
-
-" Visualize the undo tree.
-Plug 'simnalamburt/mundo.vim'
-
-" Polyglot - adds a bunch of syntax handling for different languages
-" and tools, check if new languages are included before adding them
-" manually.
-Plug 'sheerun/vim-polyglot'
-
-" Pandoc
-Plug 'vim-pandoc/vim-pandoc-syntax'
-" Rockerfile
-Plug 'NL057/rockerfile.vim'
-" Vagrant
-Plug 'hashivim/vim-vagrant'
-" Jinja/Nunjucks
-Plug 'niftylettuce/vim-jinja'
-" Hocon
-Plug 'GEverding/vim-hocon'
-
-call plug#end()
-" }}}
 
 " Ale {{{
 " ===
@@ -598,7 +608,6 @@ endif
 
 " I've prefixed these functions with an underscore as I'll
 " never want to run them directly.
-
 function! _EchoSwapMessage(message)
     if has("autocmd")
         augroup EchoSwapMessage
@@ -637,5 +646,11 @@ if has("autocmd")
     augroup END
 endif
 " }}}
+
+" Define user commands for updating/cleaning the plugins.
+" Each of them loads minpac, reloads .vimrc to register the
+" information of plugins, then performs the task.
+command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
+command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 
 " vim:foldmethod=marker:foldlevel=0:ts=4:sts=4:sw=4

@@ -214,4 +214,12 @@ fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 # }}}
 
+# Neovim {{{
+# ======
+# If running in Neovim terminal mode then don't let us launch Neovim.
+if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+    alias nvim='echo "No nesting!"'
+fi
+# }}}
+
 # vim:foldmethod=marker:foldlevel=0

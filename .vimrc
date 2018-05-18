@@ -27,10 +27,8 @@ if exists('*minpac#init')
 
     " Autocomplete
     call minpac#add('autozimu/LanguageClient-neovim')
-    if has('nvim')
-        call minpac#add('Shougo/deoplete.nvim')
-    else
-        call minpac#add('Shougo/deoplete.nvim')
+    call minpac#add('Shougo/deoplete.nvim')
+    if !has('nvim')
         call minpac#add('roxma/nvim-yarp')
         call minpac#add('roxma/vim-hug-neovim-rpc')
     endif

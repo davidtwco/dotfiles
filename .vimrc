@@ -652,6 +652,15 @@ if has("autocmd")
         autocmd! SwapExists * call _HandleSwap(expand('<afile>:p'))
     augroup END
 endif
+
+" Enable keeping track of undo history.
+set undofile
+
+" Do not keep track of undo history in temporary files.
+augroup vimrc
+    autocmd!
+    autocmd BufWritePre /tmp/* setlocal noundofile
+augroup END
 " }}}
 
 " Define user commands for updating/cleaning the plugins.

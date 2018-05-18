@@ -89,7 +89,7 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Searching
-Plug 'mileszs/ack.vim', { 'on': 'Ack' }
+Plug 'wincent/ferret'
 " Improved incremental search
 Plug 'haya14busa/is.vim'
 
@@ -134,18 +134,6 @@ Plug 'niftylettuce/vim-jinja'
 Plug 'GEverding/vim-hocon'
 
 call plug#end()
-" }}}
-
-" Ack {{{
-" ===
-" Use the silver searcher if available.
-if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
-endif
-
-" Disable automatic switching to search result.
-cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack!<Space>
 " }}}
 
 " Ale {{{
@@ -219,6 +207,12 @@ function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
+" }}}
+
+" Ferret {{{
+" ======
+" Don't automatically jump to first result or the search results.
+let g:FerretAutoJump = 0
 " }}}
 
 " File Navigation {{{

@@ -536,6 +536,15 @@ set wildmode=longest,list,full
 set wildmenu
 " }}}
 
+" Terminal Mode {{{
+" =============
+if has("nvim")
+    " Bind ESC to exit terminal mode and then Ctrl + V and ESC to send ESC to terminal process.
+    tnoremap <Esc> <C-\><c-n>
+    tnoremap <C-v><Esc> <Esc>
+endif
+" }}}
+
 " Timeout Lengths {{{
 " ===============
 " This should make pressing ESC more responsive.

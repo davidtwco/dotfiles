@@ -142,6 +142,8 @@ if exists('*minpac#init')
     call minpac#add('niftylettuce/vim-jinja')
     " Hocon
     call minpac#add('GEverding/vim-hocon')
+    " Nix
+    call minpac#add('LnL7/vim-nix')
 endif
 
 " Ale {{{

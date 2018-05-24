@@ -5,10 +5,16 @@
 
 ! URxvt {{{
 ! -----
-URxvt*font: xft:Meslo LG S for Powerline:antialias=true:size=10
+URxvt*font: xft:Iosveka Term:antialias=true:size=10
 URxvt*scrollBar: false
 URxvt*scrollBar_right: true
 URxvt*scrollColor: #000000
+! }}}
+
+! Xterm {{{
+! -----
+xterm*faceName: Iosveka Term
+xterm*faceSize: 10
 ! }}}
 
 ! Hybrid Colours {{{

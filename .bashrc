@@ -128,7 +128,9 @@ if grep -q Microsoft /proc/version; then
 fi
 
 # Ensure we're using the correct locale.
-if grep ^en_GB.UTF-8 /etc/locale.gen 1>/dev/null; then
+if [ ! -f /etc/locale.gen ]; then
+    export LANG=en_GB.UTF-8
+elif grep ^en_GB.UTF-8 /etc/locale.gen 1>/dev/null; then
     export LANG=en_GB.UTF-8
 elif grep ^en_US.UTF-8 /etc/locale.gen 1>/dev/null; then
     export LANG=en_US.UTF-8

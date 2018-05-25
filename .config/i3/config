@@ -62,6 +62,7 @@ bindsym $mod+e layout toggle split
 
 # Hide window title in split mode.
 new_window 1pixel
+smart_borders on
 
 # Toggle tiling / floating.
 bindsym $mod+Shift+space floating toggle
@@ -149,5 +150,22 @@ mode "resize" {
 # Enter resize mode.
 bindsym $mod+r mode "resize"
 
+# Add gaps.
+gaps inner 10
+smart_gaps on
+
+# Set colours
+set $accent #3a3a3a
+set $urgent #900000
+set $dark #2b2b2b
+set $light #ffffff
+set $gray #888888
+
+# Class                 Border  Backgr. Text    Indicator
+client.focused          $accent $accent $white  $dark
+client.focused_inactive $gray   $dark   $white  $dark
+client.unfocused        $gray   $dark   $white  $dark
+client.urgent           $urgent $urgent $white  $dark
+
 # Start polybar.
-exec --no-startup-id polybar davidtwco
+exec --no-startup-id polybar -r davidtwco

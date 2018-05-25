@@ -5,7 +5,7 @@
 
 ! URxvt {{{
 ! -----
-URxvt*font: xft:Iosveka Term:antialias=true:size=10
+URxvt*font: xft:Iosevka Term:antialias=true:size=10
 URxvt*scrollBar: false
 URxvt*scrollBar_right: true
 URxvt*scrollColor: #000000
@@ -13,7 +13,7 @@ URxvt*scrollColor: #000000
 
 ! Xterm {{{
 ! -----
-xterm*faceName: Iosveka Term
+xterm*faceName: Iosevka Term
 xterm*faceSize: 10
 ! }}}
 

@@ -115,7 +115,7 @@ unset env
 # GPG Agent {{{
 # =========
 export GPG_TTY=$(tty)
-if _has gpg-agent; then
+if which gpg-agent>/dev/null 2>&1; then
     eval "$(gpgconf --launch gpg-agent)"
     echo UPDATESTARTUPTTY | gpg-connect-agent
 fi
@@ -189,7 +189,7 @@ fi
 
 # tmux helper completion {{{
 # =======================
-source ~/.bin/tmuxinator.bash # tmuxinator
+source ~/.yadm/completions/tmuxinator.bash # tmuxinator
 if which tmuxp>/dev/null 2>&1; then
     eval "$(_TMUXP_COMPLETE=source tmuxp)" # tmuxp
 fi

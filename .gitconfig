@@ -13,10 +13,17 @@
 [include]
     path = ~/.yadm/external/gitalias/gitalias.txt
 [alias]
+    # Debug a command or alias - preceed it with `debug`.
+    debug  = "!set -x; GIT_TRACE=2 GIT_CURL_VERBOSE=2 GIT_TRACE_PERFORMANCE=2 GIT_TRACE_PACK_ACCESS=2 GIT_TRACE_PACKET=2 GIT_TRACE_PACKFILE=2 GIT_TRACE_SETUP=2 GIT_TRACE_SHALLOW=2 git"
+    # Quote / unquote a sh command, converting it to / from a git alias string
+    quote-string = "!read -r l; printf \\\"!; printf %s \"$l\" | sed 's/\\([\\\"]\\)/\\\\\\1/g'; printf \" #\\\"\\n\" #"
+    quote-string-undo = "!read -r l; printf %s \"$l\" | sed 's/\\\\\\([\\\"]\\)/\\1/g'; printf \"\\n\" #"
+    # Push commits upstream.
     ps = push
-    # Overrides gitalias.txt `save` to include
-    # untracked files.
+    # Overrides gitalias.txt `save` to include untracked files.
     save = stash save --include-untracked
+    # Start a interactive rebase on current branch.
+    rebase-branch = "!git rebase -i HEAD~$(git log $(git merge-base $(git show-branch -a | grep '\\*' | grep -v `git rev-parse --abbrev-ref HEAD` | head -n1 | sed 's/.*\\[\\(.*\\)\\].*/\\1/' | sed 's/[\\^~].*//') $(git rev-parse --abbrev-ref HEAD))..HEAD --oneline | wc -l) #"
 [commit]
     gpgsign = true
 [gpg]

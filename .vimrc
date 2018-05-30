@@ -174,14 +174,14 @@ set hidden
 " Colors {{{
 " ======
 syntax enable
-
 set background=dark
 
-let g:hybrid_custom_term_colors = 1
-try
+if !empty(globpath(&packpath, 'pack/minpac/start/vim-hybrid/colors/hybrid.vim'))
     colorscheme hybrid
+    let g:hybrid_custom_term_colors = 1
+
     highlight ColorColumn ctermbg=8 guibg=lightgrey
-endtry
+endif
 " }}}
 
 " Commenting {{{

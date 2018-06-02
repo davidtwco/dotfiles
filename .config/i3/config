@@ -22,6 +22,9 @@ bindsym $mod+Shift+q kill
 # Start dmenu (a program launcher).
 bindsym $mod+d exec rofi -fullscreen -show run
 
+# Lock the screen
+bindsym $mod+x exec i3lock-fancy -g -f Iosevka-Term
+
 # Change focus with hjkl.
 bindsym $mod+h focus left
 bindsym $mod+j focus down

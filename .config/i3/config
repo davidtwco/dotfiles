@@ -162,7 +162,7 @@ set $light #ffffff
 set $gray #888888
 
 # Class                 Border  Backgr. Text    Indicator
-client.focused          $accent $accent $white  $dark
+client.focused          $accent $dark   $white  $dark
 client.focused_inactive $gray   $dark   $white  $dark
 client.unfocused        $gray   $dark   $white  $dark
 client.urgent           $urgent $urgent $white  $dark

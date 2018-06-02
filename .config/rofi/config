@@ -1,0 +1,10 @@
+rofi.font: Iosevka Term 10
+rofi.dpi: 200
+rofi.padding: 500
+rofi.color-window: argb:dd000000, argb:dd000000, #000000
+rofi.color-normal: argb:00C0392B, #A09894, argb:00C0392B, argb:80101218, #C0392B
+rofi.separator-style: none
+rofi.modi: window,run,ssh
+rofi.scrollbar-width: 0
+
+! vim:ft=xdefaults:foldmethod=marker:foldlevel=0

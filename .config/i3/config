@@ -20,7 +20,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # Start dmenu (a program launcher).
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec rofi -fullscreen -show run
 
 # Change focus with hjkl.
 bindsym $mod+h focus left
@@ -184,3 +184,4 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # Start polybar.
 exec --no-startup-id polybar -r davidtwco
+exec --no-startup-id compton

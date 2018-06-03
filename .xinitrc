@@ -1,1 +1,1 @@
-hsetroot -solid #000000
+/home/david/.xprofile

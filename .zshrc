@@ -266,6 +266,7 @@ source $HOME/.yadm/external/up/up.sh
 
 # Prompt {{{
 # ======
+export RPS1=
 autoload -Uz promptinit; promptinit
 
 VIM_PROMPT="❯"

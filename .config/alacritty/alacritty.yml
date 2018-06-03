@@ -1,45 +1,34 @@
-# Configuration for Alacritty, the GPU enhanced terminal emulator
-
-
-# Any items in the `env` entry below will be added as
-# environment variables. Some entries may override variables
-# set by alacritty it self.
+# Any items in the `env` entry below will be added as environment variables.
+# Some entries may override variables set by alacritty it self.
 env:
-  # TERM env customization.
-  #
-  # If this property is not set, alacritty will set it to xterm-256color.
-  #
   # Note that some xterm terminfo databases don't declare support for italics.
   # You can verify this by checking for the presence of `smso` and `sitm` in
   # `infocmp xterm-256color`.
   TERM: xterm-256color
 
 window:
-  # Window dimensions in character columns and lines
-  # Falls back to size specified by window manager if set to 0x0.
-  # (changes require restart)
+  # Window dimensions in character columns and lines. Falls back to size specified by window
+  # manager if set to 0x0. (changes require restart).
   dimensions:
     columns: 80
     lines: 24
 
-  # Adds this many blank pixels of padding around the window
-  # Units are physical pixels; this is not DPI aware.
-  # (change requires restart)
+  # Adds this many blank pixels of padding around the window. Units are physical pixels; this
+  # is not DPI aware. (change requires restart).
   padding:
     x: 2
     y: 2
 
-  # Window decorations
-  # Setting this to false will result in window without borders and title bar.
+  # Window decorations. Setting this to false will result in window without borders and title bar.
   decorations: true
 
-# Display tabs using this many cells (changes require restart)
+# Display tabs using this many cells (changes require restart).
 tabspaces: 8
 
 # When true, bold text is drawn using the bright variant of colors.
 draw_bold_text_with_bright_colors: true
 
-# Font configuration (changes require restart)
+# Font configuration (changes require restart).
 #
 # Important font attributes like antialiasing, subpixel aa, and hinting can be
 # controlled through fontconfig. Specifically, the following attributes should
@@ -61,41 +50,37 @@ draw_bold_text_with_bright_colors: true
 font:
   # The normal (roman) font face to use.
   normal:
-    family: monospace # should be "Menlo" or something on macOS.
-    # Style can be specified to pick a specific face.
-    # style: Regular
+    family: Iosevka Term
+    style: Regular
 
-  # The bold font face
+  # The bold font face.
   bold:
-    family: monospace # should be "Menlo" or something on macOS.
-    # Style can be specified to pick a specific face.
-    # style: Bold
+    family: Iosevka Term
+    style: Bold
 
-  # The italic font face
+  # The italic font face.
   italic:
-    family: monospace # should be "Menlo" or something on macOS.
-    # Style can be specified to pick a specific face.
-    # style: Italic
+    family: Iosevka Term
+    style: Italic
 
-  # Point size of the font
+  # Point size of the font.
   size: 11.0
 
-  # Offset is the extra space around each character. offset.y can be thought of
-  # as modifying the linespacing, and offset.x as modifying the letter spacing.
+  # Offset is the extra space around each character. offset.y can be thought of as modifying the
+  # linespacing, and offset.x as modifying the letter spacing.
   offset:
     x: 0.0
     y: 0.0
 
-  # Glyph offset determines the locations of the glyphs within their cells with
-  # the default being at the bottom. Increase the x offset to move the glyph to
-  # the right, increase the y offset to move the glyph upward.
+  # Glyph offset determines the locations of the glyphs within their cells with the default being
+  # at the bottom. Increase the x offset to move the glyph to the right, increase the y offset to
+  # move the glyph upward.
   glyph_offset:
     x: 0.0
     y: 0.0
 
-  # OS X only: use thin stroke font rendering. Thin strokes are suitable
-  # for retina displays, but for non-retina you probably want this set to
-  # false.
+  # OS X only: use thin stroke font rendering. Thin strokes are suitable for retina displays, but
+  # for non-retina you probably want this set to false.
   use_thin_strokes: true
 
 # Should display the render timer
@@ -155,7 +140,6 @@ colors:
 # `Linear`
 #
 # To completely disable the visual bell, set its duration to 0.
-#
 visual_bell:
   animation: EaseOutExpo
   duration: 0
@@ -163,7 +147,7 @@ visual_bell:
 # Background opacity
 background_opacity: 1.0
 
-# Mouse bindings
+# Mouse bindings.
 #
 # Currently doesn't support modifiers. Both the `mouse` and `action` fields must
 # be specified.
@@ -182,7 +166,7 @@ mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
 
 mouse:
-  # Click settings
+  # Click settings.
   #
   # The `double_click` and `triple_click` settings control the time
   # alacritty should wait for accepting multiple clicks as one double
@@ -190,7 +174,7 @@ mouse:
   double_click: { threshold: 300 }
   triple_click: { threshold: 300 }
 
-  # Faux Scrollback
+  # Faux Scrollback.
   #
   # The `faux_scrollback_lines` setting controls the number
   # of lines the terminal should scroll when the alternate
@@ -207,7 +191,7 @@ dynamic_title: true
 
 hide_cursor_when_typing: false
 
-# Style of the cursor
+# Style of the cursor.
 #
 # Values for 'cursor_style':
 # - Block
@@ -218,17 +202,7 @@ cursor_style: Block
 # Live config reload (changes require restart)
 live_config_reload: true
 
-# Shell
-#
-# You can set shell.program to the path of your favorite shell, e.g. /bin/fish.
-# Entries in shell.args are passed unmodified as arguments to the shell.
-#
-# shell:
-#   program: /bin/bash
-#   args:
-#     - --login
-
-# Key bindings
+# Key bindings.
 #
 # Each binding is defined as an object with some properties. Most of the
 # properties are optional. All of the alphabetical keys should have a letter for

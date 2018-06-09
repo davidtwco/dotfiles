@@ -115,6 +115,18 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+# Assign workspaces to screens.
+workspace $ws1 output eDP1
+workspace $ws2 output DP1-1
+workspace $ws3 output DP1-2
+workspace $ws4 output eDP1
+workspace $ws5 output DP1-1
+workspace $ws6 output DP1-2
+workspace $ws7 output eDP1
+workspace $ws8 output DP1-1
+workspace $ws9 output DP1-2
+workspace $ws0 output eDP1
+
 # Reload the configuration file.
 bindsym $mod+Shift+c reload
 

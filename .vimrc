@@ -176,10 +176,10 @@ set hidden
 " Colors {{{
 " ======
 syntax enable
-set background=dark
 
 if !empty(globpath(&packpath, 'pack/minpac/start/vim-hybrid/colors/hybrid.vim'))
     colorscheme hybrid
+    set background=dark
     let g:hybrid_custom_term_colors = 1
 
     highlight ColorColumn ctermbg=8 guibg=lightgrey

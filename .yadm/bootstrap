@@ -65,3 +65,10 @@ fi
 
 # Update and install plugins.
 antibody bundle < "$HOME/.antibody_bundle" > "$HOME/.zsh_plugins.sh"
+
+# Ensure that we compile our less bindings.
+if ! command -v lesskey >/dev/null 2>&1; then
+    pushd "$HOME"
+    lesskey
+    popd
+fi

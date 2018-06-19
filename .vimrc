@@ -144,6 +144,8 @@ if exists('*minpac#init')
     call minpac#add('GEverding/vim-hocon')
     " Nix
     call minpac#add('LnL7/vim-nix')
+    " PostgreSQL
+    call minpac#add('lifepillar/pgsql.vim')
 endif
 
 " Ale {{{
@@ -485,6 +487,10 @@ set mouse=a
 " Organization {{{
 " ============
 set modelines=1            " Sets the expected modeline format.
+" }}}
+
+" PostgreSQL {{{
+let g:sql_type_default = 'pgsql' " Use Postgres highlighting for all SQL.
 " }}}
 
 " Reading {{{

@@ -161,6 +161,7 @@ let g:ale_linters = {
 let g:ale_pattern_options = {
 \   '.*\.tex\.njk$': { 'ale_enabled': 0 },
 \}
+let g:ale_cpp_clangtidy_checks = ['clang-analyzer-*']
 
 nmap <C-n> <Plug>(ale_next_wrap)
 " }}}

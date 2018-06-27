@@ -123,6 +123,8 @@ if exists('*minpac#init')
     call minpac#add('tpope/vim-surround')
     " Auto-adds 'end' where appropriate.
     call minpac#add('tpope/vim-endwise')
+    " Move cursor left or right through argument lists, etc.
+    call minpac#add('AndrewRadev/sideways.vim')
 
     " Visualize the undo tree.
     call minpac#add('simnalamburt/mundo.vim', {'type': 'opt'})
@@ -180,11 +182,11 @@ syntax enable
 
 if !empty(globpath(&packpath, 'pack/minpac/start/vim-hybrid/colors/hybrid.vim'))
     colorscheme hybrid
-    set background=dark
     let g:hybrid_custom_term_colors = 1
 
     highlight ColorColumn ctermbg=8 guibg=lightgrey
 endif
+set background=dark
 " }}}
 
 " Commenting {{{
@@ -511,6 +513,12 @@ set smartcase       " Don't ignore case when different cases searched for.
 " =========
 set scrolloff=5            " Keep a minimum of 5 line below the cursor.
 set sidescrolloff=5        " Keep a minimum of 5 columns left of the cursor.
+" }}}
+
+" Sideways {{{
+" ========
+nnoremap <C-,> :SidewaysJumpLeft<CR>
+nnoremap <C-.> :SidewaysJumpRight<CR>
 " }}}
 
 " Signify {{{

@@ -176,17 +176,17 @@ nmap <C-n> <Plug>(ale_next_wrap)
 set hidden
 " }}}
 
-" Colors {{{
+" Colours {{{
 " ======
 syntax enable
 
 if !empty(globpath(&packpath, 'pack/minpac/start/vim-hybrid/colors/hybrid.vim'))
     colorscheme hybrid
     let g:hybrid_custom_term_colors = 1
-
-    highlight ColorColumn ctermbg=8 guibg=lightgrey
 endif
+
 set background=dark
+highlight ColorColumn ctermbg=8 guibg=lightgrey
 " }}}
 
 " Commenting {{{

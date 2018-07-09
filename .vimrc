@@ -536,8 +536,7 @@ let g:signify_cursorhold_insert = 0
 " Sleuth {{{
 " ======
 " Set defaults for when detection fails or in new files.
-set ts=4
-set expandtab
+set ts=4 sts=4 sw=4 et
 " }}}
 
 " Spelling {{{

@@ -502,6 +502,7 @@ let g:polyglot_disabled = ['rust']
 " }}}
 
 " PostgreSQL {{{
+" ==========
 let g:sql_type_default = 'pgsql' " Use Postgres highlighting for all SQL.
 " }}}
 

@@ -263,6 +263,8 @@ if has("autocmd")
 
     " Set .reg files to be Window's registry files.
     au BufNewFile,BufRead *.reg setlocal ft=registry
+    " Set .tera files to be highlighted as Jinja templates.
+    au BufNewFile,BufRead *.tera setlocal ft=jinja
     " Set .nuspec files to be XML files.
     au BufNewFile,BufRead *.nuspec setlocal ft=xml
     " Set .hocon files to be Hocon files.

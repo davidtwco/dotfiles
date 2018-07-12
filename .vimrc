@@ -134,6 +134,8 @@ if exists('*minpac#init')
     " manually.
     call minpac#add('sheerun/vim-polyglot')
 
+    " Rust (normally in polyglot but I like to keep this up to date manually)
+    call minpac#add('rust-lang/rust.vim')
     " Pandoc
     call minpac#add('vim-pandoc/vim-pandoc-syntax')
     " Rockerfile
@@ -490,6 +492,11 @@ set mouse=a
 " Organization {{{
 " ============
 set modelines=1            " Sets the expected modeline format.
+" }}}
+
+" Polyglot {{{
+" ========
+let g:polyglot_disabled = ['rust']
 " }}}
 
 " PostgreSQL {{{

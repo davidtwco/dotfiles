@@ -22,16 +22,12 @@ if exists('*minpac#init')
     call minpac#init()
     call minpac#add('k-takata/minpac', {'type': 'opt'})
 
+    " Autocomplete and linting
+    call minpac#add('w0rp/ale')
+    call minpac#add('maximbaz/lightline-ale')
+
     " Colour Schemes
     call minpac#add('w0ng/vim-hybrid')
-
-    " Autocomplete
-    call minpac#add('autozimu/LanguageClient-neovim')
-    call minpac#add('Shougo/deoplete.nvim')
-    if !has('nvim')
-        call minpac#add('roxma/nvim-yarp')
-        call minpac#add('roxma/vim-hug-neovim-rpc')
-    endif
 
     " Comments.
     call minpac#add('tpope/vim-commentary')
@@ -54,9 +50,6 @@ if exists('*minpac#init')
     call minpac#add('tpope/vim-sleuth')
     " Apply indentation from .editorconfig files.
     call minpac#add('editorconfig/editorconfig-vim')
-
-    " Linting
-    call minpac#add('w0rp/ale')
 
     " Markdown Preview (requires npm package - livedown).
     call minpac#add('shime/vim-livedown', {'type': 'opt'})
@@ -154,20 +147,62 @@ endif
 
 " Ale {{{
 " ===
+" Enable completion.
+let g:ale_completion_enabled = 1
+" Fix completion bug in some versions of Vim.
+set completeopt=menu,menuone,preview,noselect,noinsert
+
+" Set formatting.
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
+" Set linters and fixers.
+let g:ale_linters_explicit = 1
 let g:ale_linters = {
-\   'asm': [],
-\}
+\   'c': [ 'cquery' ],
+\   'cpp': [ 'cquery' ],
+\   'css': [ 'csslint' ],
+\   'llvm': [ 'llc' ],
+\   'lua': [ 'luac' ],
+\   'python': [ 'flake8' ],
+\   'ruby': [ 'rubocop' ],
+\   'rust': [ 'cargo', 'rls' ],
+\   'vim': [ 'vint' ],
+\ }
 
+" Use stable Rust for RLS.
+let g:ale_rust_rls_toolchain = 'stable'
+
+let g:ale_fix_on_save = 0
+let g:ale_fixers = {
+\   '*': [ 'remove_trailing_lines', 'trim_whitespace' ],
+\   'rust': [ 'rustfmt' ],
+\ }
+
+" Disable Ale for .tex.njk files.
 let g:ale_pattern_options = {
 \   '.*\.tex\.njk$': { 'ale_enabled': 0 },
-\}
+\ }
+
+" Limit clangtidy checks.
 let g:ale_cpp_clangtidy_checks = ['clang-analyzer-*']
 
-nmap <C-n> <Plug>(ale_next_wrap)
+" Set bindings.
+nmap <leader>ad <plug>(ale_go_to_definition)
+nmap <leader>ar <plug>(ale_find_references)
+nmap <leader>ah <plug>(ale_hover)
+nmap <leader>af <plug>(ale_fix)
+nmap <leader>at <plug>(ale_detail)
+nmap <leader>an <plug>(ale_next_wrap)
+nmap <leader>ap <plug>(ale_previous_wrap)
+
+" Set quicker bindings.
+nmap <C-n> <plug>(ale_next_wrap)
+nmap <C-@> <plug>(ale_previous_wrap)
+nmap <C-q> <plug>(ale_go_to_definition)
+nmap <C-s> <plug>(ale_fix)
+nmap <C-x> <plug>(ale_find_references)
 " }}}
 
 " Buffers {{{
@@ -203,27 +238,6 @@ endif
 " ========
 " We can delete backwards over anything.
 set backspace=indent,eol,start
-" }}}
-
-" Deoplete {{{
-" ========
-let g:deoplete#enable_at_startup = 1
-
-" Disable delay
-let g:neocomplete#auto_complete_delay = 0
-
-" Use smartcase
-let g:neocomplete#enable_smart_case = 1
-
-" Use tabs for completion.
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ deoplete#mappings#manual_complete()
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
 " }}}
 
 " Ferret {{{
@@ -286,15 +300,6 @@ set foldmethod=indent        " Fold based on indentation (for Python)
 
 " Functions {{{
 " =========
-" Strip trailing whitespace on saving a file.
-function! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-
 " Toggle between paste and no paste.
 function! TogglePaste()
     if(&paste == 1)
@@ -323,7 +328,7 @@ nmap <silent> <leader>tl :call ToggleNumber()<CR>
 
 " fzf {{{
 " ===
-nnoremap <c-p> :Files<CR>
+nnoremap <C-p> :Files<CR>
 nnoremap <leader>pf :Files<CR>
 nnoremap <leader>pg :GFiles<CR>
 nnoremap <leader>pc :Commits<CR>
@@ -336,10 +341,10 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
 " Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+imap <c-x><C-k> <plug>(fzf-complete-word)
+imap <c-x><C-f> <plug>(fzf-complete-path)
+imap <c-x><C-j> <plug>(fzf-complete-file-ag)
+imap <c-x><C-l> <plug>(fzf-complete-line)
 " }}}
 
 " History {{{
@@ -347,71 +352,46 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 set history=1000    " Increase history.
 " }}}
 
-" Language Server {{{
-" ===============
-nnoremap <buffer> <leader>ld :call LanguageClient_textDocument_definition()<CR>
-nnoremap <buffer> <leader>lh :call LanguageClient_textDocument_hover()<CR>
-nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<CR>
-nnoremap <buffer> <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
-nnoremap <buffer> <leader>lf :call LanguageClient_textDocument_formatting()<CR>
-
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_serverCommands = {}
-
-" https://github.com/rust-lang-nursery/rls
-if executable('rls')
-    let g:LanguageClient_serverCommands.rust = ['rustup', 'run', 'stable', 'rls']
-endif
-
-" https://github.com/jacobdufault/cquery
-if executable('cquery')
-    let g:LanguageClient_serverCommands.c = ['cquery', '--language-server']
-    let g:LanguageClient_serverCommands.cpp = ['cquery', '--language-server']
-endif
-
-" pip install python-language-server
-if executable('pyls')
-    let g:LanguageClient_serverCommands.python = ['pyls']
-endif
-
-" npm install -g javascript-typescript-langserver
-if executable('javascript-typescript-stdio')
-    let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
-    let g:LanguageClient_serverCommands['javascript.jsx'] = ['javascript-typescript-stdio']
-    let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
-    let g:LanguageClient_serverCommands.html = ['html-languageserver', '--stdio']
-    let g:LanguageClient_serverCommands.css = ['css-languageserver', '--stdio']
-    let g:LanguageClient_serverCommands.less = ['css-languageserver', '--stdio']
-    let g:LanguageClient_serverCommands.json = ['json-languageserver', '--stdio']
-endif
-" }}}
-
 " Lightline {{{
 " =========
-let g:lightline = {
-\     'colorscheme': 'hybrid',
-\     'active': {
-\       'left': [
-\           [ 'mode' ],
-\           [ 'paste', 'spell', 'gitbranch', 'readonly', 'filename' ]
-\       ],
-\       'right': [
-\           [ 'lineinfo' ],
-\           [ 'percent' ],
-\           [ 'obsession', 'languageserver', 'gutentags', 'fileformat',
-\             'fileencoding', 'filetype', 'charvaluehex' ]
-\       ]
-\     },
-\     'component_function': {
-\       'gitbranch': 'fugitive#head',
-\       'gutentags': 'LightlineGutentags',
-\       'languageserver': 'LightlineLanguageServer',
-\       'obsession': 'ObsessionStatus',
-\       'readonly': 'LightlineReadonly',
-\       'fileformat': 'LightlineFileformat',
-\       'filetype': 'LightlineFiletype',
-\       'filename': 'LightlineFilename'
-\     }
+let g:lightline = {}
+let g:lightline.colorscheme = 'hybrid'
+
+let g:lightline.active = {
+\   'left': [
+\       [ 'mode' ],
+\       [ 'paste', 'spell', 'gitbranch', 'readonly', 'filename' ]
+\   ],
+\   'right': [
+\       [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+\       [ 'gutentags' ],
+\       [ 'obsession', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'lineinfo',
+\         'percent' ]
+\   ]
+\ }
+
+let g:lightline.component_expand = {
+\   'linter_checking': 'lightline#ale#checking',
+\   'linter_warnings': 'lightline#ale#warnings',
+\   'linter_errors': 'lightline#ale#errors',
+\   'linter_ok': 'lightline#ale#ok',
+\ }
+
+let g:lightline.component_type = {
+\   'linter_checking': 'left',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error',
+\   'linter_ok': 'left',
+\ }
+
+let g:lightline.component_function = {
+\   'gitbranch': 'fugitive#head',
+\   'gutentags': 'LightlineGutentags',
+\   'obsession': 'ObsessionStatus',
+\   'readonly': 'LightlineReadonly',
+\   'fileformat': 'LightlineFileformat',
+\   'filetype': 'LightlineFiletype',
+\   'filename': 'LightlineFilename'
 \ }
 
 function! LightlineFilename()
@@ -433,7 +413,7 @@ function! LightlineFilename()
     " by the separator.
     let shortened_filepath = fnamemodify(filepath, mod)
 
-    if len(shortened_filepath) < 65
+    if len(shortened_filepath) < (winwidth('%') / 3)
         return shortened_filepath.modified
     endif
 
@@ -466,10 +446,6 @@ function! LightlineFiletype()
 endfunction
 function! LightlineGutentags()
     return gutentags#statusline('')
-endfunction
-function! LightlineLanguageServer()
-    let status = LanguageClient_statusLine()
-    return status == '[]' ? '' : status
 endfunction
 function! LightlineReadonly()
     return &readonly && &filetype !=# 'help' ? 'RO' : ''

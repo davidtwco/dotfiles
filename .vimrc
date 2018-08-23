@@ -562,19 +562,32 @@ let g:tmuxline_powerline_separators = 1
 
 " UI & Visual Cues {{{
 " ================
-set ruler           " Show ruler.
-set showcmd         " Show incomplete commands.
-set nocursorline    " Highlight the current line.
-set lazyredraw      " Lazy redraw.
-set number          " Line Numbers
-set report=0        " Display messages for changes (ie. yank, delete, etc.)
-set showmatch       " Show matching brackets.
-set mat=5           " Matching bracket duration.
-set visualbell      " Shut up, Vim.
-set laststatus=2    " Always show the status line.
-set relativenumber  " Use Relative Line Numbers.
-set noshowmode      " Don't display '-- INSERT --', handled by statusline.
-let &colorcolumn="100,".join(range(140, 1000, 40), ",") " Colour 40 columns after column 80.
+" Show ruler.
+set ruler
+" Show incomplete commands.
+set showcmd
+" Highlight the current line.
+set nocursorline
+" Lazy redraw.
+set lazyredraw
+" Line Numbers
+set number
+" Display messages for changes (ie. yank, delete, etc.)
+set report=0
+" Show matching brackets.
+set showmatch
+" Matching bracket duration.
+set mat=5
+" Shut up, Vim.
+set visualbell
+" Always show the status line.
+set laststatus=2
+" Use relative line numbers.
+set relativenumber
+" Don't display '-- INSERT --', handled by statusline.
+set noshowmode
+" Colour 40 columns after column 80.
+let &colorcolumn="100,".join(range(140, 1000, 40), ",")
 
 " Display the tab characters and end of line characters.
 set list

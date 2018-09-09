@@ -271,6 +271,9 @@ if has("autocmd")
     " enable spelling.
     au FileType markdown setlocal ts=2 sts=2 sw=2 expandtab nosmarttab spell
 
+    " Git commits should break lines at 72 characters.
+    au FileType gitcommit setlocal tw=72
+
     " Always use spaces for the package.json file.
     au BufNewFile,BufRead package.json setlocal ts=2 sts=2 sw=2 expandtab nosmarttab sts=2
 

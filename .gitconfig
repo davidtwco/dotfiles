@@ -24,6 +24,8 @@
     save = stash save --include-untracked
     # Start a interactive rebase on current branch.
     rebase-branch = "!git rebase -i HEAD~$(git log $(git merge-base $(git show-branch -a | grep '\\*' | grep -v `git rev-parse --abbrev-ref HEAD` | head -n1 | sed 's/.*\\[\\(.*\\)\\].*/\\1/' | sed 's/[\\^~].*//') $(git rev-parse --abbrev-ref HEAD))..HEAD --oneline | wc -l) #"
+    # Checkout a PR.
+    pr = "!f() { git fetch -fu upstream refs/pull/$1/head:pr/$1; git checkout pr/$1; } ; f"
 [commit]
     gpgsign = true
 [gpg]

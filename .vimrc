@@ -15,135 +15,195 @@ endif
 " When using minpac, we need to add fzf to the runtime path manually.
 set rtp+=~/.fzf
 
-" Plugins
+" Plugins {{{
 " =======
 if exists('*minpac#init')
     " minpac is loaded.
     call minpac#init()
-    call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-    " Autocomplete and linting
+    " Don't update minpac with minpac. I handle this with submodules.
+    " call minpac#add('k-takata/minpac', {'type': 'opt'})
+
+    " Currently using the categorization from `vimawesome.com` because I couldn't
+    " work out anything better.
+
+    " Language {{{
+    " --------
+        " Polyglot - adds a bunch of syntax handling for different languages
+        " and tools, check if new languages are included before adding them
+        " manually.
+        call minpac#add('sheerun/vim-polyglot')
+
+        " Rust (normally in polyglot but I like to keep this up to date manually)
+        call minpac#add('rust-lang/rust.vim')
+
+        " Pandoc
+        call minpac#add('vim-pandoc/vim-pandoc-syntax')
+
+        " Rockerfile
+        call minpac#add('NL057/rockerfile.vim')
+
+        " Vagrant
+        call minpac#add('hashivim/vim-vagrant')
+
+        " Jinja/Nunjucks
+        call minpac#add('niftylettuce/vim-jinja')
+
+        " Hocon
+        call minpac#add('GEverding/vim-hocon')
+
+        " Nix
+        call minpac#add('LnL7/vim-nix')
+
+        " PostgreSQL
+        call minpac#add('lifepillar/pgsql.vim')
+    " }}}
+
+    " Completion {{{
+    " --------
+    " Generate ctags for projects.
+    call minpac#add('ludovicchabant/vim-gutentags')
+
+    " Auto-adds 'end' where appropriate.
+    call minpac#add('tpope/vim-endwise')
+    " }}}
+
+    " Code display {{{
+    " --------
+    " Hybrid colour scheme.
+    call minpac#add('w0ng/vim-hybrid')
+    " }}}
+
+    " Integrations {{{
+    " --------
+    " Autocompletion/linting.
     call minpac#add('w0rp/ale')
     call minpac#add('maximbaz/lightline-ale')
 
-    " Colour Schemes
-    call minpac#add('w0ng/vim-hybrid')
-
-    " Comments.
+    " Add `gc` operator to comment out lines.
     call minpac#add('tpope/vim-commentary')
-
-    " Ctags
-    call minpac#add('ludovicchabant/vim-gutentags')
 
     " Improvements to netrw.
     call minpac#add('tpope/vim-vinegar')
-    " Fuzzy file search.
-    call minpac#add('junegunn/fzf.vim')
 
-    " Show Git changes.
+    " Show Git changes in the sign column.
     call minpac#add('mhinz/vim-signify')
-    " Git wrapper.
+
+    " Wrapper for Git.
     call minpac#add('tpope/vim-fugitive', {'type': 'opt'})
+
+    " GitHub extension for `vim-fugitive`.
     call minpac#add('tpope/vim-rhubarb', {'type': 'opt'})
 
-    " Detect indentation heuristically.
-    call minpac#add('tpope/vim-sleuth')
-    " Apply indentation from .editorconfig files.
-    call minpac#add('editorconfig/editorconfig-vim')
-
-    " Markdown Preview (requires npm package - livedown).
-    call minpac#add('shime/vim-livedown', {'type': 'opt'})
-    " Distraction-free Writing.
-    call minpac#add('junegunn/goyo.vim', {'type': 'opt'})
-    " Folding
-    call minpac#add('nelstrom/vim-markdown-folding')
-
-    " Navigation
-    call minpac#add('justinmk/vim-sneak')
-
-    " Word variation helper.
-    call minpac#add('tpope/vim-abolish', {'type': 'opt'})
-    " Improve '.' (repeat) for plugin maps.
-    call minpac#add('tpope/vim-repeat')
-    " Get character codes.
-    call minpac#add('tpope/vim-characterize', {'type': 'opt'})
-    " Replace and paste!
-    call minpac#add('davidtwco/vim-replace-paste')
-
     if has("unix")
-        " Unix helpers
+        " Helper functions for unix commands (`mkdir`, `mv`, etc.)
         call minpac#add('tpope/vim-eunuch')
     endif
 
-    " Work with Python virtual environments.
+    " Activate/deactivate and list virtual environments.
     call minpac#add('jmcantrell/vim-virtualenv', {'type': 'opt'})
-
-    " Line up text.
-    call minpac#add('godlygeek/tabular', {'type': 'opt'})
 
     " Easy navigation between vim splits and tmux panes.
     call minpac#add('christoomey/vim-tmux-navigator')
+
     " Functions that interact with tmux.
     call minpac#add('tpope/vim-tbone', {'type': 'opt'})
+
     " Generate statuslines for tmux.
     call minpac#add('edkolev/tmuxline.vim', {'type': 'opt'})
-    " Focus events & clipboard
+
+    " Focus events & clipboard for tmux.
     call minpac#add('roxma/vim-tmux-clipboard')
+
+    " Support for more focus events.
     call minpac#add('tmux-plugins/vim-tmux-focus-events')
+    " }}}
 
-    " Searching
-    call minpac#add('wincent/ferret')
-    " Improved incremental search
-    call minpac#add('haya14busa/is.vim')
+    " Interface {{{
+    " --------
+    " Switch to absolute line numbers for buffers that are not selected.
+    call minpac#add('jeffkreeftmeijer/vim-numbertoggle')
 
-    " Session Saving
-    call minpac#add('tpope/vim-obsession', {'type': 'opt'})
+    " Fuzzy file search.
+    call minpac#add('junegunn/fzf.vim')
+
+    " Hide interface elements for writing.
+    call minpac#add('junegunn/goyo.vim', {'type': 'opt'})
+
+    " Text filtering and alignment.
+    call minpac#add('godlygeek/tabular', {'type': 'opt'})
 
     " Statusline
     call minpac#add('itchyny/lightline.vim')
     call minpac#add('cocopon/lightline-hybrid.vim')
 
-    " Terminal
+    " Visualize the undo tree.
+    call minpac#add('simnalamburt/mundo.vim', {'type': 'opt'})
+    " }}}
+
+    " Commands {{{
+    " --------
+    " Adds `s` motion for matching any two characters.
+    call minpac#add('justinmk/vim-sneak')
+
+    " Search/substitution/abbrevation of word variations.
+    call minpac#add('tpope/vim-abolish', {'type': 'opt'})
+
+    " Improve '.' (repeat) for plugin maps.
+    call minpac#add('tpope/vim-repeat')
+
+    " Access unicode character metadata.
+    call minpac#add('tpope/vim-characterize', {'type': 'opt'})
+
+    " Adds command for replacing a motion with the clipboard.
+    call minpac#add('davidtwco/vim-replace-paste')
+
+    " Session saving.
+    call minpac#add('tpope/vim-obsession', {'type': 'opt'})
+
     if has('nvim')
+        " Neovim terminal utilities.
         call minpac#add('vimlab/split-term.vim')
     endif
 
-    " Enhanced '%' functionality.
-    call minpac#add('geoffharcourt/vim-matchit')
     " Handy bracket matchings.
     call minpac#add('tpope/vim-unimpaired')
-    " Surroundings ("", '', {}, etc.).
+
+    " Commands for interacting with surroundings ("", '', {}, etc.).
     call minpac#add('tpope/vim-surround')
-    " Auto-adds 'end' where appropriate.
-    call minpac#add('tpope/vim-endwise')
+
     " Move cursor left or right through argument lists, etc.
     call minpac#add('AndrewRadev/sideways.vim')
+    " }}}
 
-    " Visualize the undo tree.
-    call minpac#add('simnalamburt/mundo.vim', {'type': 'opt'})
+    " Other {{{
+    " --------
+    " Detect indentation heuristically.
+    call minpac#add('tpope/vim-sleuth')
 
-    " Polyglot - adds a bunch of syntax handling for different languages
-    " and tools, check if new languages are included before adding them
-    " manually.
-    call minpac#add('sheerun/vim-polyglot')
+    " Apply indentation from .editorconfig files.
+    call minpac#add('editorconfig/editorconfig-vim')
 
-    " Rust (normally in polyglot but I like to keep this up to date manually)
-    call minpac#add('rust-lang/rust.vim')
-    " Pandoc
-    call minpac#add('vim-pandoc/vim-pandoc-syntax')
-    " Rockerfile
-    call minpac#add('NL057/rockerfile.vim')
-    " Vagrant
-    call minpac#add('hashivim/vim-vagrant')
-    " Jinja/Nunjucks
-    call minpac#add('niftylettuce/vim-jinja')
-    " Hocon
-    call minpac#add('GEverding/vim-hocon')
-    " Nix
-    call minpac#add('LnL7/vim-nix')
-    " PostgreSQL
-    call minpac#add('lifepillar/pgsql.vim')
+    " Live Markdown preview (requires npm package - `livedown`).
+    call minpac#add('shime/vim-livedown', {'type': 'opt'})
+
+    " Support markdown headers as fold markers.
+    call minpac#add('nelstrom/vim-markdown-folding')
+
+    " Multi-file search (`Ack`)
+    call minpac#add('wincent/ferret')
+
+    " Improved incremental search - hides search highlighting after moving cursor.
+    call minpac#add('haya14busa/is.vim')
+
+    " Enhanced '%' functionality.
+    call minpac#add('geoffharcourt/vim-matchit')
+
+    " Vimscript debugging with stacktraces.
+    call minpac#add('haya14busa/vim-stacktrace', {'type': 'opt'})
+    " }}}
 endif
+" }}}
 
 " Ale {{{
 " ===
@@ -294,10 +354,14 @@ endif
 
 " Folding {{{
 " =======
-set foldenable               " Enable folding.
-set foldlevelstart=10        " Open 10 levels of folds by default.
-set foldnestmax=10           " 10 nested folds max.
-set foldmethod=indent        " Fold based on indentation (for Python)
+" Enable folding.
+set foldenable
+" Open 10 levels of folds by default.
+set foldlevelstart=10
+" 10 nested folds max.
+set foldnestmax=10
+" Fold based on indentation.
+set foldmethod=indent
 " }}}
 
 " Functions {{{
@@ -326,6 +390,35 @@ function! ToggleNumber()
     endif
 endfunc
 nmap <silent> <leader>tl :call ToggleNumber()<CR>
+
+" Capture the output of an ex command.
+function! Redir(cmd)
+  " Close any scratch windows.
+  for win in range(1, winnr('$'))
+    if getwinvar(win, 'scratch')
+      execute win . 'windo close'
+    endif
+  endfor
+
+  if a:cmd =~ '^!'
+    " Handle commands starting with `!` by running commands on the system.
+    execute "let output = system('" . substitute(a:cmd, '^!', '', '') . "')"
+  else
+    " Else run input as ex commands.
+    redir => output
+    execute a:cmd
+    redir END
+  endif
+
+  " Open a new scratch window.
+  vnew
+  let w:scratch = 1
+  setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
+
+  " Add the command output.
+  call setline(1, split(output, "\n"))
+endfunction
+command! -nargs=1 -complete=command Redir silent call Redir(<f-args>)
 " }}}
 
 " fzf {{{
@@ -351,7 +444,8 @@ imap <c-x><C-l> <plug>(fzf-complete-line)
 
 " History {{{
 " ====
-set history=1000    " Increase history.
+" Increase history.
+set history=1000
 " }}}
 
 " Lightline {{{
@@ -459,7 +553,7 @@ endfunction
 nnoremap <leader>t :tabnew<CR>
 nnoremap <leader>r :so $MYVIMRC<CR>
 
-" w!! will save a file opened without sudo.
+" `w!!` will save a file opened without sudo.
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 " }}}
 
@@ -471,7 +565,8 @@ set mouse=a
 
 " Organization {{{
 " ============
-set modelines=1            " Sets the expected modeline format.
+" Sets the expected modeline format.
+set modeline modelines=1
 " }}}
 
 " Polyglot {{{
@@ -481,26 +576,34 @@ let g:polyglot_disabled = ['rust']
 
 " PostgreSQL {{{
 " ==========
-let g:sql_type_default = 'pgsql' " Use Postgres highlighting for all SQL.
+" Use Postgres highlighting for all SQL.
+let g:sql_type_default = 'pgsql'
 " }}}
 
 " Reading {{{
 " =======
-set autoread        " Automatically reload files if changed from outside.
+" Automatically reload files if changed from outside.
+set autoread
 " }}}
 
 " Searching {{{
 " =========
-set hlsearch        " Highlight matches.
-set incsearch       " Highlight matches as we type.
-set ignorecase      " Ignore case when searching.
-set smartcase       " Don't ignore case when different cases searched for.
+" Highlight matches.
+set hlsearch
+" Highlight matches as we type.
+set incsearch
+" Ignore case when searching.
+set ignorecase
+" Don't ignore case when different cases searched for.
+set smartcase
 " }}}
 
 " Scrolling {{{
 " =========
-set scrolloff=5            " Keep a minimum of 5 line below the cursor.
-set sidescrolloff=5        " Keep a minimum of 5 columns left of the cursor.
+" Keep a minimum of 5 line below the cursor.
+set scrolloff=5
+" Keep a minimum of 5 columns left of the cursor.
+set sidescrolloff=5
 " }}}
 
 " Sideways {{{
@@ -515,8 +618,7 @@ nnoremap <C-.> :SidewaysJumpRight<CR>
 let g:signify_vcs_list = [ 'git' ]
 " Work in near-realtime.
 let g:signify_realtime = 1
-" Disable two of the sign update methods
-" as they write the buffer.
+" Disable two of the sign update methods as they write the buffer.
 let g:signify_cursorhold_normal = 0
 let g:signify_cursorhold_insert = 0
 " }}}
@@ -552,8 +654,7 @@ endif
 " Timeout Lengths {{{
 " ===============
 " This should make pressing ESC more responsive.
-" Alternative to `set esckeys` as this breaks sequences
-" in INSERT mode that uses ESC.
+" Alternative to `set esckeys` as this breaks sequences in INSERT mode that uses ESC.
 set timeoutlen=250 ttimeoutlen=0
 " }}}
 
@@ -680,10 +781,13 @@ augroup vimrc
 augroup END
 " }}}
 
+" Plugins {{{
+" =======
 " Define user commands for updating/cleaning the plugins.
 " Each of them loads minpac, reloads .vimrc to register the
 " information of plugins, then performs the task.
 command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
+" }}}
 
 " vim:foldmethod=marker:foldlevel=0:ts=4:sts=4:sw=4

@@ -60,7 +60,7 @@ if exists('*minpac#init')
     " }}}
 
     " Completion {{{
-    " --------
+    " ----------
     " Generate ctags for projects.
     call minpac#add('ludovicchabant/vim-gutentags')
 
@@ -69,13 +69,13 @@ if exists('*minpac#init')
     " }}}
 
     " Code display {{{
-    " --------
+    " ------------
     " Hybrid colour scheme.
     call minpac#add('w0ng/vim-hybrid')
     " }}}
 
     " Integrations {{{
-    " --------
+    " ------------
     " Autocompletion/linting.
     call minpac#add('w0rp/ale')
     call minpac#add('maximbaz/lightline-ale')
@@ -120,7 +120,7 @@ if exists('*minpac#init')
     " }}}
 
     " Interface {{{
-    " --------
+    " ---------
     " Switch to absolute line numbers for buffers that are not selected.
     call minpac#add('jeffkreeftmeijer/vim-numbertoggle')
 
@@ -177,7 +177,7 @@ if exists('*minpac#init')
     " }}}
 
     " Other {{{
-    " --------
+    " -----
     " Detect indentation heuristically.
     call minpac#add('tpope/vim-sleuth')
 
@@ -201,6 +201,9 @@ if exists('*minpac#init')
 
     " Vimscript debugging with stacktraces.
     call minpac#add('haya14busa/vim-stacktrace', {'type': 'opt'})
+
+    " Look for project-specific vimrc files - useful for enabling linters on save for my projects.
+    call minpac#add('embear/vim-localvimrc')
     " }}}
 endif
 " }}}
@@ -546,6 +549,22 @@ endfunction
 function! LightlineReadonly()
     return &readonly && &filetype !=# 'help' ? 'RO' : ''
 endfunction
+" }}}
+
+" Local .vimrc {{{
+" ===========
+" Enable global loading of local .vimrc files.
+let g:localvimrc_enable = 1
+
+" Ask me before loading any files.
+let g:localvimrc_ask = 1
+
+" Keep track of which files I've loaded in the past and don't ask again.
+" (only if answer was uppercase)
+let g:localvimrc_persistent = 1
+
+" Save the persistence file in the `.vim` folder.
+let g:localvimrc_persistence_file = $HOME . '/.vim/lvimrc_persistence'
 " }}}
 
 " Mappings {{{

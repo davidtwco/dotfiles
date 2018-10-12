@@ -18,7 +18,6 @@ echo ":: Creating symlinks..."
 mkdir -p ~/.local/bin
 ln -s ~/.yadm/external/rfc/rfc ~/.local/bin/rfc
 chmod -R 700 ~/.local/bin
-ln -s ~/.yadm/external/gdb-dashboard/.gdbinit ~/.gdbinit
 
 # Make other directories.
 mkdir -p ~/.go

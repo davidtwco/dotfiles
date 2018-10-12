@@ -16,6 +16,3 @@
 [submodule "minpac"]
 	path = .vim/pack/minpac/opt/minpac
 	url = https://github.com/k-takata/minpac.git
-[submodule "gdb-dashboard"]
-	path = .yadm/external/gdb-dashboard
-	url = git@github.com:cyrus-and/gdb-dashboard.git

@@ -39,6 +39,11 @@ stty -ixon
 # Set a cache dir.
 export ZSH_CACHE_DIR=$HOME/.zsh/cache
 
+# Source any secret variables.
+if [ -f $HOME/.secrets ]; then
+    source $HOME/.secrets
+fi
+
 # Ensure we're using the correct locale.
 if [ ! -f /etc/locale.gen ]; then
     export LANG=en_GB.UTF-8

@@ -17,3 +17,8 @@ Thumbs.db
 
 ### ctags ###
 tags
+tags.temp
+
+### Vim configuration ###
+.lvimrc
+Session.vim

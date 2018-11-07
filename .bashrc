@@ -127,6 +127,11 @@ if grep -q Microsoft /proc/version; then
     export DOCKER_HOST=tcp://127.0.0.1:2375
 fi
 
+# Source any secret variables.
+if [ -f $HOME/.secrets ]; then
+    source $HOME/.secrets
+fi
+
 # Ensure we're using the correct locale.
 if [ ! -f /etc/locale.gen ]; then
     export LANG=en_GB.UTF-8

@@ -74,9 +74,9 @@ fi
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 if grep -q Microsoft /proc/version; then
-    alias rust-musl-builder='docker run --rm -it -v "${$(readlink -f .)#/mnt}":/home/rust/src ekidd/rust-musl-builder'
+    alias rust-musl-builder='docker run --rm -it -v "${$(readlink -f .)#/mnt}":/home/rust/src ekidd/rust-musl-builder:stable'
 else
-    alias rust-musl-builder='docker run --rm -it -v "${PWD}":/home/rust/src ekidd/rust-musl-builder'
+    alias rust-musl-builder='docker run --rm -it -v "${PWD}":/home/rust/src ekidd/rust-musl-builder:stable'
 fi
 
 # vim:foldmethod=marker:foldlevel=0:ft=zsh

@@ -18,6 +18,7 @@ Thumbs.db
 ### ctags ###
 tags
 tags.temp
+tags.lock
 
 ### Vim configuration ###
 .lvimrc

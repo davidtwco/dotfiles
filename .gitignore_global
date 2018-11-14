@@ -23,3 +23,6 @@ tags.lock
 ### Vim configuration ###
 .lvimrc
 Session.vim
+
+### GDB ###
+.gdb_history

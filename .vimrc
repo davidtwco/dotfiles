@@ -155,9 +155,6 @@ if exists('*minpac#init')
     " Access unicode character metadata.
     call minpac#add('tpope/vim-characterize', {'type': 'opt'})
 
-    " Adds command for replacing a motion with the clipboard.
-    call minpac#add('davidtwco/vim-replace-paste')
-
     " Session saving.
     call minpac#add('tpope/vim-obsession', {'type': 'opt'})
 

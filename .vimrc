@@ -660,9 +660,10 @@ set wildmenu
 
 " Terminal Mode {{{
 " =============
-if has("nvim")
-    " Bind ESC to exit terminal mode and then Ctrl + V and ESC to send ESC to terminal process.
+if has("nvim") || has("terminal")
+    " Bind ESC to exit terminal mode.
     tnoremap <Esc> <C-\><c-n>
+    " Bind Ctrl + V and ESC to send ESC to terminal process.
     tnoremap <C-v><Esc> <Esc>
 endif
 " }}}

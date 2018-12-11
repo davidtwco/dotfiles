@@ -139,6 +139,9 @@ if exists('*minpac#init')
 
     " Visualize the undo tree.
     call minpac#add('simnalamburt/mundo.vim', {'type': 'opt'})
+
+    " Show marks in sign column
+    call minpac#add('kshenoy/vim-signature')
     " }}}
 
     " Commands {{{

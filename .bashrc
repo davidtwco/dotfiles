@@ -145,7 +145,9 @@ export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
 export EDITOR=vim
 export TERM=xterm-256color
 export GOPATH=$HOME/.go
-export GEM_HOME="$(ruby -e 'print Gem.user_dir')"
+if which ruby>/dev/null 2>&1; then
+    export GEM_HOME="$(ruby -e 'print Gem.user_dir')"
+fi
 # }}}
 
 # Path {{{
@@ -165,7 +167,9 @@ prependToPath() {
 }
 
 prependToPath $HOME/bin $HOME/.cargo/bin $HOME/.go/bin $HOME/.local/bin /opt/puppetlabs/bin
-prependToPath "$(ruby -e 'print Gem.user_dir')"
+if which ruby>/dev/null 2>&1; then
+    prependToPath "$(ruby -e 'print Gem.user_dir')"
+fi
 export PATH="$PATH"
 # }}}
 

@@ -80,7 +80,9 @@ export NODE_REPL_HISTORY="$HOME/.node_history"
 export NODE_REPL_MODE='sloppy'
 
 # Set GEM_HOME for Ruby.
-export GEM_HOME="$(ruby -e 'print Gem.user_dir')"
+if _has ruby; then
+    export GEM_HOME="$(ruby -e 'print Gem.user_dir')"
+fi
 
 # Connect to Docker over TCP. Allows connections to Docker for Windows.
 if grep -q Microsoft /proc/version; then
@@ -136,7 +138,9 @@ path=("$HOME/.go/bin" $path)
 path=("$HOME/.local/bin" $path)
 path=("/opt/puppetlabs/bin" $path)
 path=("$HOME/.fzf/bin" $path)
-path=("$(ruby -e 'print Gem.user_dir')" $path)
+if _has ruby; then
+    path=("$(ruby -e 'print Gem.user_dir')" $path)
+fi
 
 # Using the (N-/) glob qualifier we can remove paths that do not exist.
 path=($^path(N-/))

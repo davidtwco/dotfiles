@@ -140,6 +140,7 @@ path=("/opt/puppetlabs/bin" $path)
 path=("$HOME/.fzf/bin" $path)
 if _has ruby; then
     path=("$(ruby -e 'print Gem.user_dir')" $path)
+    path=("$(ruby -e 'print Gem.user_dir')/bin" $path)
 fi
 
 # Using the (N-/) glob qualifier we can remove paths that do not exist.

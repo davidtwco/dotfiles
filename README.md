@@ -9,14 +9,7 @@
   <img alt="Screenshot" src=".yadm/screenshot.png" />
 </p>
 
-dotfiles configuration managed by [yadm](https://thelocehiliosan.github.io/yadm/). Originally created in Bash for Windows, has been tested on regular Ubuntu too. Contains:
-
-- Vim/Neovim configuration
-- tmux configuration
-- Bash configuration
-- zsh configuration
-- Weechat configuration
-- Custom Iosevka font
+These are my dotfiles! This repository contains my Vim (or Neovim), tmux, and zsh (and the equivalent bash) configurations. I've tested that these dotfiles work on Ubuntu, ArchLinux and within Bash for Windows.
 
 [license]: https://github.com/davidtwco/dotfiles
 [license-badge]: https://img.shields.io/github/license/davidtwco/dotfiles.svg?style=flat-square
@@ -30,30 +23,13 @@ dotfiles configuration managed by [yadm](https://thelocehiliosan.github.io/yadm/
 [st-badge]: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg?style=flat-square
 
 # How do I use these dotfiles?
-dotfiles are managed using [yadm](https://thelocehiliosan.github.io/yadm).
-
-In order to install yadm for your specific distro, [follow the installation instructions on the yadm documentation](https://thelocehiliosan.github.io/yadm/docs/install). To install on Ubuntu, follow the following instructions:
-
-**Ubuntu 16.10 and up**
-```
-sudo apt install yadm
-```
-
-**Ubuntu 16.04 and lower**
-```
-sudo apt install -y software-properties-common
-sudo add-apt-repository -y ppa:flexiondotorg/yadm
-sudo apt update
-sudo apt -y install yadm
-```
-
-Next, to use this repository, run the following:
+These dotfiles are managed using [yadm](https://thelocehiliosan.github.io/yadm). After installing yadm by [following their installation instructions](https://thelocehiliosan.github.io/yadm/docs/install), to clone my dotfiles, run the following:
 
 ```
 yadm clone git@gitlab.com:davidtwco/dotfiles.git
 ```
 
-This will clone the repository, you may have conflicts with pre-existing files like `.bashrc` - simply run `yadm status` and then `yadm reset HEAD <filename>` and `yadm checkout -- <filename>` to reset all files to those from the repository.
+You may have conflicts with pre-existing files, like `.bashrc`, after cloning. You can run `yadm status` and then `yadm reset HEAD <filename>` and `yadm checkout -- <filename>` to reset all files to those from the repository.
 
 If you didn't run into any issues above, then yadm will have executed the [bootstrap script](.yadm/bootstrap) script to create symlinks and install plugins. If you need to run this manually, execute the following:
 
@@ -61,8 +37,8 @@ If you didn't run into any issues above, then yadm will have executed the [boots
 .yadm/bootstrap
 ```
 
-## ZSH and Antibody
-[Antibody](https://github.com/getantibody/antibody) is used for managing zsh plugins - this should be set up and installed by the bootstrap script. However, if it wasn't or you need to update the installed plugins, you can do the following:
+## How do I manually install zsh plugins using Antibody?
+I use [Antibody](https://github.com/getantibody/antibody) for managing my zsh plugins - this should be set up and installed by the bootstrap script. However, if it wasn't or you need to update the installed plugins, you can follow the steps below.
 
 First, if you haven't already, install Antibody as below:
 
@@ -78,13 +54,8 @@ bash -c 'antibody bundle < ~/.antibody_bundle > .zsh_plugins.sh'
 antibody update
 ```
 
-## Iosevka Font
-If you wish to use the Iosevka font with these dotfiles, then you can [follow the instructions on the Iosevka repo](https://github.com/be5invis/Iosevka#installation) to download the font pre-built, or use the configuration files in the [iosevka folder](.yadm/iosevka) to [build the font from source](https://github.com/be5invis/Iosevka#build-your-own-style).
+## What is that font in the screenshot?
+I really like the Iosevka font, you can [download the latest version from their repository](https://github.com/be5invis/Iosevka/releases).
 
-## Bash for Windows and ConEmu
-If using the Windows Insider builds (16251 and higher) then the Windows Store version of Ubuntu for Bash on Windows can be used and will work best. If you are on a earlier build, [use ConEmu](.yadm/docs/CONEMU.md).
-
-In previous versions of Windows, there were issues with full 256 colour support and font selection (both in rendering and using desired fonts) amongst other things. ConEmu will work well in these cases, if used with WSLBridge, there may be issues with the mouse and the Home/End keys, else it should work fine.
-
-## Hybrid Colour Scheme
-There are registry scripts to configure the colour scheme of Windows' command prompt and default console to match the Hybrid colour scheme used by Vim. You can [find those scripts in the hybrid folder](.yadm/hybrid).
+## What is the colour scheme in the screenshot?
+I use the hybrid colour scheme, I've included some registry scripts to configure the colour scheme of Windows' command prompt and default WSL console to match the hybrid colour scheme used by Vim. You can [find those scripts in the hybrid folder](.yadm/hybrid).

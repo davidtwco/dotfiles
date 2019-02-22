@@ -29,34 +29,34 @@ if exists('*minpac#init')
 
     " Language {{{
     " --------
-        " Polyglot - adds a bunch of syntax handling for different languages
-        " and tools, check if new languages are included before adding them
-        " manually.
-        call minpac#add('sheerun/vim-polyglot')
+    " Polyglot - adds a bunch of syntax handling for different languages
+    " and tools, check if new languages are included before adding them
+    " manually.
+    call minpac#add('sheerun/vim-polyglot')
 
-        " Rust (normally in polyglot but I like to keep this up to date manually)
-        call minpac#add('rust-lang/rust.vim')
+    " Rust (normally in polyglot but I like to keep this up to date manually)
+    call minpac#add('rust-lang/rust.vim')
 
-        " Pandoc
-        call minpac#add('vim-pandoc/vim-pandoc-syntax')
+    " Pandoc
+    call minpac#add('vim-pandoc/vim-pandoc-syntax')
 
-        " Rockerfile
-        call minpac#add('NL057/rockerfile.vim')
+    " Rockerfile
+    call minpac#add('NL057/rockerfile.vim')
 
-        " Vagrant
-        call minpac#add('hashivim/vim-vagrant')
+    " Vagrant
+    call minpac#add('hashivim/vim-vagrant')
 
-        " Jinja/Nunjucks
-        call minpac#add('niftylettuce/vim-jinja')
+    " Jinja/Nunjucks
+    call minpac#add('niftylettuce/vim-jinja')
 
-        " Hocon
-        call minpac#add('GEverding/vim-hocon')
+    " Hocon
+    call minpac#add('GEverding/vim-hocon')
 
-        " Nix
-        call minpac#add('LnL7/vim-nix')
+    " Nix
+    call minpac#add('LnL7/vim-nix')
 
-        " PostgreSQL
-        call minpac#add('lifepillar/pgsql.vim')
+    " PostgreSQL
+    call minpac#add('lifepillar/pgsql.vim')
     " }}}
 
     " Completion {{{
@@ -565,6 +565,11 @@ let g:localvimrc_persistent = 1
 
 " Save the persistence file in the `.vim` folder.
 let g:localvimrc_persistence_file = $HOME . '/.vim/lvimrc_persistence'
+" }}}
+
+" Markdown {{{
+" ========
+let g:vim_markdown_conceal = 0
 " }}}
 
 " Mappings {{{

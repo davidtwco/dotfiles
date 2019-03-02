@@ -445,8 +445,14 @@ imap <c-x><C-j> <plug>(fzf-complete-file-ag)
 imap <c-x><C-l> <plug>(fzf-complete-line)
 " }}}
 
+" Gutentags {{{
+" =========
+" Silences an error about this being unset.
+let g:gutentags_exclude_filetypes = []
+" }}}
+
 " History {{{
-" ====
+" =======
 " Increase history.
 set history=1000
 " }}}

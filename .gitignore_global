@@ -26,3 +26,6 @@ Session.vim
 
 ### GDB ###
 .gdb_history
+
+### Workman ###
+.workman_active_working_directory

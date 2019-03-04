@@ -15,27 +15,41 @@ RESET="$(tput sgr0)"
 RED="$(tput setaf 1)"
 YELLOW="$(tput setaf 3)"
 BLUE="$(tput setaf 4)"
-WHITE="$(tput setaf 7)"
 
-# Configuration
-if [ ! -f ./.workman_config ]; then
-    echo "${RED}Workman must be run in a directory with a .workman_config file!${RESET}" >&2
+# Load configuration options from bash script in current directory. Allow same directory to host
+# multiple projects by specifying custom config files using environment variables.
+WORKMAN_CONFIG_FILE="${WORKMAN_CONFIG_FILE:-.workman_config}"
+if [ ! -f ./${WORKMAN_CONFIG_FILE} ]; then
+    echo "${RED}Workman must be run in a directory with a ${WORKMAN_CONFIG_FILE} file!${RESET}" >&2
     echo "${RED}An example config file is shown below...${RESET}" >&2
     echo
+    echo "# Directory where working directories are kept."
     echo "WORKDIR_PATH=\"workdirs\""
-    echo "STAMP_NAME=\".workman_active_working_directory\""
+    echo "# Name of stamp file placed in active working directories."
+    echo "ACTIVE_STAMP_NAME=\".workman_active_working_directory\""
+    echo "# Name of stamp file placed in working directories that are updated but not assigned."
+    echo "DO_NOT_ASSIGN_STAMP_NAME=\".workman_do_not_assign\""
     echo
+    echo "# Name of project, used in working directory names."
     echo "PROJECT_NAME=\"rust\""
+    echo "# Default branch to check out and update."
     echo "DEFAULT_BRANCH=\"master\""
     echo
+    echo "# Name of upstream remote to create and update from."
     echo "UPSTREAM_NAME=\"upstream\""
+    echo "# Url of upstream remote to create and update from."
     echo "UPSTREAM_URL=\"git@github.com:rust-lang/rust.git\""
     echo
+    echo "# Name of origin remote to clone from."
     echo "ORIGIN_NAME=\"origin\""
+    echo "# Url of origin remote to clone from."
     echo "ORIGIN_URL=\"git@github.com:davidtwco/rust.git\""
     echo
+    echo "# Command to run after creating a new working directory."
     echo "NEW_COMMAND=\"ln -s ../../config.toml ./config.toml\""
+    echo "# Command to run to clean a working directory."
     echo "CLEAN_COMMAND=\"python2 x.py clean -j8\""
+    echo "# Command to run to build in a working directory."
     echo "BUILD_COMMAND=\"python2 x.py build -j8\""
     exit 1
 fi
@@ -101,7 +115,11 @@ new() {
 
 _find_free_directory() {
     for D in ${WORKDIR_PATH}/${PROJECT_NAME}*; do
-        if [ ! -f "${D}/${STAMP_NAME}" ]; then
+        if [ -f "${D}/${DO_NOT_ASSIGN_STAMP_NAME}" ]; then
+            continue
+        fi
+
+        if [ ! -f "${D}/${ACTIVE_STAMP_NAME}" ]; then
             echo "${D}"
             break
         fi
@@ -113,8 +131,8 @@ _find_assigned_for_task() {
     TASK="${1}"
 
     for D in ${WORKDIR_PATH}/${PROJECT_NAME}*; do
-        if [ -f "${D}/${STAMP_NAME}" ]; then
-            if [ $(<"${D}/${STAMP_NAME}") == "${TASK}" ]; then
+        if [ -f "${D}/${ACTIVE_STAMP_NAME}" ]; then
+            if [ $(<"${D}/${ACTIVE_STAMP_NAME}") == "${TASK}" ]; then
                 echo "${D}"
                 break
             fi
@@ -153,7 +171,7 @@ assign() {
     pushd "${FREE}"
 
     echo "${YELLOW}::${RESET} Creating stamp file..."
-    echo "${TASK}" > "${STAMP_NAME}"
+    echo "${TASK}" > "${ACTIVE_STAMP_NAME}"
 
     echo "${YELLOW}::${RESET} Creating git branch..."
     git checkout -b "${TASK}"
@@ -184,7 +202,7 @@ unassign() {
     pushd "${ASSIGNED}"
 
     echo "${YELLOW}::${RESET} Removing stamp file..."
-    rm "${STAMP_NAME}"
+    rm "${ACTIVE_STAMP_NAME}"
 
     echo "${YELLOW}::${RESET} Checking out ${DEFAULT_BRANCH}..."
     git checkout "${DEFAULT_BRANCH}"
@@ -210,7 +228,7 @@ unassign() {
 update() {
     echo "${BLUE}::${RESET} Updating unassigned working directories..."
     for D in ${WORKDIR_PATH}/${PROJECT_NAME}*; do
-        if [ ! -f "${D}/${STAMP_NAME}" ]; then
+        if [ ! -f "${D}/${ACTIVE_STAMP_NAME}" ]; then
             echo "${YELLOW}::${RESET} Updating \"${D}\"..."
             pushd "${D}"
 

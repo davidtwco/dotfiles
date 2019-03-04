@@ -53,7 +53,7 @@ if [ ! -f ./${WORKMAN_CONFIG_FILE} ]; then
     echo "BUILD_COMMAND=\"python2 x.py build -j8\""
     exit 1
 fi
-source ./.workman_config
+source ./${WORKMAN_CONFIG_FILE}
 
 # Print out all the directories in the working directory path that start
 # with the project name.
@@ -78,6 +78,28 @@ _update_working_directory() {
     git push "${ORIGIN_NAME}" "${DEFAULT_BRANCH}"
 }
 
+_run_new() {
+    if [ -z "${NEW_COMMAND-}" ]; then
+        echo "${YELLOW}::${RESET} Running new working directory command \"${NEW_COMMAND}\"..."
+        eval "$NEW_COMMAND"
+    fi
+}
+
+_run_clean() {
+    if [ -z "${CLEAN_COMMAND-}" ]; then
+        echo "${YELLOW}::${RESET} Running clean command \"${CLEAN_COMMAND}\"..."
+        eval "$CLEAN_COMMAND"
+    fi
+}
+
+_run_build() {
+    if [ -z "${BUILD_COMMAND-}" ]; then
+        echo "${YELLOW}::${RESET} Running build command \"${BUILD_COMMAND}\"..."
+        eval "$BUILD_COMMAND"
+    fi
+}
+
+
 # Create a new working directory with the project name and the next sequential number, clone the
 # repository, set up the remotes and run any user-specified setup commands.
 new() {
@@ -100,14 +122,11 @@ new() {
 
     _update_working_directory
 
-    echo "${YELLOW}::${RESET} Running new working directory command \"${NEW_COMMAND}\"..."
-    eval "$NEW_COMMAND"
+    _run_new
 
-    echo "${YELLOW}::${RESET} Running clean command \"${CLEAN_COMMAND}\"..."
-    eval "$CLEAN_COMMAND"
+    _run_clean
 
-    echo "${YELLOW}::${RESET} Running build command \"${BUILD_COMMAND}\"..."
-    eval "$BUILD_COMMAND"
+    _run_build
 
     echo "${BLUE}::${RESET} Finished!"
     popd
@@ -212,8 +231,7 @@ unassign() {
 
     _update_working_directory
 
-    echo "${YELLOW}::${RESET} Running clean command \"${CLEAN_COMMAND}\"..."
-    eval "$CLEAN_COMMAND"
+    _run_clean
 
     echo "${YELLOW}::${RESET} Killing tmux session..."
     popd
@@ -237,11 +255,9 @@ update() {
 
             _update_working_directory
 
-            echo "${YELLOW}::${RESET} Running clean command \"${CLEAN_COMMAND}\"..."
-            eval "$CLEAN_COMMAND"
+            _run_clean
 
-            echo "${YELLOW}::${RESET} Running build command \"${BUILD_COMMAND}\"..."
-            eval "$BUILD_COMMAND"
+            _run_build
 
             echo "${YELLOW}::${RESET} Finished updating \"${D}\"..."
             popd

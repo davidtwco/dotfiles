@@ -79,21 +79,21 @@ _update_working_directory() {
 }
 
 _run_new() {
-    if [ -z "${NEW_COMMAND-}" ]; then
+    if [ ! -z "${NEW_COMMAND-}" ]; then
         echo "${YELLOW}::${RESET} Running new working directory command \"${NEW_COMMAND}\"..."
         eval "$NEW_COMMAND"
     fi
 }
 
 _run_clean() {
-    if [ -z "${CLEAN_COMMAND-}" ]; then
+    if [ ! -z "${CLEAN_COMMAND-}" ]; then
         echo "${YELLOW}::${RESET} Running clean command \"${CLEAN_COMMAND}\"..."
         eval "$CLEAN_COMMAND"
     fi
 }
 
 _run_build() {
-    if [ -z "${BUILD_COMMAND-}" ]; then
+    if [ ! -z "${BUILD_COMMAND-}" ]; then
         echo "${YELLOW}::${RESET} Running build command \"${BUILD_COMMAND}\"..."
         eval "$BUILD_COMMAND"
     fi

@@ -159,6 +159,7 @@ _find_assigned_for_task() {
     TASK="${1}"
 
     for D in ${WORKDIR_PATH}/${PROJECT_NAME}*; do
+        WITHOUT_PATH="${D#${WORKDIR_PATH}/}"
         if ! [[ "${WITHOUT_PATH}" =~ ^${PROJECT_NAME}[0-9]+$ ]]; then
             continue
         fi

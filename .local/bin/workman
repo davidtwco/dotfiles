@@ -7,8 +7,6 @@ set -e
 set -u
 # Pipelines fail if any command in them fail.
 set -o pipefail
-# Fail when a glob doesn't expand.
-shopt -s failglob
 
 # Colors
 RESET="$(tput sgr0)"
@@ -63,8 +61,9 @@ list() {
     # be sorted easier.
     SEPERATOR="${1:- }"
     for D in ${WORKDIR_PATH}/${PROJECT_NAME}*; do
-        if [ -d "${D}" ]; then
-            printf "${D#${WORKDIR_PATH}/}$SEPERATOR"
+        WITHOUT_PATH="${D#${WORKDIR_PATH}/}"
+        if [ -d "${D}" ] && [[ "${WITHOUT_PATH}" =~ ^${PROJECT_NAME}[0-9]+$ ]]; then
+            printf "${WITHOUT_PATH}$SEPERATOR"
         fi
     done
     echo
@@ -104,7 +103,12 @@ _run_build() {
 # repository, set up the remotes and run any user-specified setup commands.
 new() {
     MAX="$(echo "$(list \\n)" | sort --version-sort | tail -n 1)"
-    MAX_INDEX="${MAX#${PROJECT_NAME}}"
+    if [ -z "${MAX}" ]; then
+        MAX_INDEX="-1"
+    else
+        MAX_INDEX="${MAX#${PROJECT_NAME}}"
+    fi
+
     NEXT_INDEX="$((MAX_INDEX + 1))"
     NEXT_WORKDIR_PATH="${WORKDIR_PATH}/${PROJECT_NAME}${NEXT_INDEX}"
 
@@ -134,6 +138,11 @@ new() {
 
 _find_free_directory() {
     for D in ${WORKDIR_PATH}/${PROJECT_NAME}*; do
+        WITHOUT_PATH="${D#${WORKDIR_PATH}/}"
+        if ! [[ "${WITHOUT_PATH}" =~ ^${PROJECT_NAME}[0-9]+$ ]]; then
+            continue
+        fi
+
         if [ -f "${D}/${DO_NOT_ASSIGN_STAMP_NAME}" ]; then
             continue
         fi
@@ -150,6 +159,10 @@ _find_assigned_for_task() {
     TASK="${1}"
 
     for D in ${WORKDIR_PATH}/${PROJECT_NAME}*; do
+        if ! [[ "${WITHOUT_PATH}" =~ ^${PROJECT_NAME}[0-9]+$ ]]; then
+            continue
+        fi
+
         if [ -f "${D}/${ACTIVE_STAMP_NAME}" ]; then
             if [ $(<"${D}/${ACTIVE_STAMP_NAME}") == "${TASK}" ]; then
                 echo "${D}"

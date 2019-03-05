@@ -187,8 +187,8 @@ assign() {
     ASSIGNED="$(_find_assigned_for_task ${TASK})"
     if [ ! -z $ASSIGNED ]; then
         echo "${BLUE}::${RESET} Found existing working directory for \"${TASK}\", attaching..."
-        pushd "${FREE}"
-        tmux new -A -s "${TASK}"
+        pushd "${ASSIGNED}"
+        tmux new -A -s "${PROJECT_NAME}/${TASK}"
         popd
         exit 0
     fi
@@ -210,7 +210,7 @@ assign() {
     git checkout -b "${TASK}"
 
     echo "${BLUE}::${RESET} Finished! Starting tmux session..."
-    tmux new -s "${TASK}"
+    tmux new -s "${PROJECT_NAME}/${TASK}"
     popd
 }
 
@@ -249,8 +249,8 @@ unassign() {
 
     echo "${YELLOW}::${RESET} Killing tmux session..."
     popd
-    if (tmux ls -F "#S" | grep "${TASK}"); then
-        tmux kill-session -t "${TASK}"
+    if (tmux ls -F "#S" | grep "${PROJECT_NAME}/${TASK}"); then
+        tmux kill-session -t "${PROJECT_NAME}/${TASK}"
     fi
 
     echo "${BLUE}::${RESET} Finished!"

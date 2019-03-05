@@ -73,6 +73,7 @@ fi
 if command -v workman >/dev/null 2>&1; then
     alias workman-rust="WORKMAN_CONFIG_FILE=.workman_config_rust workman"
     alias workman-rust-analyzer="WORKMAN_CONFIG_FILE=.workman_config_rust_analyzer workman"
+    alias workman-rust-compiler-team="WORKMAN_CONFIG_FILE=.workman_config_rust_compiler_team workman"
 fi
 
 # Add an "alert" alias for long running commands.  Use like so:

@@ -9,10 +9,17 @@ set -u
 set -o pipefail
 
 # Colors
-RESET="$(tput sgr0)"
-RED="$(tput setaf 1)"
-YELLOW="$(tput setaf 3)"
-BLUE="$(tput setaf 4)"
+if [ -t 1 ]; then
+    RESET="$(tput sgr0)"
+    RED="$(tput setaf 1)"
+    YELLOW="$(tput setaf 3)"
+    BLUE="$(tput setaf 4)"
+else
+    RESET=""
+    RED=""
+    YELLOW=""
+    BLUE=""
+fi
 
 # Load configuration options from bash script in current directory. Allow same directory to host
 # multiple projects by specifying custom config files using environment variables.

@@ -435,6 +435,7 @@ nnoremap <leader>pg :GFiles<CR>
 nnoremap <leader>pc :Commits<CR>
 nnoremap <leader>pb :Buffers<CR>
 nnoremap <leader>pt :Tags<CR>
+nnoremap <leader>pr :Rg<CR>
 
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -452,6 +453,14 @@ imap <c-x><C-l> <plug>(fzf-complete-line)
 " =========
 " Silences an error about this being unset.
 let g:gutentags_exclude_filetypes = []
+
+" Only generate tags for files tracked by Git (e.g. stops LLVM being included for Rust)
+let g:gutentags_file_list_command = {
+\   'markers': {
+\     '.git': 'git ls-files',
+\     '.hg': 'hg files',
+\   },
+\ }
 " }}}
 
 " History {{{

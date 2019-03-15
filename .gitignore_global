@@ -30,3 +30,6 @@ Session.vim
 ### Workman ###
 .workman_active_working_directory
 .workman_do_not_assign
+
+### Ripgrep ###
+.rgignore

@@ -43,8 +43,8 @@ alias rm='rm -I'
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
@@ -69,11 +69,16 @@ if command -v hub >/dev/null 2>&1; then
     eval "$(hub alias -s)"
 fi
 
+if command -v nvim >/dev/null 2>&1; then
+    alias vim="nvim"
+fi
+
 # Add aliases for workman configurations.
 if command -v workman >/dev/null 2>&1; then
     alias workman-rust="WORKMAN_CONFIG_FILE=.workman_config_rust workman"
     alias workman-rust-analyzer="WORKMAN_CONFIG_FILE=.workman_config_rust_analyzer workman"
     alias workman-rust-compiler-team="WORKMAN_CONFIG_FILE=.workman_config_rust_compiler_team workman"
+    alias workman-rust-team="WORKMAN_CONFIG_FILE=.workman_config_rust_team workman"
 fi
 
 # Add an "alert" alias for long running commands.  Use like so:

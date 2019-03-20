@@ -253,7 +253,7 @@ let g:ale_pattern_options = {
 " Limit clangtidy checks.
 let g:ale_cpp_clangtidy_checks = ['clang-analyzer-*']
 
-" Set bindings.
+" Set mappings.
 nmap <leader>ad <plug>(ale_go_to_definition)
 nmap <leader>ar <plug>(ale_find_references)
 nmap <leader>ah <plug>(ale_hover)
@@ -262,12 +262,9 @@ nmap <leader>at <plug>(ale_detail)
 nmap <leader>an <plug>(ale_next_wrap)
 nmap <leader>ap <plug>(ale_previous_wrap)
 
-" Set quicker bindings.
+" Set quicker mappings.
 nmap <C-n> <plug>(ale_next_wrap)
 nmap <C-@> <plug>(ale_previous_wrap)
-nmap <C-q> <plug>(ale_go_to_definition)
-nmap <C-s> <plug>(ale_fix)
-nmap <C-x> <plug>(ale_find_references)
 " }}}
 
 " Buffers {{{
@@ -429,13 +426,19 @@ command! -nargs=1 -complete=command Redir silent call Redir(<f-args>)
 
 " fzf {{{
 " ===
-nnoremap <C-p> :Files<CR>
+" Set mappings.
 nnoremap <leader>pf :Files<CR>
 nnoremap <leader>pg :GFiles<CR>
 nnoremap <leader>pc :Commits<CR>
 nnoremap <leader>pb :Buffers<CR>
 nnoremap <leader>pt :Tags<CR>
 nnoremap <leader>pr :Rg<CR>
+
+" Set quicker mappings.
+nnoremap <C-p> :Files<CR>
+nnoremap <C-q> :Tags<CR>
+nnoremap <C-s> :Buffers<CR>
+nnoremap <C-x> :Rg<CR>
 
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)

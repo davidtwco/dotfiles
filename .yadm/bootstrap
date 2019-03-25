@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Navigate to root of yadm repository.
 cd "$HOME"
@@ -21,6 +21,7 @@ chmod -R 700 ~/.local/bin
 
 # Make other directories.
 mkdir -p ~/.go
+mkdir -p ~/.ssh/sockets
 
 # Create .Xdefaults
 ln -s ~/.Xresources ~/.Xdefaults

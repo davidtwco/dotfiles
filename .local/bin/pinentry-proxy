@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Invoke pinentry-curses with the arguments passed to this script.
+# We need this because gpg-agent.conf expects a path to a command and
+# the pinentry binary lives in different places in different distros.
+shift
+/usr/bin/env pinentry-curses $@
+
+# vim:ft=sh

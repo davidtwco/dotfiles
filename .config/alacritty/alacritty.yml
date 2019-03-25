@@ -10,8 +10,8 @@ window:
   # Window dimensions in character columns and lines. Falls back to size specified by window
   # manager if set to 0x0. (changes require restart).
   dimensions:
-    columns: 80
-    lines: 24
+    columns: 220
+    lines: 48
 
   # Adds this many blank pixels of padding around the window. Units are physical pixels; this
   # is not DPI aware. (change requires restart).
@@ -23,7 +23,7 @@ window:
   decorations: true
 
 # Display tabs using this many cells (changes require restart).
-tabspaces: 8
+tabspaces: 4
 
 # When true, bold text is drawn using the bright variant of colors.
 draw_bold_text_with_bright_colors: true
@@ -50,17 +50,17 @@ draw_bold_text_with_bright_colors: true
 font:
   # The normal (roman) font face to use.
   normal:
-    family: Iosevka Term
+    family: Iosevka
     style: Regular
 
   # The bold font face.
   bold:
-    family: Iosevka Term
+    family: Iosevka
     style: Bold
 
   # The italic font face.
   italic:
-    family: Iosevka Term
+    family: Iosevka
     style: Italic
 
   # Point size of the font.

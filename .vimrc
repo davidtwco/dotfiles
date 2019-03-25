@@ -251,7 +251,7 @@ let g:ale_pattern_options = {
 \ }
 
 " Limit clangtidy checks.
-let g:ale_cpp_clangtidy_checks = ['clang-analyzer-*']
+let g:ale_cpp_clangtidy_checks = ['clang-analyzer-*', 'cppcoreguidelines-*', 'llvm-*']
 
 " Set mappings.
 nmap <leader>ad <plug>(ale_go_to_definition)

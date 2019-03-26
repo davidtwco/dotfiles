@@ -282,25 +282,40 @@ source $HOME/.yadm/external/up/up.sh
 export RPS1=
 autoload -Uz promptinit; promptinit
 
-VIM_PROMPT="❯"
-PROMPT='%(12V.%F{242}${psvar[12]}%f .)'
-PROMPT+='%(?.%F{magenta}.%F{red})${VIM_PROMPT}%f '
+# Override some of the Pure updating so that we can include the
+# Nix shell information. Unfortunately, this requires re-implementing
+# the Vim prompt support.
 
 PURE_GIT_DOWN_ARROW='↓'
 PURE_GIT_UP_ARROW='↑'
 
-prompt_pure_update_vim_prompt() {
+NIX_PROMPT=""
+VIM_PROMPT="❯"
+
+PROMPT='%(12V.%F{242}${psvar[12]}%f .)'
+PROMPT+='%(?.%F{yellow}.%F{yellow})${NIX_PROMPT}%f%(?.%F{magenta}.%F{red})${VIM_PROMPT}%f '
+
+prompt_pure_update_user_prompt() {
     zle || {
         print "error: pure_update_vim_prompt must be called when zle is active"
         return 1
     }
+
     VIM_PROMPT=${${KEYMAP/vicmd/❮}/(main|viins)/❯}
+
+    if [[ ! -z "${IN_NIX_SHELL}" ]]; then
+        NIX_PROMPT="${IN_NIX_SHELL:-} "
+    else
+        NIX_PROMPT=""
+    fi
+
     zle .reset-prompt
 }
 
 function zle-line-init zle-keymap-select {
-    prompt_pure_update_vim_prompt
+    prompt_pure_update_user_prompt
 }
+
 zle -N zle-line-init
 zle -N zle-keymap-select
 # }}}

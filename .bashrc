@@ -1,4 +1,4 @@
-# David Wood's .bashrc Configuration
+# davidtwco .bashrc Configuration
 #	dotfiles: https://github.com/davidtwco/dotfiles
 #	website: https://davidtw.co
 # ==================================================

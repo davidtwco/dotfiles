@@ -1,4 +1,4 @@
-" David Wood's .vimrc Configuration
+" davidtwco .vimrc Configuration
 "  dotfiles: https://github.com/davidtwco/dotfiles
 "  website: https://davidtw.co
 " =================================

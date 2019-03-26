@@ -5,6 +5,10 @@
 
 # Shell {{{
 # =====
+if [[ -n $IN_NIX_SHELL ]]; then
+    return
+fi
+
 # Due to limitations in Bash for Windows, in order to use
 # an alternate shell, we must launch it from here. We cannot
 # use chsh.

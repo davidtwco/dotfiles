@@ -190,6 +190,10 @@ if which ruby>/dev/null 2>&1; then
     prependToPath "$(ruby -e 'print Gem.user_dir')"
     prependToPath "$(ruby -e 'print Gem.user_dir')/bin"
 fi
+if which ccache>/dev/null 2>&1; then
+    prependToPath /usr/lib/ccache # Ubuntu
+    prependToPath /usr/lib/ccache/bin # Arch
+fi
 export PATH="$PATH"
 # }}}
 

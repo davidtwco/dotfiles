@@ -142,6 +142,10 @@ if _has ruby; then
     path=("$(ruby -e 'print Gem.user_dir')" $path)
     path=("$(ruby -e 'print Gem.user_dir')/bin" $path)
 fi
+if _has ccache; then
+    path=("/usr/lib/ccache" $path) # Ubuntu
+    path=("/usr/lib/ccache/bin" $path) # Arch
+fi
 
 # Using the (N-/) glob qualifier we can remove paths that do not exist.
 path=($^path(N-/))

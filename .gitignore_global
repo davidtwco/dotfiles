@@ -33,3 +33,6 @@ Session.vim
 
 ### Ripgrep ###
 .rgignore
+
+### C/C++ ###
+compile_commands.json

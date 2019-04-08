@@ -57,6 +57,9 @@ if exists('*minpac#init')
 
     " PostgreSQL
     call minpac#add('lifepillar/pgsql.vim')
+
+    " Puppet
+    call minpac#add('rodjek/vim-puppet')
     " }}}
 
     " Completion {{{
@@ -533,7 +536,7 @@ function! LightlineFilename()
     " by the separator.
     let shortened_filepath = fnamemodify(filepath, mod)
 
-    if len(shortened_filepath) < (winwidth('%') / 3)
+    if len(shortened_filepath) < (winwidth('%') / 2)
         return shortened_filepath.modified
     endif
 

@@ -60,6 +60,9 @@ if exists('*minpac#init')
 
     " Puppet
     call minpac#add('rodjek/vim-puppet')
+
+    " GraphQL
+    call minpac#add('jparise/vim-graphql')
     " }}}
 
     " Completion {{{

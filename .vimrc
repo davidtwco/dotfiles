@@ -194,7 +194,7 @@ if exists('*minpac#init')
     call minpac#add('shime/vim-livedown', {'type': 'opt'})
 
     " Support markdown headers as fold markers.
-    call minpac#add('nelstrom/vim-markdown-folding')
+    call minpac#add('masukomi/vim-markdown-folding')
 
     " Multi-file search (`Ack`)
     call minpac#add('wincent/ferret')

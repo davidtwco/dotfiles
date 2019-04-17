@@ -250,6 +250,13 @@ fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 # }}}
 
+# direnv {{{
+# ======
+if which direnv>/dev/null 2>&1; then
+    eval "$(direnv hook bash)"
+fi
+# }}}
+
 # Neovim {{{
 # ======
 # If running in Neovim terminal mode then don't let us launch Neovim.

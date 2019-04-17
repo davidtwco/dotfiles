@@ -276,6 +276,14 @@ if _has fzf && _has rg; then
 fi
 # }}}
 
+# direnv {{{
+# ======
+if _has direnv; then
+    eval "$(direnv hook zsh)"
+fi
+
+# }}}
+
 # up {{{
 # ==
 source $HOME/.yadm/external/up/up.sh

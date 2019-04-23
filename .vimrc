@@ -38,6 +38,7 @@ if exists('*minpac#init')
     call minpac#add('rust-lang/rust.vim')
 
     " Pandoc
+    call minpac#add('vim-pandoc/vim-pandoc')
     call minpac#add('vim-pandoc/vim-pandoc-syntax')
 
     " Rockerfile
@@ -339,6 +340,7 @@ if has("autocmd")
     " Markdown indentation should mirror YAML for use in frontmatter, also
     " enable spelling.
     au FileType markdown setlocal ts=2 sts=2 sw=2 expandtab nosmarttab spell
+    au FileType markdown set foldexpr=NestedMarkdownFolds()
 
     " Git commits should break lines at 72 characters.
     au FileType gitcommit setlocal tw=72
@@ -356,8 +358,8 @@ if has("autocmd")
     au BufNewFile,BufRead *.hocon setlocal ft=hocon
     " Set Jenkinsfile files to be Groovy files.
     au BufNewFile,BufRead Jenkinsfile setlocal ft=groovy
-    " Set markdown files to be highlighted with the Pandoc plugin.
-    au BufNewFile,BufFilePre,BufRead *.md setlocal ft=markdown.pandoc
+    " Set markdown files to be highlighted without the Pandoc plugin.
+    au BufNewFile,BufFilePre,BufRead *.md setlocal ft=markdown
 endif
 " }}}
 
@@ -596,7 +598,11 @@ let g:localvimrc_persistence_file = $HOME . '/.vim/lvimrc_persistence'
 
 " Markdown {{{
 " ========
+let g:pandoc#filetypes#pandoc_markdown = 0
+let g:pandoc#folding#fdc = 0
+
 let g:vim_markdown_conceal = 0
+let g:markdown_syntax_conceal = 0
 " }}}
 
 " Mappings {{{

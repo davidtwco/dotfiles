@@ -1,0 +1,15 @@
+# Only continue if there exists a projects directory for Rust in the expected location and a
+# key that can be used when cloning for use by Workman.
+# Invariant: should contain a `.workman_config`
+if [ -d "$HOME/projects/rust" ] && [ -f "$HOME/.ssh/id_workman_rsa" ]; then
+    . /etc/profile
+    pushd $HOME/projects/rust
+    if which nix-shell>/dev/null 2>&1; then
+        nix-shell --command "GIT_SSH_COMMAND='ssh -i $HOME/.ssh/id_workman_rsa' $HOME/.local/bin/workman update"
+    else
+        GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_workman_rsa" $HOME/.local/bin/workman update
+    fi
+    popd
+fi
+
+# vim:ft=sh

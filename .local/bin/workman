@@ -50,15 +50,18 @@ if [ ! -f ./${WORKMAN_CONFIG_FILE} ]; then
     echo "# Url of origin remote to clone from."
     echo "ORIGIN_URL=\"git@github.com:davidtwco/rust.git\""
     echo
-    echo "# Command to run after creating a new working directory."
-    echo "NEW_COMMAND=\"ln -s ../../config.toml ./config.toml\""
+    echo "# Command to run before creating a new working directory."
+    echo "BEFORE_COMMAND=\"ln -s ../../config.toml ./config.toml\""
     echo "# Command to run to clean a working directory."
     echo "CLEAN_COMMAND=\"python2 x.py clean -j8\""
     echo "# Command to run to build in a working directory."
     echo "BUILD_COMMAND=\"python2 x.py build -j8\""
+    echo "# Command to run after creating a new working directory."
+    echo "AFTER_COMMAND=\"rustup toolchain link \$(basename \$(pwd))-stage1 ./build/x86_64-unknown-linux-gnu/stage1\""
     exit 1
 fi
-source ./${WORKMAN_CONFIG_FILE}
+WORKMAN_CONFIG_FILE_PATH="${PWD}/${WORKMAN_CONFIG_FILE}"
+source ${WORKMAN_CONFIG_FILE_PATH}
 
 # Print out all the directories in the working directory path that start
 # with the project name.
@@ -84,27 +87,45 @@ _update_working_directory() {
     git push "${ORIGIN_NAME}" "${DEFAULT_BRANCH}"
 }
 
-_run_new() {
-    if [ ! -z "${NEW_COMMAND-}" ]; then
-        echo "${YELLOW}::${RESET} Running new working directory command \"${NEW_COMMAND}\"..."
-        eval "$NEW_COMMAND"
+_run_before() {
+    if [ ! -z "${BEFORE_COMMAND-}" ]; then
+        echo "${YELLOW}::${RESET} Running before working directory command \"${BEFORE_COMMAND}\"..."
+        eval "$BEFORE_COMMAND"
+    fi
+}
+
+_run_after() {
+    if [ ! -z "${AFTER_COMMAND-}" ]; then
+        echo "${YELLOW}::${RESET} Running after working directory command \"${AFTER_COMMAND}\"..."
+        if which nix-shell>/dev/null 2>&1 && [ -f ./shell.nix ]; then
+            nix-shell --run "$AFTER_COMMAND"
+        else
+            eval "$AFTER_COMMAND"
+        fi
     fi
 }
 
 _run_clean() {
     if [ ! -z "${CLEAN_COMMAND-}" ]; then
         echo "${YELLOW}::${RESET} Running clean command \"${CLEAN_COMMAND}\"..."
-        eval "$CLEAN_COMMAND"
+        if which nix-shell>/dev/null 2>&1 && [ -f ./shell.nix ]; then
+            nix-shell --run "$CLEAN_COMMAND"
+        else
+            eval "$CLEAN_COMMAND"
+        fi
     fi
 }
 
 _run_build() {
     if [ ! -z "${BUILD_COMMAND-}" ]; then
         echo "${YELLOW}::${RESET} Running build command \"${BUILD_COMMAND}\"..."
-        eval "$BUILD_COMMAND"
+        if which nix-shell>/dev/null 2>&1 && [ -f ./shell.nix ]; then
+            nix-shell --run "$BUILD_COMMAND"
+        else
+            eval "$BUILD_COMMAND"
+        fi
     fi
 }
-
 
 # Create a new working directory with the project name and the next sequential number, clone the
 # repository, set up the remotes and run any user-specified setup commands.
@@ -125,6 +146,10 @@ new() {
     git clone "${ORIGIN_URL}" "${NEXT_WORKDIR_PATH}"
     pushd "${NEXT_WORKDIR_PATH}"
 
+    # Re-load configuration file so that any commands have `pwd` evaluated in the current working
+    # directory.
+    source ${WORKMAN_CONFIG_FILE_PATH}
+
     echo "${YELLOW}::${RESET} Adding ${UPSTREAM_NAME} remote at \"${UPSTREAM_URL}\"..."
     git remote add "${UPSTREAM_NAME}" "${UPSTREAM_URL}"
 
@@ -133,11 +158,18 @@ new() {
 
     _update_working_directory
 
-    _run_new
+    _run_before
+
+    if which direnv>/dev/null 2>&1; then
+        echo "${YELLOW}::${RESET} Allowing direnv..."
+        direnv allow
+    fi
 
     _run_clean
 
     _run_build
+
+    _run_after
 
     echo "${BLUE}::${RESET} Finished!"
     popd
@@ -241,6 +273,10 @@ unassign() {
     echo "${BLUE}::${RESET} Unassigning working directory \"${ASSIGNED}\" from \"${TASK}\"..."
     pushd "${ASSIGNED}"
 
+    # Re-load configuration file so that any commands have `pwd` evaluated in the current working
+    # directory.
+    source ${WORKMAN_CONFIG_FILE_PATH}
+
     echo "${YELLOW}::${RESET} Removing stamp file..."
     rm "${ACTIVE_STAMP_NAME}"
 
@@ -270,6 +306,10 @@ update() {
         if [ ! -f "${D}/${ACTIVE_STAMP_NAME}" ]; then
             echo "${YELLOW}::${RESET} Updating \"${D}\"..."
             pushd "${D}"
+
+            # Re-load configuration file so that any commands have `pwd` evaluated in the current
+            # working directory.
+            source ${WORKMAN_CONFIG_FILE_PATH}
 
             echo "${YELLOW}::${RESET} Checking out ${DEFAULT_BRANCH}..."
             git checkout "${DEFAULT_BRANCH}"

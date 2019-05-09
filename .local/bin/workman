@@ -58,10 +58,27 @@ if [ ! -f ./${WORKMAN_CONFIG_FILE} ]; then
     echo "BUILD_COMMAND=\"python2 x.py build -j8\""
     echo "# Command to run after creating a new working directory."
     echo "AFTER_COMMAND=\"rustup toolchain link \$(basename \$(pwd))-stage1 ./build/x86_64-unknown-linux-gnu/stage1\""
+    echo
+    echo "# Command to run to resume a session."
+    echo "SESSION_REATTACH_COMMAND=\"tmux new -A -s \\\"\\\${PROJECT_NAME}/\\\${TASK}\\\"\""
+    echo "# Command to run to start a session."
+    echo "SESSION_ATTACH_COMMAND=\"${SESSION_REATTACH_COMMAND}\"\""
+    echo "# Command to run to kill a session."
+    echo "SESSION_KILL_COMMAND=\"tmux kill-session -t \\\"\\\${PROJECT_NAME}/\\\${TASK}\\\"\""
     exit 1
 fi
+
+_load_config() {
+    # Set some defaults for options that the user may not have in their config.
+    SESSION_REATTACH_COMMAND="tmux new -A -s \"\${PROJECT_NAME}/\${TASK}\""
+    SESSION_ATTACH_COMMAND="${SESSION_REATTACH_COMMAND}"
+    SESSION_KILL_COMMAND="tmux kill-session -t \"\${PROJECT_NAME}/\${TASK}\""
+    # load the config file
+    source ${WORKMAN_CONFIG_FILE_PATH}
+}
+
 WORKMAN_CONFIG_FILE_PATH="${PWD}/${WORKMAN_CONFIG_FILE}"
-source ${WORKMAN_CONFIG_FILE_PATH}
+_load_config
 
 # Print out all the directories in the working directory path that start
 # with the project name.
@@ -74,6 +91,9 @@ list() {
         WITHOUT_PATH="${D#${WORKDIR_PATH}/}"
         if [ -d "${D}" ] && [[ "${WITHOUT_PATH}" =~ ^${PROJECT_NAME}[0-9]+$ ]]; then
             printf "${WITHOUT_PATH}$SEPERATOR"
+            if [ "$SEPERATOR" == " " ]; then
+                cat "${D}/.workman_active_working_directory"
+            fi
         fi
     done
     echo
@@ -82,6 +102,9 @@ list() {
 _update_working_directory() {
     echo "${YELLOW}::${RESET} Pulling from ${UPSTREAM_NAME}..."
     git pull "${UPSTREAM_NAME}" "${DEFAULT_BRANCH}"
+
+    echo "${YELLOW}::${RESET} Updating submodules..."
+    git submodule update --init --recursive
 
     echo "${YELLOW}::${RESET} Pushing to ${ORIGIN_NAME}..."
     git push "${ORIGIN_NAME}" "${DEFAULT_BRANCH}"
@@ -148,7 +171,7 @@ new() {
 
     # Re-load configuration file so that any commands have `pwd` evaluated in the current working
     # directory.
-    source ${WORKMAN_CONFIG_FILE_PATH}
+    _load_config
 
     echo "${YELLOW}::${RESET} Adding ${UPSTREAM_NAME} remote at \"${UPSTREAM_URL}\"..."
     git remote add "${UPSTREAM_NAME}" "${UPSTREAM_URL}"
@@ -212,6 +235,31 @@ _find_assigned_for_task() {
     done
 }
 
+# Open a task's working directory if there is already one
+open() {
+    TASK="${1-}"
+    ASSIGNED="$(_find_assigned_for_task ${TASK})"
+    if [ ! -z $ASSIGNED ]; then
+        _open $TASK $ASSIGNED
+    else
+        echo "${RED}No task named ${TASK} found. Current tasks:${RESET}" >&2
+        list
+        exit 1
+    fi
+}
+
+# A convencience helper for the `open` and the `assign` commands, since they both can attach to
+# a preexising session.
+_open() {
+    TASK=$1
+    ASSIGNED=$2
+    echo "${BLUE}::${RESET} Found existing working directory for \"${TASK}\", attaching..."
+    pushd "${ASSIGNED}"
+    eval "$SESSION_REATTACH_COMMAND"
+    popd
+    exit 0
+}
+
 # Assign a working directory to a task.
 assign() {
     # Check if we've been given the name of a task.
@@ -225,11 +273,7 @@ assign() {
     # Attach if the task is already assigned.
     ASSIGNED="$(_find_assigned_for_task ${TASK})"
     if [ ! -z $ASSIGNED ]; then
-        echo "${BLUE}::${RESET} Found existing working directory for \"${TASK}\", attaching..."
-        pushd "${ASSIGNED}"
-        tmux new -A -s "${PROJECT_NAME}/${TASK}"
-        popd
-        exit 0
+        _open $TASK $ASSIGNED
     fi
 
     # If we found none then exit.
@@ -248,8 +292,8 @@ assign() {
     echo "${YELLOW}::${RESET} Creating git branch..."
     git checkout -b "${TASK}"
 
-    echo "${BLUE}::${RESET} Finished! Starting tmux session..."
-    tmux new -s "${PROJECT_NAME}/${TASK}"
+    echo "${BLUE}::${RESET} Finished! Starting session..."
+    eval "$SESSION_ATTACH_COMMAND"
     popd
 }
 
@@ -275,7 +319,7 @@ unassign() {
 
     # Re-load configuration file so that any commands have `pwd` evaluated in the current working
     # directory.
-    source ${WORKMAN_CONFIG_FILE_PATH}
+    _load_config
 
     echo "${YELLOW}::${RESET} Removing stamp file..."
     rm "${ACTIVE_STAMP_NAME}"
@@ -290,10 +334,10 @@ unassign() {
 
     _run_clean
 
-    echo "${YELLOW}::${RESET} Killing tmux session..."
+    echo "${YELLOW}::${RESET} Killing session..."
     popd
     if (tmux ls -F "#S" | grep "${PROJECT_NAME}/${TASK}"); then
-        tmux kill-session -t "${PROJECT_NAME}/${TASK}"
+        eval "$SESSION_KILL_COMMAND"
     fi
 
     echo "${BLUE}::${RESET} Finished!"
@@ -309,7 +353,7 @@ update() {
 
             # Re-load configuration file so that any commands have `pwd` evaluated in the current
             # working directory.
-            source ${WORKMAN_CONFIG_FILE_PATH}
+            _load_config
 
             echo "${YELLOW}::${RESET} Checking out ${DEFAULT_BRANCH}..."
             git checkout "${DEFAULT_BRANCH}"
@@ -340,6 +384,7 @@ usage() {
     SB="%4s%-25s%-20s\n"
     echo "Workman 0.1.0"
     echo "David Wood <david@davidtw.co>"
+    echo "with contributions from Oliver Scherer <https://github.com/oli-obk>"
     echo "Experimental working directory manager - handles creating new working directories, "
     echo "assigning and unassigning working directories to/from tasks and updating working"
     echo "directories"
@@ -351,6 +396,7 @@ usage() {
     printf "${SB}" "" "help" "Prints this help message"
     printf "${SB}" "" "list" "List all working directories"
     printf "${SB}" "" "new" "Create a new working directory"
+    printf "${SB}" "" "open [TASK_NAME]" "Open an existing working directory for a task"
     printf "${SB}" "" "assign [TASK_NAME]" "Assign a working directory to a task"
     printf "${SB}" "" "unassign [TASK_NAME]" "Unassign a working directory from a task"
     printf "${SB}" "" "update" "Update all unassigned working directories"
@@ -361,7 +407,7 @@ if [ -z ${1-}  ]; then
     echo "${RED}Must provide a subcommand!${RESET}" >&2
     usage
 # A correct subcommand has been provided.
-elif [[ $1 =~ ^(help|list|new|assign|unassign|update)$ ]]; then
+elif [[ $1 =~ ^(help|list|new|open|assign|unassign|update)$ ]]; then
     "$@"
 # A incorrect subcommand has been provided.
 else

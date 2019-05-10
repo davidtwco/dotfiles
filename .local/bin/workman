@@ -21,6 +21,13 @@ else
     BLUE=""
 fi
 
+# Name of stamp file placed in active working directories.
+ACTIVE_STAMP_NAME=".workman_active_working_directory"
+# Name of stamp file placed in working directories that are updated but not assigned.
+DO_NOT_ASSIGN_STAMP_NAME=".workman_do_not_assign"
+# Name of stamp file placed in working directories that need updated before being assigned again.
+NEEDS_REFRESH_STAMP_NAME=".workman_needs_refresh"
+
 # Load configuration options from bash script in current directory. Allow same directory to host
 # multiple projects by specifying custom config files using environment variables.
 WORKMAN_CONFIG_FILE="${WORKMAN_CONFIG_FILE:-.workman_config}"
@@ -34,6 +41,8 @@ if [ ! -f ./${WORKMAN_CONFIG_FILE} ]; then
     echo "ACTIVE_STAMP_NAME=\".workman_active_working_directory\""
     echo "# Name of stamp file placed in working directories that are updated but not assigned."
     echo "DO_NOT_ASSIGN_STAMP_NAME=\".workman_do_not_assign\""
+    echo "# Name of stamp file placed in working directories that need updated before being assigned again."
+    echo "NEEDS_REFRESH_STAMP_FILE=\".workman_needs_refresh\""
     echo
     echo "# Name of project, used in working directory names."
     echo "PROJECT_NAME=\"rust\""
@@ -62,11 +71,11 @@ if [ ! -f ./${WORKMAN_CONFIG_FILE} ]; then
     echo "# Command to run to resume a session."
     echo "SESSION_REATTACH_COMMAND=\"tmux new -A -s \\\"\${PROJECT_NAME}/\${TASK}\\\"\""
     echo "# Command to run to start a session."
-    echo "SESSION_ATTACH_COMMAND=\"\${SESSION_REATTACH_COMMAND}\"\""
+    echo "SESSION_ATTACH_COMMAND=\"\${SESSION_REATTACH_COMMAND}\""
     echo "# Command to run to kill a session."
     echo "SESSION_KILL_COMMAND=\"tmux kill-session -t \\\"\${PROJECT_NAME}/\${TASK}\\\"\""
     echo "# Command to run to check if a session exists."
-    echo "SESSION_CHECK_COMMAND=\"tmux ls -F \\\"#S\\\" | grep \\\"\${PROJECT_NAME}/\${TASK}\\\"\\\""
+    echo "SESSION_CHECK_COMMAND=\"tmux ls -F \\\"#S\\\" | grep \\\"\${PROJECT_NAME}/\${TASK}\\\"\""
     exit 1
 fi
 
@@ -237,6 +246,10 @@ _find_free_directory() {
             continue
         fi
 
+        if [ -f "${D}/${NEEDS_REFRESH_STAMP_NAME}" ]; then
+            continue
+        fi
+
         if [ ! -f "${D}/${ACTIVE_STAMP_NAME}" ]; then
             echo "${D}"
             break
@@ -379,6 +392,9 @@ unassign() {
 
     _run_clean
 
+    echo "${YELLOW}::${RESET} Marking directory as needing refreshed..."
+    echo "${TASK}" > "${NEEDS_REFRESH_STAMP_NAME}"
+
     echo "${YELLOW}::${RESET} Killing session..."
     popd
 
@@ -413,6 +429,11 @@ update() {
 
             echo "${YELLOW}::${RESET} Finished updating \"${D}\"..."
             popd
+
+            if [ -f "${D}/${NEEDS_REFRESH_STAMP_NAME}" ]; then
+                echo "${YELLOW}::${RESET} Removing \"needs refresh\" mark for \"${D}\"..."
+                rm "${D}/${NEEDS_REFRESH_STAMP_NAME}"
+            fi
         else
             echo "${YELLOW}::${RESET} Skipping assigned working directory \"${D}\"..."
         fi

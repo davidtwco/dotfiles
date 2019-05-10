@@ -60,20 +60,34 @@ if [ ! -f ./${WORKMAN_CONFIG_FILE} ]; then
     echo "AFTER_COMMAND=\"rustup toolchain link \$(basename \$(pwd))-stage1 ./build/x86_64-unknown-linux-gnu/stage1\""
     echo
     echo "# Command to run to resume a session."
-    echo "SESSION_REATTACH_COMMAND=\"tmux new -A -s \\\"\\\${PROJECT_NAME}/\\\${TASK}\\\"\""
+    echo "SESSION_REATTACH_COMMAND=\"tmux new -A -s \\\"\${PROJECT_NAME}/\${TASK}\\\"\""
     echo "# Command to run to start a session."
-    echo "SESSION_ATTACH_COMMAND=\"${SESSION_REATTACH_COMMAND}\"\""
+    echo "SESSION_ATTACH_COMMAND=\"\${SESSION_REATTACH_COMMAND}\"\""
     echo "# Command to run to kill a session."
-    echo "SESSION_KILL_COMMAND=\"tmux kill-session -t \\\"\\\${PROJECT_NAME}/\\\${TASK}\\\"\""
+    echo "SESSION_KILL_COMMAND=\"tmux kill-session -t \\\"\${PROJECT_NAME}/\${TASK}\\\"\""
+    echo "# Command to run to check if a session exists."
+    echo "SESSION_CHECK_COMMAND=\"tmux ls -F \\\"#S\\\" | grep \\\"\${PROJECT_NAME}/\${TASK}\\\"\\\""
     exit 1
 fi
 
+# Load the configuration file.
 _load_config() {
+    # Set some defaults for the `PROJECT_NAME` and `TASK` if not already set (only on the first
+    # call) so that the option defaults below have values.
+    if [ -z "${PROJECT_NAME-}" ]; then
+        PROJECT_NAME="unnamed"
+    fi
+    if [ -z "${TASK-}" ]; then
+        TASK="unnamed"
+    fi
+
     # Set some defaults for options that the user may not have in their config.
-    SESSION_REATTACH_COMMAND="tmux new -A -s \"\${PROJECT_NAME}/\${TASK}\""
+    SESSION_REATTACH_COMMAND="tmux new -A -s \"${PROJECT_NAME}/${TASK}\""
     SESSION_ATTACH_COMMAND="${SESSION_REATTACH_COMMAND}"
-    SESSION_KILL_COMMAND="tmux kill-session -t \"\${PROJECT_NAME}/\${TASK}\""
-    # load the config file
+    SESSION_KILL_COMMAND="tmux kill-session -t \"${PROJECT_NAME}/${TASK}\""
+    SESSION_CHECK_COMMAND="tmux ls -F \"#S\" | grep \"${PROJECT_NAME}/${TASK}\""
+
+    # Load the config file.
     source ${WORKMAN_CONFIG_FILE_PATH}
 }
 
@@ -91,8 +105,22 @@ list() {
         WITHOUT_PATH="${D#${WORKDIR_PATH}/}"
         if [ -d "${D}" ] && [[ "${WITHOUT_PATH}" =~ ^${PROJECT_NAME}[0-9]+$ ]]; then
             printf "${WITHOUT_PATH}$SEPERATOR"
-            if [ "$SEPERATOR" == " " ]; then
-                cat "${D}/.workman_active_working_directory"
+        fi
+    done
+    echo
+}
+
+# Print out all the tasks that exist.
+tasks() {
+    # When invoked on the command line, we don't provide a separator and default to a space,
+    # but we can provide a newline when calling this from other functions so that it can
+    # be sorted easier.
+    SEPERATOR="${1:- }"
+    for D in ${WORKDIR_PATH}/${PROJECT_NAME}*; do
+        WITHOUT_PATH="${D#${WORKDIR_PATH}/}"
+        if [ -d "${D}" ] && [[ "${WITHOUT_PATH}" =~ ^${PROJECT_NAME}[0-9]+$ ]]; then
+            if [ -f "${D}/${ACTIVE_STAMP_NAME}" ]; then
+                echo "$(<"${D}/${ACTIVE_STAMP_NAME}")${SEPERATOR}"
             fi
         fi
     done
@@ -237,27 +265,40 @@ _find_assigned_for_task() {
 
 # Open a task's working directory if there is already one
 open() {
+    # Check if we've been given the name of a task.
     TASK="${1-}"
+    if [ -z "${TASK}" ]; then
+        echo "${RED}No task name provided.${RESET}" >&2
+        usage
+        exit 1
+    fi
+
     ASSIGNED="$(_find_assigned_for_task ${TASK})"
     if [ ! -z $ASSIGNED ]; then
         _open $TASK $ASSIGNED
     else
-        echo "${RED}No task named ${TASK} found. Current tasks:${RESET}" >&2
-        list
+        echo "${RED}Could not find \"${TASK}\" in currently assigned tasks:${RESET}" >&2
+        tasks
         exit 1
     fi
 }
 
-# A convencience helper for the `open` and the `assign` commands, since they both can attach to
-# a preexising session.
+# A convenience helper for the `open` and the `assign` commands, since they both can attach to
+# a pre-exising session.
 _open() {
+    # Expect first paramter to be task name that exists.
     TASK=$1
+    # Expect second paramter to be working directory path.
     ASSIGNED=$2
+
+    # Re-load configuration file so that any commands have variables evaluated with most recent
+    # values.
+    _load_config
+
     echo "${BLUE}::${RESET} Found existing working directory for \"${TASK}\", attaching..."
     pushd "${ASSIGNED}"
-    eval "$SESSION_REATTACH_COMMAND"
+    eval "${SESSION_REATTACH_COMMAND}"
     popd
-    exit 0
 }
 
 # Assign a working directory to a task.
@@ -273,7 +314,7 @@ assign() {
     # Attach if the task is already assigned.
     ASSIGNED="$(_find_assigned_for_task ${TASK})"
     if [ ! -z $ASSIGNED ]; then
-        _open $TASK $ASSIGNED
+        _open "${TASK}" "${ASSIGNED}"
     fi
 
     # If we found none then exit.
@@ -292,8 +333,12 @@ assign() {
     echo "${YELLOW}::${RESET} Creating git branch..."
     git checkout -b "${TASK}"
 
+    # Re-load configuration file so that any commands have variables evaluated with most recent
+    # values.
+    _load_config
+
     echo "${BLUE}::${RESET} Finished! Starting session..."
-    eval "$SESSION_ATTACH_COMMAND"
+    eval "${SESSION_ATTACH_COMMAND}"
     popd
 }
 
@@ -336,8 +381,10 @@ unassign() {
 
     echo "${YELLOW}::${RESET} Killing session..."
     popd
-    if (tmux ls -F "#S" | grep "${PROJECT_NAME}/${TASK}"); then
-        eval "$SESSION_KILL_COMMAND"
+
+    eval "${SESSION_CHECK_COMMAND}"
+    if [ $? -eq 0 ]; then
+        eval "${SESSION_KILL_COMMAND}"
     fi
 
     echo "${BLUE}::${RESET} Finished!"
@@ -383,8 +430,6 @@ usage() {
     US="%4s%-10s\n"
     SB="%4s%-25s%-20s\n"
     echo "Workman 0.1.0"
-    echo "David Wood <david@davidtw.co>"
-    echo "with contributions from Oliver Scherer <https://github.com/oli-obk>"
     echo "Experimental working directory manager - handles creating new working directories, "
     echo "assigning and unassigning working directories to/from tasks and updating working"
     echo "directories"
@@ -392,9 +437,16 @@ usage() {
     echo "USAGE:"
     printf "${US}" "" "${0} [SUBCOMMANDS]"
     echo
+    echo "AUTHOR:"
+    printf "${US}" "" "David Wood <david@davidtw.co>"
+    echo
+    echo "CONTRIBUTORS:"
+    printf "${US}" "" "Oliver Scherer <https://github.com/oli-obk>"
+    echo
     echo "SUBCOMMANDS:"
     printf "${SB}" "" "help" "Prints this help message"
     printf "${SB}" "" "list" "List all working directories"
+    printf "${SB}" "" "tasks" "List all assigned tasks"
     printf "${SB}" "" "new" "Create a new working directory"
     printf "${SB}" "" "open [TASK_NAME]" "Open an existing working directory for a task"
     printf "${SB}" "" "assign [TASK_NAME]" "Assign a working directory to a task"
@@ -407,7 +459,7 @@ if [ -z ${1-}  ]; then
     echo "${RED}Must provide a subcommand!${RESET}" >&2
     usage
 # A correct subcommand has been provided.
-elif [[ $1 =~ ^(help|list|new|open|assign|unassign|update)$ ]]; then
+elif [[ $1 =~ ^(help|list|tasks|new|open|assign|unassign|update)$ ]]; then
     "$@"
 # A incorrect subcommand has been provided.
 else

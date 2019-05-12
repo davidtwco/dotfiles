@@ -221,8 +221,10 @@ new() {
     _run_before
 
     if which direnv>/dev/null 2>&1; then
-        echo "${YELLOW}::${RESET} Allowing direnv..."
-        direnv allow
+        if [ -f "./.envrc" ]; then
+            echo "${YELLOW}::${RESET} Allowing direnv..."
+            direnv allow
+        fi
     fi
 
     _run_clean

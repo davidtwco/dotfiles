@@ -247,7 +247,51 @@ let g:ale_rust_rls_toolchain = 'stable'
 " Enable clippy if available.
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
-let g:ale_fix_on_save = 1
+" Tell ALE where to look for `compilation-commands.json`.
+let g:ale_c_build_dir_names = [ 'build', 'bin' ]
+
+" Helper function that tries to find the most appropriate clang{-tidy,-format, d,}
+" executable.
+function! FindClangExecutable(name)
+    " Look in the build directory for clang or tools. Useful when working on clang.
+    for build_dir in g:ale_c_build_dir_names
+        let binary_name = './' . build_dir . '/bin/' . a:name
+        if executable(binary_name)
+            return binary_name
+        endif
+    endfor
+
+    " Look for names prefixed with a version number, which often come from an
+    " apt repository and are more up-to-date than the un-suffixed binary.
+    let versions = [ '-9', '-8', '-7' ]
+    for version_suffix in versions
+        let binary_name = a:name . version_suffix
+        if executable(binary_name)
+            return binary_name
+        endif
+    endfor
+
+    " Fallback to the unsuffixed binary.
+    return a:name
+endfunction
+
+" Find the best path for clang binaries and tools.
+let g:ale_c_clangd_executable = FindClangExecutable('clangd')
+let g:ale_cpp_clangd_executable = g:ale_c_clangd_executable
+
+let g:ale_c_clang_executable = FindClangExecutable('clang')
+let g:ale_cpp_clang_executable = g:ale_c_clang_executable
+
+let g:ale_c_clangtidy_executable = FindClangExecutable('clang-tidy')
+let g:ale_cpp_clangtidy_executable = g:ale_c_clangtidy_executable
+
+" ALE's C++ configuration shares the value of the C configuration for `clang-format`.
+let g:ale_c_clangformat_executable = FindClangExecutable('clang-format')
+
+" Limit clangtidy checks.
+let g:ale_c_clangtidy_checks = ['clang-analyzer-*', 'cppcoreguidelines-*', 'llvm-*']
+let g:ale_cpp_clangtidy_checks = g:ale_c_clangtidy_checks
+
 " `*` means any language not matched explicitly, not all languages (ie. if ft is `rust`, ALE will
 " only load the `rust` list, not `rust` and `*`).
 let g:ale_fixers = {
@@ -256,19 +300,18 @@ let g:ale_fixers = {
 \ 'rust': [ 'rustfmt', 'remove_trailing_lines', 'trim_whitespace' ],
 \ }
 
-" Don't apply rustfmt on save, this isn't used in the compiler.
+" Don't apply formatters that re-write files on save, these sometimes aren't used in projects.
+" Use `.lvimrc` to override this.
+let g:ale_fix_on_save = 1
 let g:ale_fix_on_save_ignore = {
 \ 'cpp': ['clang-format'],
 \ 'rust': ['rustfmt'],
 \ }
 
-" Disable Ale for .tex.njk files.
+" Disable Ale for `.tex.njk` files.
 let g:ale_pattern_options = {
 \   '.*\.tex\.njk$': { 'ale_enabled': 0 },
 \ }
-
-" Limit clangtidy checks.
-let g:ale_cpp_clangtidy_checks = ['clang-analyzer-*', 'cppcoreguidelines-*', 'llvm-*']
 
 " Set mappings.
 nmap <leader>ad <plug>(ale_go_to_definition)
@@ -576,15 +619,17 @@ function! LightlineFilename()
     let finalpath = join(combined_parts, dirsep)
     return finalpath . modified
 endfunction
+function! LightlineGutentags()
+    return gutentags#statusline('')
+endfunction
+" Don't show file format and type when low on space.
 function! LightlineFileformat()
     return winwidth(0) > 70 ? &fileformat : ''
 endfunction
 function! LightlineFiletype()
     return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
-function! LightlineGutentags()
-    return gutentags#statusline('')
-endfunction
+" Don't show any read-only indicator for writable files.
 function! LightlineReadonly()
     return &readonly && &filetype !=# 'help' ? 'RO' : ''
 endfunction

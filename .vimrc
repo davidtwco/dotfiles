@@ -230,8 +230,8 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " Set linters and fixers.
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
-\   'c': [ 'cquery' ],
-\   'cpp': [ 'cquery' ],
+\   'c': [ 'clangd', 'clang-tidy' ],
+\   'cpp': [ 'clangd', 'clang-tidy' ],
 \   'css': [ 'csslint' ],
 \   'llvm': [ 'llc' ],
 \   'lua': [ 'luac' ],
@@ -239,6 +239,7 @@ let g:ale_linters = {
 \   'ruby': [ 'rubocop' ],
 \   'rust': [ 'cargo', 'rls' ],
 \   'vim': [ 'vint' ],
+\   'zsh': [ 'shell' ],
 \ }
 
 " Use stable Rust for RLS.
@@ -249,11 +250,15 @@ let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \ '*': [ 'remove_trailing_lines', 'trim_whitespace' ],
-\ 'rust': [ 'rustfmt', 'remove_trailing_lines', 'trim_whitespace' ],
+\ 'cpp': ['clang-format' ],
+\ 'rust': [ 'rustfmt' ],
 \ }
 
 " Don't apply rustfmt on save, this isn't used in the compiler.
-let g:ale_fix_on_save_ignore = { 'rust': ['rustfmt'] }
+let g:ale_fix_on_save_ignore = {
+\ 'cpp': ['clang-format'],
+\ 'rust': ['rustfmt'],
+\ }
 
 " Disable Ale for .tex.njk files.
 let g:ale_pattern_options = {

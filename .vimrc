@@ -230,8 +230,8 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " Set linters and fixers.
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
-\   'c': [ 'clangd', 'clang-tidy' ],
-\   'cpp': [ 'clangd', 'clang-tidy' ],
+\   'c': [ 'clangd', 'clangtidy' ],
+\   'cpp': [ 'clangd', 'clangtidy' ],
 \   'css': [ 'csslint' ],
 \   'llvm': [ 'llc' ],
 \   'lua': [ 'luac' ],

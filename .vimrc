@@ -238,8 +238,9 @@ let g:ale_linters = {
 \   'python': [ 'flake8' ],
 \   'ruby': [ 'rubocop' ],
 \   'rust': [ 'cargo', 'rls' ],
+\   'sh': [ 'shell', 'shellcheck' ],
 \   'vim': [ 'vint' ],
-\   'zsh': [ 'shell' ],
+\   'zsh': [ 'shell', 'shellcheck' ],
 \ }
 
 " Use stable Rust for RLS.
@@ -298,6 +299,7 @@ let g:ale_fixers = {
 \ '*': [ 'remove_trailing_lines', 'trim_whitespace' ],
 \ 'cpp': ['clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
 \ 'rust': [ 'rustfmt', 'remove_trailing_lines', 'trim_whitespace' ],
+\ 'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace' ],
 \ }
 
 " Don't apply formatters that re-write files on save, these sometimes aren't used in projects.

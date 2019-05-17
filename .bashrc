@@ -186,6 +186,7 @@ prependToPath() {
 }
 
 prependToPath $HOME/bin $HOME/.cargo/bin $HOME/.go/bin $HOME/.local/bin /opt/puppetlabs/bin
+prependToPath /usr/local/cuda/bin
 if which ruby>/dev/null 2>&1; then
     prependToPath "$(ruby -e 'print Gem.user_dir')"
     prependToPath "$(ruby -e 'print Gem.user_dir')/bin"

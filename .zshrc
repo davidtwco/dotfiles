@@ -137,6 +137,7 @@ path=("$HOME/.cargo/bin" $path)
 path=("$HOME/.go/bin" $path)
 path=("$HOME/.local/bin" $path)
 path=("/opt/puppetlabs/bin" $path)
+path=("/usr/local/cuda/bin" $path)
 path=("$HOME/.fzf/bin" $path)
 if _has ruby; then
     path=("$(ruby -e 'print Gem.user_dir')" $path)

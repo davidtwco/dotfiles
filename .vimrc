@@ -248,10 +248,12 @@ let g:ale_rust_rls_toolchain = 'stable'
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
 let g:ale_fix_on_save = 1
+" `*` means any language not matched explicitly, not all languages (ie. if ft is `rust`, ALE will
+" only load the `rust` list, not `rust` and `*`).
 let g:ale_fixers = {
 \ '*': [ 'remove_trailing_lines', 'trim_whitespace' ],
-\ 'cpp': ['clang-format' ],
-\ 'rust': [ 'rustfmt' ],
+\ 'cpp': ['clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
+\ 'rust': [ 'rustfmt', 'remove_trailing_lines', 'trim_whitespace' ],
 \ }
 
 " Don't apply rustfmt on save, this isn't used in the compiler.

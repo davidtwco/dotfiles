@@ -415,6 +415,9 @@ if has("autocmd")
     au BufNewFile,BufRead Jenkinsfile setlocal ft=groovy
     " Set markdown files to be highlighted without the Pandoc plugin.
     au BufNewFile,BufFilePre,BufRead *.md setlocal ft=markdown
+    " Set .pp files to be highlighted as Puppet. For some reason, these were being considered
+    " `conf` files.
+    au BufNewFile,BufRead *.pp setlocal ft=puppet
 endif
 " }}}
 

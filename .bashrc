@@ -266,4 +266,11 @@ if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
 fi
 # }}}
 
+# NVM {{{
+# ===
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# }}}
+
 # vim:foldmethod=marker:foldlevel=0

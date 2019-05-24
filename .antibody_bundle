@@ -1,4 +1,5 @@
 chisui/zsh-nix-shell
+lukechilds/zsh-nvm
 
 mafredri/zsh-async
 zsh-users/zsh-completions

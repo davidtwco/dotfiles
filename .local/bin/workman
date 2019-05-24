@@ -27,55 +27,21 @@ ACTIVE_STAMP_NAME=".workman_active_working_directory"
 DO_NOT_ASSIGN_STAMP_NAME=".workman_do_not_assign"
 # Name of stamp file placed in working directories that need updated before being assigned again.
 NEEDS_REFRESH_STAMP_NAME=".workman_needs_refresh"
+# Index of the working directory used as the root working directory for git-worktree.
+ROOT_WORKTREE_INDEX="0"
 
 # Load configuration options from bash script in current directory. Allow same directory to host
 # multiple projects by specifying custom config files using environment variables.
 WORKMAN_CONFIG_FILE="${WORKMAN_CONFIG_FILE:-.workman_config}"
 if [ ! -f ./${WORKMAN_CONFIG_FILE} ]; then
     echo "${RED}Workman must be run in a directory with a ${WORKMAN_CONFIG_FILE} file!${RESET}" >&2
-    echo "${RED}An example config file is shown below...${RESET}" >&2
-    echo
-    echo "# Directory where working directories are kept."
-    echo "WORKDIR_PATH=\"workdirs\""
-    echo "# Name of stamp file placed in active working directories."
-    echo "ACTIVE_STAMP_NAME=\".workman_active_working_directory\""
-    echo "# Name of stamp file placed in working directories that are updated but not assigned."
-    echo "DO_NOT_ASSIGN_STAMP_NAME=\".workman_do_not_assign\""
-    echo "# Name of stamp file placed in working directories that need updated before being assigned again."
-    echo "NEEDS_REFRESH_STAMP_FILE=\".workman_needs_refresh\""
-    echo
-    echo "# Name of project, used in working directory names."
-    echo "PROJECT_NAME=\"rust\""
-    echo "# Default branch to check out and update."
-    echo "DEFAULT_BRANCH=\"master\""
-    echo
-    echo "# Name of upstream remote to create and update from."
-    echo "UPSTREAM_NAME=\"upstream\""
-    echo "# Url of upstream remote to create and update from."
-    echo "UPSTREAM_URL=\"git@github.com:rust-lang/rust.git\""
-    echo
-    echo "# Name of origin remote to clone from."
-    echo "ORIGIN_NAME=\"origin\""
-    echo "# Url of origin remote to clone from."
-    echo "ORIGIN_URL=\"git@github.com:davidtwco/rust.git\""
-    echo
-    echo "# Command to run before creating a new working directory."
-    echo "BEFORE_COMMAND=\"ln -s ../../config.toml ./config.toml\""
-    echo "# Command to run to clean a working directory."
-    echo "CLEAN_COMMAND=\"python2 x.py clean -j8\""
-    echo "# Command to run to build in a working directory."
-    echo "BUILD_COMMAND=\"python2 x.py build -j8\""
-    echo "# Command to run after creating a new working directory."
-    echo "AFTER_COMMAND=\"rustup toolchain link \$(basename \$(pwd))-stage1 ./build/x86_64-unknown-linux-gnu/stage1\""
-    echo
-    echo "# Command to run to resume a session."
-    echo "SESSION_REATTACH_COMMAND=\"tmux new -A -s \\\"\${PROJECT_NAME}/\${TASK}\\\"\""
-    echo "# Command to run to start a session."
-    echo "SESSION_ATTACH_COMMAND=\"\${SESSION_REATTACH_COMMAND}\""
-    echo "# Command to run to kill a session."
-    echo "SESSION_KILL_COMMAND=\"tmux kill-session -t \\\"\${PROJECT_NAME}/\${TASK}\\\"\""
-    echo "# Command to run to check if a session exists."
-    echo "SESSION_CHECK_COMMAND=\"tmux ls -F \\\"#S\\\" | grep \\\"\${PROJECT_NAME}/\${TASK}\\\"\""
+    SCRIPT_PATH="$(cd "$(dirname "$0")" ; pwd -P)"
+    WORKMAN_DEFAULT_CONFIG_EXAMPLE_PATH="${SCRIPT_PATH}/workman_default_config"
+    if [ -f "${WORKMAN_DEFAULT_CONFIG_EXAMPLE_PATH}" ]; then
+        echo "${RED}An example config file is shown below...${RESET}" >&2
+        echo
+        cat "${WORKMAN_DEFAULT_CONFIG_EXAMPLE_PATH}"
+    fi
     exit 1
 fi
 
@@ -91,6 +57,7 @@ _load_config() {
     fi
 
     # Set some defaults for options that the user may not have in their config.
+    USE_GIT_WORKTREE="NO"
     SESSION_REATTACH_COMMAND="tmux new -A -s \"${PROJECT_NAME}/${TASK}\""
     SESSION_ATTACH_COMMAND="${SESSION_REATTACH_COMMAND}"
     SESSION_KILL_COMMAND="tmux kill-session -t \"${PROJECT_NAME}/${TASK}\""
@@ -98,6 +65,13 @@ _load_config() {
 
     # Load the config file.
     source ${WORKMAN_CONFIG_FILE_PATH}
+
+    # Update helper variables after loading.
+    if [ "${USE_GIT_WORKTREE}" == "YES" ]; then
+        IS_ROOT="root "
+    else
+        IS_ROOT=""
+    fi
 }
 
 WORKMAN_CONFIG_FILE_PATH="${PWD}/${WORKMAN_CONFIG_FILE}"
@@ -200,21 +174,37 @@ new() {
     NEXT_INDEX="$((MAX_INDEX + 1))"
     NEXT_WORKDIR_PATH="${WORKDIR_PATH}/${PROJECT_NAME}${NEXT_INDEX}"
 
-    echo "${BLUE}::${RESET} Creating new working directory \"${NEXT_WORKDIR_PATH}\"..."
+    # Mention that this is the root working directory if using git-worktree.
+    echo "${BLUE}::${RESET} Creating new ${IS_ROOT}working directory \"${NEXT_WORKDIR_PATH}\"..."
 
-    echo "${YELLOW}::${RESET} Cloning ${PROJECT_NAME} from \"${ORIGIN_URL}\"..."
-    git clone "${ORIGIN_URL}" "${NEXT_WORKDIR_PATH}"
+    if [ ${USE_GIT_WORKTREE} != "YES" ] || [ ${NEXT_INDEX} == "${ROOT_WORKTREE_INDEX}" ]; then
+        echo "${YELLOW}::${RESET} Cloning ${PROJECT_NAME} from \"${ORIGIN_URL}\"..."
+        git clone "${ORIGIN_URL}" "${NEXT_WORKDIR_PATH}"
+
+        pushd "${NEXT_WORKDIR_PATH}"
+        echo "${YELLOW}::${RESET} Adding ${UPSTREAM_NAME} remote at \"${UPSTREAM_URL}\"..."
+        git remote add "${UPSTREAM_NAME}" "${UPSTREAM_URL}"
+
+        echo "${YELLOW}::${RESET} Checking out ${DEFAULT_BRANCH}..."
+        git checkout "${DEFAULT_BRANCH}"
+        popd
+    else
+        # Get the absolute path of the next working directory, since we'll need this to refer to it
+        # once in the root working directory.
+        ABSOLUTE_NEXT_WORKDIR_PATH="$(pwd)/${NEXT_WORKDIR_PATH}"
+        ROOT_WORKDIR_PATH="${WORKDIR_PATH}/${PROJECT_NAME}${ROOT_WORKTREE_INDEX}"
+
+        echo "${YELLOW}::${RESET} Linking working directory from \"${ROOT_WORKDIR_PATH}\"..."
+        pushd "${ROOT_WORKDIR_PATH}"
+        git worktree add --detach "${ABSOLUTE_NEXT_WORKDIR_PATH}"
+        popd
+    fi
+
     pushd "${NEXT_WORKDIR_PATH}"
 
     # Re-load configuration file so that any commands have `pwd` evaluated in the current working
     # directory.
     _load_config
-
-    echo "${YELLOW}::${RESET} Adding ${UPSTREAM_NAME} remote at \"${UPSTREAM_URL}\"..."
-    git remote add "${UPSTREAM_NAME}" "${UPSTREAM_URL}"
-
-    echo "${YELLOW}::${RESET} Checking out ${DEFAULT_BRANCH}..."
-    git checkout "${DEFAULT_BRANCH}"
 
     _update_working_directory
 
@@ -235,6 +225,88 @@ new() {
 
     echo "${BLUE}::${RESET} Finished!"
     popd
+}
+
+_find_working_directory() {
+    # Expect first parameter to be working directory to confirm exists.
+    WORKDIR="${1}"
+
+    for D in ${WORKDIR_PATH}/${PROJECT_NAME}*; do
+        WITHOUT_PATH="${D#${WORKDIR_PATH}/}"
+        if ! [[ "${WITHOUT_PATH}" =~ ^${PROJECT_NAME}[0-9]+$ ]]; then
+            continue
+        fi
+
+        if [ ${WITHOUT_PATH} == "${WORKDIR}" ]; then
+            echo "${D}"
+            break
+        fi
+    done
+}
+
+_kill_session() {
+    eval "${SESSION_CHECK_COMMAND}"
+    if [ $? -eq 0 ]; then
+        echo "${YELLOW}::${RESET} Killing session for \"${TASK}\"..."
+        eval "${SESSION_KILL_COMMAND}"
+    fi
+}
+
+# Delete the working directory provided by the user or the newest.
+remove() {
+    # Find the newest working directory.
+    NEWEST_WORKDIR="$(echo "$(list \\n)" | sort --version-sort | tail -n 1)"
+    if [ -z "${NEWEST_WORKDIR}" ]; then
+        echo "${RED}No working directories exist.${RESET}" >&2
+        exit 1
+    fi
+
+    # Use user argument or newest workdir.
+    WORKDIR="${1:-${NEWEST_WORKDIR}}"
+
+    # Confirm working directory exists (when user provides a directory name).
+    TARGET_PATH="$(_find_working_directory ${WORKDIR})"
+    if [ -z "${TARGET_PATH}" ]; then
+        echo "${RED}Could not find \"${WORKDIR}\" in working directories:${RESET}" >&2
+        list
+        exit 1
+    fi
+
+    # Get the name of the assigned task if it exists.
+    if [ -f "${TARGET_PATH}/${ACTIVE_STAMP_NAME}" ]; then
+        TASK="$(<"${TARGET_PATH}/${ACTIVE_STAMP_NAME}")"
+    fi
+
+    ROOT_PATH="${WORKDIR_PATH}/${PROJECT_NAME}${ROOT_WORKTREE_INDEX}"
+    NEWEST_PATH="${WORKDIR_PATH}/${NEWEST_WORKDIR}"
+    ABSOLUTE_TARGET_PATH="$(realpath $TARGET_PATH)"
+    # Don't let users delete the root working directory when they still have working directories
+    # linked to it.
+    if [ ${USE_GIT_WORKTREE} == "YES" ] && \
+       [ "${TARGET_PATH}" == "${ROOT_PATH}" ] && \
+       [ "${ROOT_PATH}" != "${NEWEST_PATH}" ]; then
+        echo "${RED}Cannot delete root working directory when using git-worktree and other" \
+             "working directories exist.${RESET}" >&2
+        exit 1
+    # `rm -rf` a working directory when not using git-worktree, or when it is the root directory
+    # (having already checked above that this would be the only remaining directory).
+    elif [ ${USE_GIT_WORKTREE} != "YES" ] || [ "${TARGET_PATH}" == "${ROOT_PATH}" ]; then
+        # Mention that this is the root working directory if using git-worktree.
+        echo "${YELLOW}::${RESET} Deleting ${IS_ROOT}working directory at \"${TARGET_PATH}\"..."
+        rm -rf "${TARGET_PATH}"
+    # `git worktree remove` linked directories.
+    else
+        pushd "${ROOT_PATH}"
+        echo "${YELLOW}::${RESET} Unlinking working directory at \"${TARGET_PATH}\"..."
+        git worktree remove --force "${ABSOLUTE_TARGET_PATH}"
+        popd
+    fi
+
+    if [ ! -z ${TASK} ]; then
+        # Reload config to re-define the `$SESSION_` variables in terms of the current task.
+        _load_config
+        _kill_session
+    fi
 }
 
 _find_free_directory() {
@@ -357,6 +429,19 @@ assign() {
     popd
 }
 
+_checkout_default_branch() {
+    # Check out the default branch, handling git-worktree directories as appropriate. Expect to
+    # be provided current working directory path, incl. WORKDIR_PATH.
+    WORKDIR="${1#${WORKDIR_PATH}/}"
+    echo "${YELLOW}::${RESET} Checking out ${DEFAULT_BRANCH}..."
+    if [ ${USE_GIT_WORKTREE} != "YES" ] || \
+       [ "${WORKDIR}" == "${PROJECT_NAME}${ROOT_WORKTREE_INDEX}" ]; then
+        git checkout "${DEFAULT_BRANCH}"
+    else
+        git checkout "heads/${DEFAULT_BRANCH}"
+    fi
+}
+
 # Unassign a working directory from a task.
 unassign() {
     # Check if we've been given the name of a task.
@@ -370,7 +455,8 @@ unassign() {
     # Look for directories without stamp files and find the one with the matching task.
     ASSIGNED="$(_find_assigned_for_task ${TASK})"
     if [ -z "${ASSIGNED}" ]; then
-        echo "${RED}No assigned working directory for \"${TASK}\" found!${RESET}"
+        echo "${RED}Could not find \"${TASK}\" in currently assigned tasks:${RESET}" >&2
+        tasks
         exit 1
     fi
 
@@ -384,29 +470,24 @@ unassign() {
     echo "${YELLOW}::${RESET} Removing stamp file..."
     rm "${ACTIVE_STAMP_NAME}"
 
-    echo "${YELLOW}::${RESET} Checking out ${DEFAULT_BRANCH}..."
-    git checkout "${DEFAULT_BRANCH}"
+    _checkout_default_branch "${ASSIGNED}"
 
     echo "${YELLOW}::${RESET} Removing branch for \"${TASK}\"..."
     git branch -D "${TASK}"
 
-    _update_working_directory
+    _update_working_directory ${ASSIGNED}
 
     _run_clean
 
     echo "${YELLOW}::${RESET} Marking directory as needing refreshed..."
     echo "${TASK}" > "${NEEDS_REFRESH_STAMP_NAME}"
-
-    echo "${YELLOW}::${RESET} Killing session..."
     popd
 
-    eval "${SESSION_CHECK_COMMAND}"
-    if [ $? -eq 0 ]; then
-        eval "${SESSION_KILL_COMMAND}"
-    fi
+    _kill_session
 
     echo "${BLUE}::${RESET} Finished!"
 }
+
 
 # Update all unassigned working directories.
 update() {
@@ -420,8 +501,7 @@ update() {
             # working directory.
             _load_config
 
-            echo "${YELLOW}::${RESET} Checking out ${DEFAULT_BRANCH}..."
-            git checkout "${DEFAULT_BRANCH}"
+            _checkout_default_branch "${D}"
 
             _update_working_directory
 
@@ -452,13 +532,13 @@ help() {
 usage() {
     US="%4s%-10s\n"
     SB="%4s%-25s%-20s\n"
-    echo "Workman 0.1.0"
+    echo "Workman 0.2.0"
     echo "Experimental working directory manager - handles creating new working directories, "
     echo "assigning and unassigning working directories to/from tasks and updating working"
     echo "directories"
     echo
     echo "USAGE:"
-    printf "${US}" "" "${0} [SUBCOMMANDS]"
+    printf "${US}" "" "${0} SUBCOMMAND"
     echo
     echo "AUTHOR:"
     printf "${US}" "" "David Wood <david@davidtw.co>"
@@ -471,9 +551,10 @@ usage() {
     printf "${SB}" "" "list" "List all working directories"
     printf "${SB}" "" "tasks" "List all assigned tasks"
     printf "${SB}" "" "new" "Create a new working directory"
-    printf "${SB}" "" "open [TASK_NAME]" "Open an existing working directory for a task"
-    printf "${SB}" "" "assign [TASK_NAME]" "Assign a working directory to a task"
-    printf "${SB}" "" "unassign [TASK_NAME]" "Unassign a working directory from a task"
+    printf "${SB}" "" "remove [WORKDIR]" "Remove provided or most recent working directory"
+    printf "${SB}" "" "open TASK" "Open an existing working directory for a task"
+    printf "${SB}" "" "assign TASK" "Assign a working directory to a task"
+    printf "${SB}" "" "unassign TASK" "Unassign a working directory from a task"
     printf "${SB}" "" "update" "Update all unassigned working directories"
 }
 
@@ -482,7 +563,7 @@ if [ -z ${1-}  ]; then
     echo "${RED}Must provide a subcommand!${RESET}" >&2
     usage
 # A correct subcommand has been provided.
-elif [[ $1 =~ ^(help|list|tasks|new|open|assign|unassign|update)$ ]]; then
+elif [[ $1 =~ ^(help|list|tasks|new|remove|open|assign|unassign|update)$ ]]; then
     "$@"
 # A incorrect subcommand has been provided.
 else

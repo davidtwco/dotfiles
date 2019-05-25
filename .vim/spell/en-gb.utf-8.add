@@ -243,3 +243,6 @@ int
 std
 ptr
 accessor
+PatKind
+if
+bool

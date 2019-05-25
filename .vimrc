@@ -732,7 +732,7 @@ nnoremap <C-.> :SidewaysJumpRight<CR>
 " Signify {{{
 " =======
 " Specify which VCS to check for.
-let g:signify_vcs_list = [ 'git' ]
+let g:signify_vcs_list = [ 'git', 'yadm' ]
 " Work in near-realtime.
 let g:signify_realtime = 1
 " Disable two of the sign update methods as they write the buffer.

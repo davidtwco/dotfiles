@@ -587,13 +587,14 @@ let g:lightline.subseparator = g:lightline.separator
 let g:lightline.active = {
 \   'left': [
 \       [ 'mode' ],
-\       [ 'paste', 'spell', 'gitbranch', 'readonly', 'filename' ]
+\       [ 'paste', 'spell', 'gitbranch', 'readonly' ],
+\       [ 'filename' ]
 \   ],
 \   'right': [
 \       [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
 \       [ 'gutentags' ],
-\       [ 'obsession', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'lineinfo',
-\         'percent' ]
+\       [ 'obsession' ],
+\       [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'lineinfo', 'percent' ]
 \   ]
 \ }
 
@@ -612,12 +613,14 @@ let g:lightline.component_type = {
 \ }
 
 let g:lightline.component_function = {
-\   'gitbranch': 'fugitive#head',
+\   'gitbranch': 'LightlineGitBranch',
 \   'gutentags': 'LightlineGutentags',
-\   'obsession': 'ObsessionStatus',
+\   'obsession': 'LightlineObsessionStatus',
 \   'readonly': 'LightlineReadonly',
-\   'fileformat': 'LightlineFileformat',
-\   'filetype': 'LightlineFiletype',
+\   'charvaluehex': 'LightlineCharacterHex',
+\   'fileencoding': 'LightlineFileEncoding',
+\   'fileformat': 'LightlineFileFormat',
+\   'filetype': 'LightlineFileType',
 \   'filename': 'LightlineFilename'
 \ }
 
@@ -640,7 +643,7 @@ function! LightlineFilename()
     " by the separator.
     let shortened_filepath = fnamemodify(filepath, mod)
 
-    if len(shortened_filepath) < (winwidth('%') / 2)
+    if len(shortened_filepath) < (winwidth('%') / 1.8)
         return shortened_filepath.modified
     endif
 
@@ -665,18 +668,53 @@ function! LightlineFilename()
     let finalpath = join(combined_parts, dirsep)
     return finalpath . modified
 endfunction
+
+" Define an arbitrary number of columns, below which the statusline becomes less detailed.
+let s:collapse_threshold = 106
+
 function! LightlineGutentags()
-    return gutentags#statusline('')
+    " Show the tag generation status, with detail depending on window width.
+    return gutentags#statusline('', '', winwidth(0) > s:collapse_threshold ? '△ Tagging...' : '△')
 endfunction
-" Don't show file format and type when low on space.
-function! LightlineFileformat()
-    return winwidth(0) > 70 ? &fileformat : ''
+
+function! LightlineObsessionStatus()
+    " Show the obsession status if the plugin is enabled, with detail depending on window width.
+    let tracked = winwidth(0) > s:collapse_threshold ? '● Tracked' : '●'
+    let untracked = winwidth(0) > s:collapse_threshold ? '○ Untracked' : '○'
+    return exists('*ObsessionStatus') ? ObsessionStatus(tracked, untracked) : ''
 endfunction
-function! LightlineFiletype()
-    return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+
+function! LightlineCharacterHex()
+    " Don't show the character hex on windows that aren't wide.
+    "
+    " Vim provides a handy '%B' escape code for use in 'statusline', but it's not easy to get
+    " the hex value of a character under the cursor without that.
+    let hex =  printf('%X', char2nr(matchstr(getline('.'), '\%' . col('.') . 'c.')))
+    return winwidth(0) > s:collapse_threshold ? hex : ''
 endfunction
-" Don't show any read-only indicator for writable files.
+
+function! LightlineFileEncoding()
+    " Don't show the file encoding on windows that aren't wide.
+    return winwidth(0) > s:collapse_threshold ? &fileencoding : ''
+endfunction
+
+function! LightlineGitBranch()
+    " Don't show the git branch on windows that aren't wide.
+    return winwidth(0) > s:collapse_threshold ? fugitive#head() : ''
+endfunction
+
+function! LightlineFileFormat()
+    " Don't show the file format on windows that aren't wide.
+    return winwidth(0) > s:collapse_threshold ? &fileformat : ''
+endfunction
+
+function! LightlineFileType()
+    " Don't show the file type on windows that aren't wide.
+    return winwidth(0) > s:collapse_threshold ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
 function! LightlineReadonly()
+    " Don't show any read-only indicator for writable files.
     return &readonly && &filetype !=# 'help' ? 'RO' : ''
 endfunction
 
@@ -686,42 +724,59 @@ let s:p = { 'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual':
 " All palettes have the form:
 "   s:p.{mode}.{where] = [ [ {guifg}, {guibg}, {ctermfg}, {ctermbg} ] ]
 
-" Inactive windows has terminal background and a muted foreground.
-let s:p.inactive.middle = [ [s:white, s:bg, s:c_white, s:c_bg] ]
+" Inactive windows have terminal background and a muted foreground.
+let s:p.inactive.middle = [ [s:bright_black, s:bg, s:c_bright_black, s:c_bg] ]
 let s:p.inactive.right = [ s:p.inactive.middle[0], s:p.inactive.middle[0] ]
 let s:p.inactive.left = [ s:p.inactive.middle[0], s:p.inactive.middle[0] ]
 
-" Normal mode has terminal background color and green foreground, followed by terminal background
-" and white foreground.
+" Normal mode's left statusline has terminal background with green foreground (for `NORMAL`),
+" followed gray foreground (for the git branch or `PASTE`) and then white foreground for filename.
 let s:p.normal.left = [
 \   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
+\   [s:bright_black, s:bg, s:c_bright_black, s:c_bg],
 \   [s:fg, s:bg, s:c_fg, s:c_bg]
 \ ]
 let s:p.normal.middle = [ [ s:bright_black, s:bg, s:c_bright_black, s:c_bg] ]
-let s:p.normal.right = s:p.normal.middle
+" Normal mode's right status line has terminal background with green foreground (for ALE),
+" followed by white foreground (for Gutentags), and then by white foreground (for Obsession),
+" finished off with bright black foreground (for line/col/hex/encoding, etc).
+let s:p.normal.right = [
+\   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
+\   [s:white, s:bg, s:c_white, s:c_bg],
+\   [s:white, s:bg, s:c_white, s:c_bg],
+\   s:p.normal.left[1], s:p.normal.left[2]
+\ ]
 
 let s:p.normal.error = [ [s:bright_red, s:bg, s:c_bright_red, s:c_bg] ]
 let s:p.normal.warning = [ [s:yellow, s:bg, s:c_yellow, s:c_bg] ]
 
-" Insert mode has terminal background color and blue foreground, followed by terminal background
-" and white foreground.
-let s:p.insert.left = [ [s:bright_blue, s:bg, s:c_bright_blue, s:c_bg], s:p.normal.left[1] ]
+" Insert mode has terminal background and blue foreground, followed by the same as normal
+" mode.
+let s:p.insert.left = [
+\   [s:bright_blue, s:bg, s:c_bright_blue, s:c_bg],
+\   s:p.normal.left[1], s:p.normal.left[2]
+\ ]
 let s:p.insert.middle = s:p.normal.middle
 let s:p.insert.right = s:p.normal.right
 
-" Insert mode has terminal background color and red foreground, followed by terminal background
-" and white foreground.
-let s:p.replace.left = [ [s:bright_red, s:bg, s:c_bright_red, s:c_bg], s:p.normal.left[1] ]
+" Insert mode has terminal background and red foreground, followed by the same as normal mode.
+let s:p.replace.left = [
+\   [s:bright_red, s:bg, s:c_bright_red, s:c_bg],
+\   s:p.normal.left[1], s:p.normal.left[2]
+\ ]
 let s:p.replace.middle = s:p.normal.middle
 let s:p.replace.right = s:p.normal.left
 
-" Visual mode has terminal background color and yellow foreground, followed by terminal background
-" and white foreground.
-let s:p.visual.left = [ [s:bright_yellow, s:bg, s:c_bright_yellow, s:c_bg], s:p.normal.left[1] ]
+" Visual mode has terminal background and yellow foreground, followed by the same as normal
+" mode.
+let s:p.visual.left = [
+\   [s:bright_yellow, s:bg, s:c_bright_yellow, s:c_bg],
+\   s:p.normal.left[1], s:p.normal.left[2]
+\ ]
 let s:p.visual.middle = s:p.normal.middle
 let s:p.visual.right = s:p.normal.right
 
-" Tabline
+" Tabline has current tab in white, other tabs in gray, and terminal background.
 let s:p.tabline.left = [ [s:white, s:bg, s:c_white, s:c_bg] ]
 let s:p.tabline.tabsel = [ [s:fg, s:bg, s:c_fg, s:c_bg] ]
 let s:p.tabline.middle = s:p.tabline.left

@@ -186,10 +186,19 @@ path=($^path(N-/))
 # Completion {{{
 # ==========
 # Use modern completion system.
-autoload -Uz compinit; compinit -i
+autoload -Uz compinit; compinit
 
 # Add any completions.
 fpath+=~/.yadm/completions
+
+# Execute code in the background to not affect the current session.
+{
+  # Compile zcompdump, if modified, to increase startup speed.
+  zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+  if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
+    zcompile "$zcompdump"
+  fi
+} &!
 
 # Load colour variables.
 eval "$(dircolors -b)"
@@ -282,6 +291,10 @@ fi
 
 # antibody {{{
 # =======
+# This makes the `zsh-nvm` plugin load lazily, and thus reduces the impact of the plugin on shell
+# start-up time.
+export NVM_LAZY_LOAD="true"
+
 if _has antibody; then
     # If plugins have not been downloaded, then download and static load in future.
     if [[ ! -e "$HOME/.zsh_plugins.sh" ]]; then
@@ -319,8 +332,13 @@ if [ -f ~/.fzf.zsh ]; then
     source ~/.fzf.zsh
 fi
 
-# fzf + ag configuration
-if _has fzf && _has ag; then
+if _has fzf && _has rg; then
+    # fzf + ripgrep configuration
+    export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{.git}" 2>/dev/null'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_DEFAULT_OPTS=''
+elif _has fzf && _has ag; then
+    # fzf + ag configuration
     export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -330,12 +348,6 @@ if _has fzf && _has ag; then
     '
 fi
 
-# fzf + ripgrep configuration
-if _has fzf && _has rg; then
-    export FZF_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{.git}" 2>/dev/null'
-    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-    export FZF_DEFAULT_OPTS=''
-fi
 # }}}
 
 # direnv {{{

@@ -116,9 +116,6 @@ if exists('*minpac#init')
     " Functions that interact with tmux.
     call minpac#add('tpope/vim-tbone', {'type': 'opt'})
 
-    " Generate statuslines for tmux.
-    call minpac#add('edkolev/tmuxline.vim', {'type': 'opt'})
-
     " Focus events & clipboard for tmux.
     call minpac#add('roxma/vim-tmux-clipboard')
     call minpac#add('tmux-plugins/vim-tmux-focus-events')
@@ -140,7 +137,6 @@ if exists('*minpac#init')
 
     " Statusline
     call minpac#add('itchyny/lightline.vim')
-    call minpac#add('cocopon/lightline-hybrid.vim')
 
     " Visualize the undo tree.
     call minpac#add('simnalamburt/mundo.vim', {'type': 'opt'})
@@ -352,6 +348,45 @@ endif
 
 set background=dark
 highlight ColorColumn ctermbg=8 guibg=lightgrey
+
+" Define colour variables (used in lightline's custom colour scheme).
+let s:black = '#282A2E'
+let s:c_black = 0
+let s:red = '#A54242'
+let s:c_red = 1
+let s:green = '#8C9440'
+let s:c_green = 2
+let s:yellow = '#DE935F'
+let s:c_yellow = 3
+let s:blue = '#5F819D'
+let s:c_blue = 4
+let s:magenta = '#85678F'
+let s:c_magenta = 5
+let s:cyan = '#5E8D87'
+let s:c_cyan = 6
+let s:white = '#707880'
+let s:c_white = 7
+let s:bright_black = '#373B41'
+let s:c_bright_black = 8
+let s:bright_red = '#CC6666'
+let s:c_bright_red = 9
+let s:bright_green = '#B5BD68'
+let s:c_bright_green = 10
+let s:bright_yellow = '#F0C674'
+let s:c_bright_yellow = 11
+let s:bright_blue = '#81A2BE'
+let s:c_bright_blue = 12
+let s:bright_magenta = '#B294BB'
+let s:c_bright_magenta = 13
+let s:bright_cyan = '#8ABEB7'
+let s:c_bright_cyan = 14
+let s:bright_white = '#C5C8C6'
+let s:c_bright_white = 15
+
+let s:bg = '#1D1F21'
+let s:c_bg = 234
+let s:fg = s:bright_white
+let s:c_fg = s:c_bright_white
 " }}}
 
 " Commenting {{{
@@ -545,7 +580,7 @@ set history=1000
 " Lightline {{{
 " =========
 let g:lightline = {}
-let g:lightline.colorscheme = 'hybrid'
+let g:lightline.colorscheme = 'davidtwco'
 
 let g:lightline.active = {
 \   'left': [
@@ -642,6 +677,55 @@ endfunction
 function! LightlineReadonly()
     return &readonly && &filetype !=# 'help' ? 'RO' : ''
 endfunction
+
+" Define a custom colorscheme that matches the tmux configuration.
+let s:p = { 'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {} }
+
+" All palettes have the form:
+"   s:p.{mode}.{where] = [ [ {guifg}, {guibg}, {ctermfg}, {ctermbg} ] ]
+
+" Inactive windows has terminal background and a muted foreground.
+let s:p.inactive.middle = [ [s:white, s:bg, s:c_white, s:c_bg] ]
+let s:p.inactive.right = [ s:p.inactive.middle[0], s:p.inactive.middle[0] ]
+let s:p.inactive.left = [ s:p.inactive.middle[0], s:p.inactive.middle[0] ]
+
+" Normal mode has terminal background color and green foreground, followed by terminal background
+" and white foreground.
+let s:p.normal.left = [
+\   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
+\   [s:fg, s:bg, s:c_fg, s:c_bg]
+\ ]
+let s:p.normal.middle = [ [ s:bright_black, s:bg, s:c_bright_black, s:c_bg] ]
+let s:p.normal.right = s:p.normal.middle
+
+let s:p.normal.error = [ [s:bright_red, s:bg, s:c_bright_red, s:c_bg] ]
+let s:p.normal.warning = [ [s:yellow, s:bg, s:c_yellow, s:c_bg] ]
+
+" Insert mode has terminal background color and blue foreground, followed by terminal background
+" and white foreground.
+let s:p.insert.left = [ [s:bright_blue, s:bg, s:c_bright_blue, s:c_bg], s:p.normal.left[1] ]
+let s:p.insert.middle = s:p.normal.middle
+let s:p.insert.right = s:p.normal.right
+
+" Insert mode has terminal background color and red foreground, followed by terminal background
+" and white foreground.
+let s:p.replace.left = [ [s:bright_red, s:bg, s:c_bright_red, s:c_bg], s:p.normal.left[1] ]
+let s:p.replace.middle = s:p.normal.middle
+let s:p.replace.right = s:p.normal.left
+
+" Visual mode has terminal background color and yellow foreground, followed by terminal background
+" and white foreground.
+let s:p.visual.left = [ [s:bright_yellow, s:bg, s:c_bright_yellow, s:c_bg], s:p.normal.left[1] ]
+let s:p.visual.middle = s:p.normal.middle
+let s:p.visual.right = s:p.normal.right
+
+" Tabline
+let s:p.tabline.left = [ [s:white, s:bg, s:c_white, s:c_bg] ]
+let s:p.tabline.tabsel = [ [s:fg, s:bg, s:c_fg, s:c_bg] ]
+let s:p.tabline.middle = s:p.tabline.left
+let s:p.tabline.right = [ [s:white, s:bg, s:c_white, s:c_bg], [s:fg, s:bg, s:c_fg, s:c_bg] ]
+
+let g:lightline#colorscheme#davidtwco#palette = s:p
 " }}}
 
 " Local .vimrc {{{
@@ -778,11 +862,6 @@ endif
 " This should make pressing ESC more responsive.
 " Alternative to `set esckeys` as this breaks sequences in INSERT mode that uses ESC.
 set timeoutlen=250 ttimeoutlen=0
-" }}}
-
-" Tmuxline {{{
-" ========
-let g:tmuxline_powerline_separators = 1
 " }}}
 
 " UI & Visual Cues {{{

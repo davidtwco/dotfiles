@@ -157,6 +157,9 @@ if exists('*minpac#init')
     " Search/substitution/abbrevation of word variations.
     call minpac#add('tpope/vim-abolish', {'type': 'opt'})
 
+    " Date manipulation commands.
+    call minpac#add('tpope/vim-speeddating', {'type': 'opt'})
+
     " Improve '.' (repeat) for plugin maps.
     call minpac#add('tpope/vim-repeat')
 

@@ -97,10 +97,10 @@ if exists('*minpac#init')
     call minpac#add('mhinz/vim-signify')
 
     " Wrapper for Git.
-    call minpac#add('tpope/vim-fugitive', {'type': 'opt'})
+    call minpac#add('tpope/vim-fugitive')
 
     " GitHub extension for `vim-fugitive`.
-    call minpac#add('tpope/vim-rhubarb', {'type': 'opt'})
+    call minpac#add('tpope/vim-rhubarb')
 
     if has("unix")
         " Helper functions for unix commands (`mkdir`, `mv`, etc.)
@@ -121,8 +121,6 @@ if exists('*minpac#init')
 
     " Focus events & clipboard for tmux.
     call minpac#add('roxma/vim-tmux-clipboard')
-
-    " Support for more focus events.
     call minpac#add('tmux-plugins/vim-tmux-focus-events')
     " }}}
 
@@ -314,6 +312,9 @@ let g:ale_fix_on_save_ignore = {
 let g:ale_pattern_options = {
 \   '.*\.tex\.njk$': { 'ale_enabled': 0 },
 \ }
+
+" Show hover balloon when over a definition.
+let g:ale_set_balloons = 1
 
 " Set mappings.
 nmap <leader>ad <plug>(ale_go_to_definition)

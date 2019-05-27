@@ -396,4 +396,13 @@ if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
 fi
 # }}}
 
+# Autosuggestions {{{
+# ===============
+# Use CTRL + ' ' to accept current autosuggestion.
+bindkey '^ ' autosuggest-accept
+
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=()
+# }}}
+
 # vim:foldmethod=marker:foldlevel=0

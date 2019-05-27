@@ -1,44 +1,45 @@
 [user]
-    name = David Wood
-    email = david@davidtw.co
-    signingkey = 9F53F154
+	name = David Wood
+	email = david@davidtw.co
+	signingkey = 9F53F154
+	useConfigOnly = true
 [core]
-    editor = nvim
-    excludesfile = /home/david/.gitignore_global
+	editor = nvim
+	excludesfile = /home/david/.gitignore_global
 [push]
-    default = simple
-    followTags = true
+	default = simple
+	followTags = true
 [color]
-    ui = auto
+	ui = auto
 [include]
-    path = ~/.yadm/external/gitalias/gitalias.txt
+	path = ~/.yadm/external/gitalias/gitalias.txt
 [alias]
-    # Debug a command or alias - preceed it with `debug`.
-    debug  = "!set -x; GIT_TRACE=2 GIT_CURL_VERBOSE=2 GIT_TRACE_PERFORMANCE=2 GIT_TRACE_PACK_ACCESS=2 GIT_TRACE_PACKET=2 GIT_TRACE_PACKFILE=2 GIT_TRACE_SETUP=2 GIT_TRACE_SHALLOW=2 git"
-    # Quote / unquote a sh command, converting it to / from a git alias string
-    quote-string = "!read -r l; printf \\\"!; printf %s \"$l\" | sed 's/\\([\\\"]\\)/\\\\\\1/g'; printf \" #\\\"\\n\" #"
-    quote-string-undo = "!read -r l; printf %s \"$l\" | sed 's/\\\\\\([\\\"]\\)/\\1/g'; printf \"\\n\" #"
-    # Push commits upstream.
-    ps = push
-    # Overrides gitalias.txt `save` to include untracked files.
-    save = stash save --include-untracked
-    # Start a interactive rebase on current branch.
-    rebase-branch = "!git rebase -i HEAD~$(git log $(git merge-base $(git show-branch -a | grep '\\*' | grep -v `git rev-parse --abbrev-ref HEAD` | head -n1 | sed 's/.*\\[\\(.*\\)\\].*/\\1/' | sed 's/[\\^~].*//') $(git rev-parse --abbrev-ref HEAD))..HEAD --oneline | wc -l) #"
-    # Checkout a PR.
-    pr = "!f() { git fetch -fu upstream refs/pull/$1/head:pr/$1; git checkout pr/$1; } ; f"
+	# Debug a command or alias - preceed it with `debug`.
+	debug  = "!set -x; GIT_TRACE=2 GIT_CURL_VERBOSE=2 GIT_TRACE_PERFORMANCE=2 GIT_TRACE_PACK_ACCESS=2 GIT_TRACE_PACKET=2 GIT_TRACE_PACKFILE=2 GIT_TRACE_SETUP=2 GIT_TRACE_SHALLOW=2 git"
+	# Quote / unquote a sh command, converting it to / from a git alias string
+	quote-string = "!read -r l; printf \\\"!; printf %s \"$l\" | sed 's/\\([\\\"]\\)/\\\\\\1/g'; printf \" #\\\"\\n\" #"
+	quote-string-undo = "!read -r l; printf %s \"$l\" | sed 's/\\\\\\([\\\"]\\)/\\1/g'; printf \"\\n\" #"
+	# Push commits upstream.
+	ps = push
+	# Overrides gitalias.txt `save` to include untracked files.
+	save = stash save --include-untracked
 [commit]
-    gpgsign = true
+	gpgsign = true
+	verbose = true
 [gpg]
-    program = gpg2
+	program = gpg2
 [diff]
-    compactionHeuristic = true
-    indentHeuristic = true
+	compactionHeuristic = true
+	indentHeuristic = true
 [submodule]
-    fetchJobs = 4
+	fetchJobs = 4
 [filter "lfs"]
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
-    process = git-lfs filter-process
-    required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 [rebase]
-    autosquash = true
+	autosquash = true
+[status]
+	showStash = true
+# vim:ft=gitconfig:ts=4:sts=4:sw=4:noexpandtab

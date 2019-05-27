@@ -341,13 +341,24 @@ set hidden
 " ======
 syntax enable
 
+" Load the colour scheme. Check if it exists so dotfiles bootstrap script doesn't
+" error on this line when trying to download plugins.
 if !empty(globpath(&packpath, 'pack/minpac/start/vim-hybrid/colors/hybrid.vim'))
     colorscheme hybrid
     let g:hybrid_custom_term_colors = 1
 endif
 
+" Set the background to dark.
 set background=dark
+
+" Set the colour of the colour column (used to highlight where lines should wrap).
 highlight ColorColumn ctermbg=8 guibg=lightgrey
+
+" Set the colour of the statusline. While lightline handles the majority of this, it
+" won't colour the single character between two statuslines when there is a vertical
+" split, this will.
+highlight StatusLine cterm=NONE ctermbg=234 guibg=#1D1F21
+highlight StatusLineNC cterm=NONE ctermbg=234 guibg=#1D1F21
 
 " Define colour variables (used in lightline's custom colour scheme).
 let s:black = '#282A2E'

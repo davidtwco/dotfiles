@@ -3,6 +3,37 @@
 #	website: https://davidtw.co
 # ==================================================
 
+# Colors {{{
+# ======
+if [ -t 1 ]; then
+    RED="$(tput setaf 1)"
+    GREEN="$(tput setaf 2)"
+    YELLOW="$(tput setaf 3)"
+    BLUE="$(tput setaf 4)"
+    MAGENTA="$(tput setaf 5)"
+    CYAN="$(tput setaf 6)"
+    WHITE="$(tput setaf 7)"
+    GRAY="$(tput setaf 8)"
+    BOLD="$(tput bold)"
+    UNDERLINE="$(tput sgr 0 1)"
+    INVERT="$(tput sgr 1 0)"
+    NOCOLOR="$(tput sgr0)"
+else
+    RED=""
+    GREEN=""
+    YELLOW=""
+    BLUE=""
+    MAGENTA=""
+    CYAN=""
+    WHITE=""
+    GRAY=""
+    BOLD=""
+    UNDERLINE=""
+    INVERT=""
+    NOCOLOR=""
+fi
+# }}}
+
 # Functions {{{
 # =========
 _has() {
@@ -160,26 +191,44 @@ autoload -Uz compinit; compinit -i
 # Add any completions.
 fpath+=~/.yadm/completions
 
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select=2
+# Load colour variables.
 eval "$(dircolors -b)"
+
+# Description for options that are not described by completion functions.
+zstyle ':completion:*' auto-description 'specify: %d'
+# Enable corrections, expansions, completions and approximate completers.
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+# Display 'Completing $section' between types of matches, ie. 'Completing external command'
+zstyle ':completion:*' format "${YELLOW}Completing${NOCOLOR} %d"
+# Display all types of matches separately (same types as above).
+zstyle ':completion:*' group-name ''
+# Use menu selection if there are more than two matches (or when not on screen).
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' menu select=long
+# Set colour specifications.
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
+# Prompt to show when completions don't fit on screen.
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+# Define matcher specifications.
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+# Don't use legacy `compctl`.
 zstyle ':completion:*' use-compctl false
+# Show command descriptions.
 zstyle ':completion:*' verbose true
+# Extra patterns to accept.
 zstyle ':completion:*' accept-exact '*(N)'
+# Enable caching.
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
 
+# Extra settings for processes.
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# Modify git completion for only local files and branches - much faster!
+__git_files () { _wanted files expl 'local files' _files  }
 
 # tmuxinator completion.
 source ~/.yadm/completions/tmuxinator.zsh

@@ -1055,8 +1055,9 @@ augroup END
 " Define user commands for updating/cleaning the plugins.
 " Each of them loads minpac, reloads .vimrc to register the
 " information of plugins, then performs the task.
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
+command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', { 'do': 'call minpac#status()' })
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
+command! PackStatus  packadd minpac | source $MYVIMRC | call minpac#status()
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0:ts=4:sts=4:sw=4

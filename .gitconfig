@@ -3,7 +3,7 @@
     email = david@davidtw.co
     signingkey = 9F53F154
 [core]
-    editor = vim
+    editor = nvim
     excludesfile = /home/david/.gitignore_global
 [push]
     default = simple

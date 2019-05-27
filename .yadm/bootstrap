@@ -16,8 +16,7 @@ chmod +x ~/.yadm/external/rfc/rfc
 # Make our symlinks.
 echo ":: Creating symlinks..."
 mkdir -p ~/.local/bin
-ln -s ~/.yadm/external/rfc/rfc ~/.local/bin/rfc
-ln -s ~/.yadm/external/gdb-dashboard/.gdbinit ~/.gdbinit
+ln -s ~/.yadm/external/gdb-dashboard/.gdbinit ~/.gdb-dashboard
 chmod -R 700 ~/.local/bin
 
 # Make other directories.

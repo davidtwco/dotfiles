@@ -4,12 +4,6 @@
 [submodule "gitalias"]
 	path = .yadm/external/gitalias
 	url = https://github.com/GitAlias/gitalias.git
-[submodule "up"]
-	path = .yadm/external/up
-	url = https://github.com/shannonmoeller/up.git
-[submodule "rfc"]
-	path = .yadm/external/rfc
-	url = https://github.com/bfontaine/rfc.git
 [submodule "fzf"]
 	path = .fzf
 	url = https://github.com/junegunn/fzf.git

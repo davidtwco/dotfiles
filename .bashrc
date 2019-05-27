@@ -230,11 +230,6 @@ if which tmuxp>/dev/null 2>&1; then
 fi
 # }}}
 
-# Up {{{
-# ==
-source $HOME/.yadm/external/up/up.sh
-# }}}
-
 # fasd {{{
 # ====
 if which fasd>/dev/null 2>&1; then

@@ -581,6 +581,8 @@ set history=1000
 " =========
 let g:lightline = {}
 let g:lightline.colorscheme = 'davidtwco'
+let g:lightline.separator = { 'left': '⬣', 'right': '⬣' }
+let g:lightline.subseparator = g:lightline.separator
 
 let g:lightline.active = {
 \   'left': [

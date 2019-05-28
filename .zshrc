@@ -186,6 +186,7 @@ path=("$HOME/.local/bin" $path)
 path=("/opt/puppetlabs/bin" $path)
 path=("/usr/local/cuda/bin" $path)
 path=("$HOME/.fzf/bin" $path)
+path=("$HOME/.yadm/external/git-imerge" $path)
 if _has ruby; then
     path=("$(ruby -e 'print Gem.user_dir')" $path)
     path=("$(ruby -e 'print Gem.user_dir')/bin" $path)

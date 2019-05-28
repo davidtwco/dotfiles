@@ -13,3 +13,6 @@
 [submodule ".yadm/external/gdb-dashboard"]
 	path = .yadm/external/gdb-dashboard
 	url = https://github.com/cyrus-and/gdb-dashboard.git
+[submodule ".yadm/external/git-imerge"]
+	path = .yadm/external/git-imerge
+	url = https://github.com/mhagger/git-imerge.git

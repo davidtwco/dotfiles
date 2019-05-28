@@ -111,6 +111,9 @@ if ! shopt -oq posix; then
         . /etc/bash_completion
     fi
 fi
+
+# git-imerge completion
+source ~/.yadm/external/git-imerge/git-imerge.bashcomplete
 # }}}
 
 # Aliases {{{
@@ -202,7 +205,7 @@ prependToPath() {
 }
 
 prependToPath $HOME/bin $HOME/.cargo/bin $HOME/.go/bin $HOME/.local/bin /opt/puppetlabs/bin
-prependToPath /usr/local/cuda/bin
+prependToPath /usr/local/cuda/bin $HOME/.yadm/external/git-imerge
 if which ruby>/dev/null 2>&1; then
     prependToPath "$(ruby -e 'print Gem.user_dir')"
     prependToPath "$(ruby -e 'print Gem.user_dir')/bin"

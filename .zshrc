@@ -6,6 +6,7 @@
 # Colors {{{
 # ======
 if [ -t 1 ]; then
+    BLACK="$(tput setaf 0)"
     RED="$(tput setaf 1)"
     GREEN="$(tput setaf 2)"
     YELLOW="$(tput setaf 3)"
@@ -13,12 +14,20 @@ if [ -t 1 ]; then
     MAGENTA="$(tput setaf 5)"
     CYAN="$(tput setaf 6)"
     WHITE="$(tput setaf 7)"
-    GRAY="$(tput setaf 8)"
+    BRIGHT_BLACK="$(tput setaf 8)"
+    BRIGHT_RED="$(tput setaf 9)"
+    BRIGHT_GREEN="$(tput setaf 10)"
+    BRIGHT_YELLOW="$(tput setaf 11)"
+    BRIGHT_BLUE="$(tput setaf 12)"
+    BRIGHT_MAGENTA="$(tput setaf 13)"
+    BRIGHT_CYAN="$(tput setaf 14)"
+    BRIGHT_WHITE="$(tput setaf 15)"
     BOLD="$(tput bold)"
     UNDERLINE="$(tput sgr 0 1)"
     INVERT="$(tput sgr 1 0)"
     NOCOLOR="$(tput sgr0)"
 else
+    BLACK=""
     RED=""
     GREEN=""
     YELLOW=""
@@ -26,7 +35,14 @@ else
     MAGENTA=""
     CYAN=""
     WHITE=""
-    GRAY=""
+    BRIGHT_BLACK=""
+    BRIGHT_RED=""
+    BRIGHT_GREEN=""
+    BRIGHT_YELLOW=""
+    BRIGHT_BLUE=""
+    BRIGHT_MAGENTA=""
+    BRIGHT_CYAN=""
+    BRIGHT_WHITE=""
     BOLD=""
     UNDERLINE=""
     INVERT=""
@@ -193,22 +209,22 @@ fpath+=~/.yadm/completions
 
 # Execute code in the background to not affect the current session.
 {
-  # Compile zcompdump, if modified, to increase startup speed.
-  zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
-  if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
-    zcompile "$zcompdump"
-  fi
+    # Compile zcompdump, if modified, to increase startup speed.
+    zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+    if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
+      zcompile "$zcompdump"
+    fi
 } &!
 
 # Load colour variables.
 eval "$(dircolors -b)"
 
 # Description for options that are not described by completion functions.
-zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' auto-description "${BRIGHT_BLACK}Specify %d${NOCOLOR}"
 # Enable corrections, expansions, completions and approximate completers.
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 # Display 'Completing $section' between types of matches, ie. 'Completing external command'
-zstyle ':completion:*' format "${YELLOW}Completing${NOCOLOR} %d"
+zstyle ':completion:*' format "${BRIGHT_BLACK}Completing %d${NOCOLOR}"
 # Display all types of matches separately (same types as above).
 zstyle ':completion:*' group-name ''
 # Use menu selection if there are more than two matches (or when not on screen).
@@ -382,4 +398,4 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=()
 # }}}
 
-# vim:foldmethod=marker:foldlevel=0
+# vim:foldmethod=marker:foldlevel=0:sts=4:ts=4:sw=4:et

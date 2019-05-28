@@ -203,7 +203,7 @@ path=($^path(N-/))
 # Completion {{{
 # ==========
 # Use modern completion system.
-autoload -Uz compinit; compinit
+autoload -Uz +X compinit && compinit
 
 # Add any completions.
 fpath+=~/.yadm/completions
@@ -213,7 +213,7 @@ fpath+=~/.yadm/completions
     # Compile zcompdump, if modified, to increase startup speed.
     zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
     if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
-      zcompile "$zcompdump"
+      zcompile -U "$zcompdump"
     fi
 } &!
 

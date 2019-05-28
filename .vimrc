@@ -730,7 +730,16 @@ function! LightlineReadonly()
 endfunction
 
 " Define a custom colorscheme that matches the tmux configuration.
-let s:p = { 'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {} }
+let s:p = {
+\   'normal': {},
+\   'inactive': {},
+\   'insert': {},
+\   'replace': {},
+\   'visual': {},
+\   'terminal': {},
+\   'command': {},
+\   'tabline': {}
+\ }
 
 " All palettes have the form:
 "   s:p.{mode}.{where] = [ [ {guifg}, {guibg}, {ctermfg}, {ctermbg} ] ]
@@ -786,6 +795,24 @@ let s:p.visual.left = [
 \ ]
 let s:p.visual.middle = s:p.normal.middle
 let s:p.visual.right = s:p.normal.right
+
+" Terminal mode has terminal background and magenta foreground, followed by the same as normal
+" mode.
+let s:p.terminal.left = [
+\   [s:bright_magenta, s:bg, s:c_bright_magenta, s:c_bg],
+\   s:p.normal.left[1], s:p.normal.left[2]
+\ ]
+let s:p.terminal.middle = s:p.normal.middle
+let s:p.terminal.right = s:p.normal.right
+
+" Command mode has terminal background and cyan foreground, followed by the same as normal
+" mode.
+let s:p.command.left = [
+\   [s:bright_cyan, s:bg, s:c_bright_cyan, s:c_bg],
+\   s:p.normal.left[1], s:p.normal.left[2]
+\ ]
+let s:p.command.middle = s:p.normal.middle
+let s:p.command.right = s:p.normal.right
 
 " Tabline has current tab in white, other tabs in gray, and terminal background.
 let s:p.tabline.left = [ [s:white, s:bg, s:c_white, s:c_bg] ]

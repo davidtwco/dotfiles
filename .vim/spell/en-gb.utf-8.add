@@ -246,3 +246,13 @@ accessor
 PatKind
 if
 bool
+libspirv
+nvptx
+LLVM
+bitcode
+upstreaming
+userspace
+SPIR
+libclc
+OpenCL's
+inlined

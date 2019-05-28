@@ -863,6 +863,12 @@ cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 set mouse=a
 " }}}
 
+" netrw {{{
+" =====
+" Allow line numbers in netrw buffers.
+let g:netrw_bufsettings = [ 'noma nomod nu nobl nowrap ro' ]
+" }}}
+
 " Organization {{{
 " ============
 " Sets the expected modeline format.

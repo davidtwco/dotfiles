@@ -376,6 +376,10 @@ fi
 # Prompt {{{
 # ======
 # Do not need to use `promptinit` because of how `pure` is loaded w/ antibody.
+# However, need to set `RPS1` to empty, so that when the prompt defaults to the `walters` theme,
+# we don't get the cwd appearing.
+export RPS1=
+
 PURE_GIT_DOWN_ARROW='↓'
 PURE_GIT_UP_ARROW='↑'
 # }}}

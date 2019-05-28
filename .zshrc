@@ -375,12 +375,7 @@ fi
 
 # Prompt {{{
 # ======
-# Need to set `RPS1` to empty as `pure` doesn't appear in the prompt list due to how antibody
-# loads it, and that causes the prompt to default to the `walters` theme, which includes a path
-# in `RPS1`.
-export RPS1=
-autoload -Uz promptinit; promptinit
-
+# Do not need to use `promptinit` because of how `pure` is loaded w/ antibody.
 PURE_GIT_DOWN_ARROW='↓'
 PURE_GIT_UP_ARROW='↑'
 # }}}

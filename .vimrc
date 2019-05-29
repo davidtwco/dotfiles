@@ -98,9 +98,8 @@ if exists('*minpac#init')
 
     " Wrapper for Git.
     call minpac#add('tpope/vim-fugitive')
-
-    " GitHub extension for `vim-fugitive`.
     call minpac#add('tpope/vim-rhubarb')
+    call minpac#add('shumphrey/fugitive-gitlab.vim')
 
     if has("unix")
         " Helper functions for unix commands (`mkdir`, `mv`, etc.)
@@ -905,6 +904,13 @@ set incsearch
 set ignorecase
 " Don't ignore case when different cases searched for.
 set smartcase
+" }}}
+
+" Secrets {{{
+" =======
+if filereadable(expand("~/.vimrc.secrets"))
+    execute "source " . expand("~/.vimrc.secrets")
+endif
 " }}}
 
 " Scrolling {{{

@@ -394,7 +394,7 @@ let s:c_bright_cyan = 14
 let s:bright_white = '#C5C8C6'
 let s:c_bright_white = 15
 
-let s:bg = '#1D1F21'
+let s:bg = '#1C1C1C'
 let s:c_bg = 234
 let s:fg = s:bright_white
 let s:c_fg = s:c_bright_white

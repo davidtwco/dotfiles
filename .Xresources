@@ -19,7 +19,7 @@ xterm*faceSize: 10
 
 ! Hybrid Colours {{{
 ! --------------
-*background: #1D1F21
+*background: #1C1C1C
 *foreground: #C5C8C6
 *cursorColor: #C5C8C6
 ! black

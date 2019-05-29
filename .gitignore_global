@@ -19,6 +19,7 @@ Thumbs.db
 tags
 tags.temp
 tags.lock
+tags.files
 
 ### Vim configuration ###
 .lvimrc

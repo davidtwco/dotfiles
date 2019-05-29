@@ -119,6 +119,9 @@ if exists('*minpac#init')
     " Focus events & clipboard for tmux.
     call minpac#add('roxma/vim-tmux-clipboard')
     call minpac#add('tmux-plugins/vim-tmux-focus-events')
+
+    " GnuPG
+    call minpac#add('jamessan/vim-gnupg')
     " }}}
 
     " Interface {{{

@@ -42,7 +42,7 @@ if [ -t 1 ]; then
     BOLD="$(tput bold)"
     UNDERLINE="$(tput sgr 0 1)"
     INVERT="$(tput sgr 1 0)"
-    NOCOLOR="$(tput sgr0)"
+    RESET="$(tput sgr0)"
 else
     BLACK=""
     RED=""
@@ -63,7 +63,7 @@ else
     BOLD=""
     UNDERLINE=""
     INVERT=""
-    NOCOLOR=""
+    RESET=""
 fi
 # }}}
 
@@ -236,8 +236,8 @@ if (( major > 4 )) || (( major == 4 && minor >= 4 )); then
     # and the style of the bash prompt.
     #
     # $prompt_symbol is borrowed from the $HOME/.bash_prompt file.
-    bind "set vi-ins-mode-string \1$CYAN\2$prompt_symbol\1$NOCOLOR\2"
-    bind "set vi-cmd-mode-string \1$GREEN\2$prompt_symbol\1$NOCOLOR\2"
+    bind "set vi-ins-mode-string \1$CYAN\2$prompt_symbol\1$RESET\2"
+    bind "set vi-cmd-mode-string \1$GREEN\2$prompt_symbol\1$RESET\2"
 fi
 # }}}
 

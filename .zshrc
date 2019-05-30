@@ -25,7 +25,7 @@ if [ -t 1 ]; then
     BOLD="$(tput bold)"
     UNDERLINE="$(tput sgr 0 1)"
     INVERT="$(tput sgr 1 0)"
-    NOCOLOR="$(tput sgr0)"
+    RESET="$(tput sgr0)"
 else
     BLACK=""
     RED=""
@@ -46,7 +46,7 @@ else
     BOLD=""
     UNDERLINE=""
     INVERT=""
-    NOCOLOR=""
+    RESET=""
 fi
 # }}}
 
@@ -221,11 +221,11 @@ fpath+=~/.yadm/completions
 eval "$(dircolors -b)"
 
 # Description for options that are not described by completion functions.
-zstyle ':completion:*' auto-description "${BRIGHT_BLACK}Specify %d${NOCOLOR}"
+zstyle ':completion:*' auto-description "${BRIGHT_BLACK}Specify %d${RESET}"
 # Enable corrections, expansions, completions and approximate completers.
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 # Display 'Completing $section' between types of matches, ie. 'Completing external command'
-zstyle ':completion:*' format "${BRIGHT_BLACK}Completing %d${NOCOLOR}"
+zstyle ':completion:*' format "${BRIGHT_BLACK}Completing %d${RESET}"
 # Display all types of matches separately (same types as above).
 zstyle ':completion:*' group-name ''
 # Use menu selection if there are more than two matches (or when not on screen).

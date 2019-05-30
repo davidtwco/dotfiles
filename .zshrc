@@ -402,4 +402,10 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=()
 # }}}
 
+# you-should-use {{{
+# ==============
+export YSU_MESSAGE_FORMAT="${BRIGHT_BLACK}Consider using the %alias_type\
+ \"${WHITE}%alias${BRIGHT_BLACK}\"${RESET}"
+# }}}
+
 # vim:foldmethod=marker:foldlevel=0:sts=4:ts=4:sw=4:et

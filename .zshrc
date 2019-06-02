@@ -385,6 +385,39 @@ export RPS1=
 
 PURE_GIT_DOWN_ARROW='↓'
 PURE_GIT_UP_ARROW='↑'
+
+# Print `pure` or `impure` when in a `nix-shell` before the prompt character. This requires
+# re-implementing the Vim support in the prompt. Replace this with something in the pre-prompt
+# once sindresorhus/pure#460 is implemented.
+NIX_PROMPT=""
+VIM_PROMPT="❯"
+
+PROMPT='%(12V.%F{242}${psvar[12]}%f .)'
+PROMPT+='%F{8}${NIX_PROMPT}%f%(?.%F{magenta}.%F{red})${VIM_PROMPT}%f '
+
+prompt_pure_update_user_prompt() {
+    zle || {
+        print "error: pure_update_vim_prompt must be called when zle is active"
+        return 1
+    }
+
+    VIM_PROMPT=${${KEYMAP/vicmd/❮}/(main|viins)/❯}
+
+    if [[ ! -z "${IN_NIX_SHELL}" ]]; then
+        NIX_PROMPT="${IN_NIX_SHELL:-} "
+    else
+        NIX_PROMPT=""
+    fi
+
+    zle .reset-prompt
+}
+
+function zle-line-init zle-keymap-select {
+    prompt_pure_update_user_prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
 # }}}
 
 # Neovim {{{

@@ -66,7 +66,15 @@ fi
 
 # Alias 'git' to 'hub' if it is available.
 if command -v hub >/dev/null 2>&1; then
-    eval "$(hub alias -s)"
+    if [[ "${SHELL}" =~ ".*zsh-nix-shell.*" ]]; then
+        # When using `zsh-nix-shell`, upon launching a `nix-shell`, the `$SHELL` variable is set
+        # to a shim that will make `zsh` the default shell within a impure `nix-shell`. This
+        # causes `hub` to complain about a unsupported shell, so silence that error here by lying
+        # to `hub` about the `$SHELL`.
+        eval "$(SHELL=zsh hub alias -s)"
+    else
+        eval "$(hub alias -s)"
+    fi
 fi
 
 if command -v nvim >/dev/null 2>&1; then

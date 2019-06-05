@@ -142,7 +142,11 @@ fi
 export GPG_TTY=$(tty)
 if _has gpg-agent && _has gpgconf; then
     export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-    gpgconf --launch gpg-agent
+    if [ -z $SSH_CONNECTION ]; then
+        # Don't start the `gpg-agent` for remote connections. The sockets from the local host
+        # will be forwarded and picked up by the gpg client.
+        gpgconf --launch gpg-agent
+    fi
 fi
 # }}}
 

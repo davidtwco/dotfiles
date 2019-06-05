@@ -100,4 +100,8 @@ else
     alias rust-musl-builder='docker run --rm -it -v "${PWD}":/home/rust/src ekidd/rust-musl-builder:stable'
 fi
 
+# This will force GPG to forget that the previous YubiKey provided our keys and recognize
+# the new key. Run this when you swap physical YubiKeys.
+alias refreshkey='gpg-connect-agent "scd serialno" "learn --force" /bye; echo UPDATESTARTUPTTY | gpg-connect-agent'
+
 # vim:foldmethod=marker:foldlevel=0:ft=zsh

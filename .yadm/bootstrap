@@ -72,3 +72,8 @@ if ! command -v lesskey >/dev/null 2>&1; then
     lesskey
     popd
 fi
+
+# Fetch GPG key.
+if ! command -v gpg2 >/dev/null 2>&1; then
+    gpg2 --recv-key 9F53F154
+fi

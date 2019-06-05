@@ -4,6 +4,6 @@
 # We need this because gpg-agent.conf expects a path to a command and
 # the pinentry binary lives in different places in different distros.
 shift
-/usr/bin/env pinentry-curses $@
+/usr/bin/env pinentry-tty $@
 
 # vim:ft=sh

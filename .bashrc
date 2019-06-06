@@ -125,14 +125,30 @@ fi
 # }}}
 
 # GPG/SSH Agent {{{
-# =========
-export GPG_TTY=$(tty)
-if [ which gpg-agent>/dev/null 2>&1 ] && [ which gpgconf>/dev/null 2>&1 ]; then
-    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-    if [ -z $SSH_CONNECTION ]; then
-        # Don't start the `gpg-agent` for remote connections. The sockets from the local host
-        # will be forwarded and picked up by the gpg client.
-        gpgconf --launch gpg-agent
+# =============
+if grep -q Microsoft /proc/version; then
+    SOCAT_PID_FILE=$HOME/.gnupg/socat-gpg.pid
+
+    export SSH_AUTH_SOCK="/mnt/c/wsl-pageant/ssh-agent.sock"
+    if [[ -f $SOCAT_PID_FILE ]] && kill -0 $(cat $SOCAT_PID_FILE); then
+        : # Already running.
+    else
+        rm -f "$HOME/.gnupg/S.gpg-agent"
+        UNIX_LISTEN="$HOME/.gnupg/S.gpg-agent"
+        EXEC='/mnt/c/npiperelay.exe -ei -ep -s -a "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent"'
+        (trap "rm $SOCAT_PID_FILE" EXIT; socat UNIX-LISTEN:$UNIX_LISTEN,fork EXEC:$EXEC,nofork \
+          </dev/null &>/dev/null) &
+        echo $! >$SOCAT_PID_FILE
+    fi
+else
+    export GPG_TTY=$(tty)
+    if [ which gpg-agent>/dev/null 2>&1 ] && [ which gpgconf>/dev/null 2>&1 ]; then
+        export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+        if [ -z $SSH_CONNECTION ]; then
+            # Don't start the `gpg-agent` for remote connections. The sockets from the local host
+            # will be forwarded and picked up by the gpg client.
+            gpgconf --launch gpg-agent
+        fi
     fi
 fi
 # }}}

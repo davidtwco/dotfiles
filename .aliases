@@ -100,8 +100,16 @@ else
     alias rust-musl-builder='docker run --rm -it -v "${PWD}":/home/rust/src ekidd/rust-musl-builder:stable'
 fi
 
-# This will force GPG to forget that the previous YubiKey provided our keys and recognize
-# the new key. Run this when you swap physical YubiKeys.
-alias refreshkey='gpg-connect-agent "scd serialno" "learn --force" /bye; gpg-connect-agent updatestartuptty /bye'
+# Use this alias to make GPG need to unlock the key. `gpg-update-ssh-agent` would also want to
+# unlock the key, but the pinentry prompt mangles the terminal with that command.
+alias gpg-unlock-key='echo "foo" | gpg -o /dev/null --local-user 9F53F154 -as -'
+# Use this alias to make the GPG agent relearn what keys are connected and what keys they have.
+alias gpg-relearn-key='gpg-connect-agent "scd serialno" "learn --force" /bye'
+# > Set the startup TTY and X-DISPLAY variables to the values of this session. This command is
+# > useful to direct future pinentry invocations to another screen. It is only required because
+# > there is no way in the ssh-agent protocol to convey this information.
+alias gpg-update-ssh-agent='gpg-connect-agent updatestartuptty /bye'
+# Use this alias to make sure everything is in working order.
+alias gpg-refresh='gpg-relearn-key && gpg-unlock-key && gpg-update-ssh-agent'
 
 # vim:foldmethod=marker:foldlevel=0:ft=zsh

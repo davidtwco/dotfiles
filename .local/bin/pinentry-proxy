@@ -1,9 +1,40 @@
 #!/usr/bin/env bash
 
-# Invoke pinentry-curses with the arguments passed to this script.
-# We need this because gpg-agent.conf expects a path to a command and
-# the pinentry binary lives in different places in different distros.
+# Need to invoke the pinentry with the arguments passed to this script, so shift once. This script
+# exists because gpg-agent.conf expects a path to a command and the pinentry binary lives in
+# different places in different distros.
 shift
+
+# As the GPG key will only exist on the machine that is being used (which will necessarily
+# have a display) and the key will not exist on remote machines (which will not have a display), we
+# can invoke GUI pinentry and that will work most of the time (thus avoiding the terminal mangling
+# issues that are encountered with `pinentry-{tty, curses}`).
+#
+# Unfortunately, this script is invoked without environment variables, so we cannot check
+# `$DISPLAY`. Instead, run complicated commands to get the same information back.
+which loginctl >/dev/null 2>&1
+if [ $? ]; then
+   loginctl show-session $(loginctl | grep $(whoami) | awk '{print $1}') -p Type | \
+      sort -u | awk NF | grep "tty" >/dev/null 2>&1
+   IS_TTY=$?
+
+   loginctl show-session $(loginctl | grep $(whoami) | awk '{print $1}') -p Service | \
+      sort -u | awk NF | grep "gdm-password" >/dev/null 2>&1
+   USING_GNOME=$?
+else
+   # On systems without `loginctl`, assume we don't use GNOME and are running on a tty.
+   IS_TTY=0
+   USING_GNOME=1
+fi
+
+which pinentry-gnome3 >/dev/null 2>&1
+GNOME_PINENTRY_EXISTS=$?
+
+if [ $IS_TTY -eq 1 ] && [ $GNOME_PINENTRY_EXISTS -eq 0 ] && [ $USING_GNOME -eq 0 ]; then
+    /usr/bin/env pinentry-gnome3 $@
+    exit $?
+fi
+
 /usr/bin/env pinentry-tty $@
 
 # vim:ft=sh

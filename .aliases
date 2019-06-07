@@ -109,7 +109,9 @@ alias gpg-relearn-key='gpg-connect-agent "scd serialno" "learn --force" /bye'
 # > useful to direct future pinentry invocations to another screen. It is only required because
 # > there is no way in the ssh-agent protocol to convey this information.
 alias gpg-update-ssh-agent='gpg-connect-agent updatestartuptty /bye'
-# Use this alias to make sure everything is in working order.
+# Use this alias to make sure everything is in working order. Need to unlock twice - if
+# `gpg-update-ssh-agent` called with an locked key then it will prompt for it to be unlocked in
+# a way that will mangle the terminal, therefore we need to unlock before this.
 alias gpg-refresh='gpg-relearn-key && gpg-unlock-key && gpg-update-ssh-agent'
 
 # vim:foldmethod=marker:foldlevel=0:ft=zsh

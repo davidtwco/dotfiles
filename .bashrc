@@ -3,6 +3,11 @@
 #	website: https://davidtw.co
 # ==================================================
 
+# Functions {{{
+# =========
+. $HOME/.functions
+# }}}
+
 # Shell {{{
 # =====
 if [[ -n $IN_NIX_SHELL ]]; then
@@ -12,9 +17,9 @@ fi
 # Due to limitations in Bash for Windows, in order to use
 # an alternate shell, we must launch it from here. We cannot
 # use chsh.
-if grep -q Microsoft /proc/version; then
+if _is_wsl; then
     # If we have zsh installed, use it.
-    if which zsh>/dev/null 2>&1; then
+    if _has zsh; then
         exec zsh
     fi
 fi
@@ -113,55 +118,31 @@ if ! shopt -oq posix; then
 fi
 
 # git-imerge completion
-source ~/.yadm/external/git-imerge/git-imerge.bashcomplete
+. $HOME/.yadm/external/git-imerge/git-imerge.bashcomplete
 # }}}
 
 # Aliases {{{
 # =======
 # Load our aliases.
-if [ -f ~/.aliases ]; then
-    . ~/.aliases
+if [ -f $HOME/.aliases ]; then
+    . $HOME/.aliases
 fi
 # }}}
 
 # GPG/SSH Agent {{{
 # =============
-if grep -q Microsoft /proc/version; then
-    SOCAT_PID_FILE=$HOME/.gnupg/socat-gpg.pid
-
-    export SSH_AUTH_SOCK="/mnt/c/wsl-pageant/ssh-agent.sock"
-    if [[ -f $SOCAT_PID_FILE ]] && kill -0 $(cat $SOCAT_PID_FILE); then
-        : # Already running.
-    else
-        rm -f "$HOME/.gnupg/S.gpg-agent"
-        UNIX_LISTEN="$HOME/.gnupg/S.gpg-agent"
-        EXEC='/mnt/c/npiperelay.exe -ei -ep -s -a "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent"'
-        (trap "rm $SOCAT_PID_FILE" EXIT; socat UNIX-LISTEN:$UNIX_LISTEN,fork EXEC:$EXEC,nofork \
-          </dev/null &>/dev/null) &
-        echo $! >$SOCAT_PID_FILE
-    fi
-else
-    export GPG_TTY=$(tty)
-    if [ which gpg-agent>/dev/null 2>&1 ] && [ which gpgconf>/dev/null 2>&1 ]; then
-        export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-        if [ -z $SSH_CONNECTION ]; then
-            # Don't start the `gpg-agent` for remote connections. The sockets from the local host
-            # will be forwarded and picked up by the gpg client.
-            gpgconf --launch gpg-agent
-        fi
-    fi
-fi
+_setup_gpg_ssh
 # }}}
 
 # Environment Variables {{{
 # =====================
-if grep -q Microsoft /proc/version; then
+if _is_wsl; then
     export DOCKER_HOST=tcp://127.0.0.1:2375
 fi
 
 # Source any secret variables.
 if [ -f $HOME/.secrets ]; then
-    source $HOME/.secrets
+    . $HOME/.secrets
 fi
 
 # Ensure we're using the correct locale.
@@ -177,7 +158,7 @@ export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
 export EDITOR=vim
 export TERM=xterm-256color
 export GOPATH=$HOME/.go
-if which ruby>/dev/null 2>&1; then
+if _has ruby; then
     export GEM_HOME="$(ruby -e 'print Gem.user_dir')"
 fi
 # }}}
@@ -213,7 +194,7 @@ export PATH="$PATH"
 
 # Prompt {{{
 # ======
-source $HOME/.bash_prompt
+. $HOME/.bash_prompt
 # }}}
 
 # Vi Mode {{{
@@ -237,15 +218,15 @@ fi
 
 # tmux helper completion {{{
 # =======================
-source ~/.yadm/completions/tmuxinator.bash # tmuxinator
-if which tmuxp>/dev/null 2>&1; then
-    eval "$(_TMUXP_COMPLETE=source tmuxp)" # tmuxp
+. $HOME/.yadm/completions/tmuxinator.bash # tmuxinator
+if _has tmuxp; then
+    eval "$(_TMUXP_COMPLETE=. tmuxp)" # tmuxp
 fi
 # }}}
 
 # fasd {{{
 # ====
-if which fasd>/dev/null 2>&1; then
+if _has fasd; then
     fasd_cache="$HOME/.fasd-init-bash"
     if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
         fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
@@ -256,12 +237,12 @@ fi
 
 # fzf {{{
 # ===
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f $HOME/.fzf.bash ] && . $HOME/.fzf.bash
 # }}}
 
 # direnv {{{
 # ======
-if which direnv>/dev/null 2>&1; then
+if _has direnv; then
     eval "$(direnv hook bash)"
 fi
 # }}}

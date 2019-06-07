@@ -52,9 +52,7 @@ fi
 
 # Functions {{{
 # =========
-_has() {
-    which $1>/dev/null 2>&1
-}
+. $HOME/.functions
 # }}}
 
 # Bindings {{{
@@ -88,7 +86,7 @@ export ZSH_CACHE_DIR=$HOME/.zsh/cache
 
 # Source any secret variables.
 if [ -f $HOME/.secrets ]; then
-    source $HOME/.secrets
+    . $HOME/.secrets
 fi
 
 # Ensure we're using the correct locale.
@@ -132,38 +130,14 @@ if _has ruby; then
 fi
 
 # Connect to Docker over TCP. Allows connections to Docker for Windows.
-if grep -q Microsoft /proc/version; then
+if _is_wsl; then
     export DOCKER_HOST=tcp://127.0.0.1:2375
 fi
 # }}}
 
 # GPG/SSH Agent {{{
-# =========
-if grep -q Microsoft /proc/version; then
-    SOCAT_PID_FILE=$HOME/.gnupg/socat-gpg.pid
-
-    export SSH_AUTH_SOCK="/mnt/c/wsl-pageant/ssh-agent.sock"
-    if [[ -f $SOCAT_PID_FILE ]] && kill -0 $(cat $SOCAT_PID_FILE); then
-        : # Already running.
-    else
-        rm -f "$HOME/.gnupg/S.gpg-agent"
-        UNIX_LISTEN="$HOME/.gnupg/S.gpg-agent"
-        EXEC='/mnt/c/npiperelay.exe -ei -ep -s -a "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent"'
-        (trap "rm $SOCAT_PID_FILE" EXIT; socat UNIX-LISTEN:$UNIX_LISTEN,fork EXEC:$EXEC,nofork \
-          </dev/null &>/dev/null) &
-        echo $! >$SOCAT_PID_FILE
-    fi
-else
-    export GPG_TTY=$(tty)
-    if _has gpg-agent && _has gpgconf; then
-        export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-        if [ -z $SSH_CONNECTION ]; then
-            # Don't start the `gpg-agent` for remote connections. The sockets from the local host
-            # will be forwarded and picked up by the gpg client.
-            gpgconf --launch gpg-agent
-        fi
-    fi
-fi
+# =============
+_setup_gpg_ssh
 # }}}
 
 # Path {{{
@@ -200,7 +174,7 @@ path=($^path(N-/))
 autoload -Uz +X compinit && compinit
 
 # Add any completions.
-fpath+=~/.yadm/completions
+fpath+=$HOME/.yadm/completions
 
 # Execute code in the background to not affect the current session.
 {
@@ -253,11 +227,11 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 __git_files () { _wanted files expl 'local files' _files  }
 
 # tmuxinator completion.
-source ~/.yadm/completions/tmuxinator.zsh
+. $HOME/.yadm/completions/tmuxinator.zsh
 
 # npm completion
 if _has npm; then
-    source <(npm completion)
+    . <(npm completion)
 fi
 # }}}
 
@@ -297,8 +271,8 @@ setopt HIST_VERIFY
 # Aliases {{{
 # =======
 # Load our aliases.
-if [ -f ~/.aliases ]; then
-    . ~/.aliases
+if [ -f $HOME/.aliases ]; then
+    . $HOME/.aliases
 fi
 # }}}
 
@@ -316,7 +290,7 @@ if _has antibody; then
     fi
 
     # Load plugins.
-    source "$HOME/.zsh_plugins.sh"
+    . "$HOME/.zsh_plugins.sh"
 fi
 # }}}
 
@@ -327,7 +301,7 @@ if _has fasd; then
     if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
         fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install >| "$fasd_cache"
     fi
-    source "$fasd_cache"
+    . "$fasd_cache"
     unset fasd_cache
 fi
 # }}}
@@ -336,13 +310,13 @@ fi
 # ===
 # fzf via Homebrew
 if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
-    source /usr/local/opt/fzf/shell/key-bindings.zsh
-    source /usr/local/opt/fzf/shell/completion.zsh
+    . /usr/local/opt/fzf/shell/key-bindings.zsh
+    . /usr/local/opt/fzf/shell/completion.zsh
 fi
 
 # fzf via local installation
-if [ -f ~/.fzf.zsh ]; then
-    source ~/.fzf.zsh
+if [ -f $HOME/.fzf.zsh ]; then
+    . $HOME/.fzf.zsh
 fi
 
 if _has fzf && _has rg; then

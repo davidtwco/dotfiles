@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Pipe the datamatrix files concatenated. Provide the public key as the first argument and filename
+# as second argument.
+paperkey --pubring $1 <&0 > $2.gpg

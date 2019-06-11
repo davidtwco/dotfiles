@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Provide the path to the secret key as the first argument.
+NAME="$(basename $1 | cut -d. -f1)"
+paperkey --secret-key $1 --output-type raw | split -b 1500 - $NAME-
+for K in $NAME-*; do
+    dmtxwrite -e 8 $K > $K.png
+done

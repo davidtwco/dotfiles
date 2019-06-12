@@ -231,6 +231,7 @@ let g:ale_linters_explicit = 1
 let g:ale_linters = {
 \   'c': [ 'clangd', 'clangtidy' ],
 \   'cpp': [ 'clangd', 'clangtidy' ],
+\   'cmake': [ 'cmakelint' ],
 \   'css': [ 'csslint' ],
 \   'llvm': [ 'llc' ],
 \   'lua': [ 'luac' ],
@@ -289,14 +290,15 @@ let g:ale_cpp_clangtidy_executable = g:ale_c_clangtidy_executable
 let g:ale_c_clangformat_executable = FindClangExecutable('clang-format')
 
 " Limit clangtidy checks.
-let g:ale_c_clangtidy_checks = ['clang-analyzer-*', 'cppcoreguidelines-*', 'llvm-*']
+let g:ale_c_clangtidy_checks = [ 'clang-analyzer-*', 'cppcoreguidelines-*', 'llvm-*' ]
 let g:ale_cpp_clangtidy_checks = g:ale_c_clangtidy_checks
 
 " `*` means any language not matched explicitly, not all languages (ie. if ft is `rust`, ALE will
 " only load the `rust` list, not `rust` and `*`).
 let g:ale_fixers = {
 \ '*': [ 'remove_trailing_lines', 'trim_whitespace' ],
-\ 'cpp': ['clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
+\ 'cpp': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
+\ 'cmake': [ 'cmakeformat', 'remove_trailing_lines', 'trim_whitespace' ],
 \ 'rust': [ 'rustfmt', 'remove_trailing_lines', 'trim_whitespace' ],
 \ 'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace' ],
 \ }
@@ -305,8 +307,9 @@ let g:ale_fixers = {
 " Use `.lvimrc` to override this.
 let g:ale_fix_on_save = 1
 let g:ale_fix_on_save_ignore = {
-\ 'cpp': ['clang-format'],
-\ 'rust': ['rustfmt'],
+\ 'cpp': [ 'clang-format' ],
+\ 'cmake': [ 'cmakeformat' ],
+\ 'rust': [ 'rustfmt' ],
 \ }
 
 " Disable Ale for `.tex.njk` files.
@@ -868,7 +871,7 @@ set mouse=a
 " netrw {{{
 " =====
 " Allow line numbers in netrw buffers.
-let g:netrw_bufsettings = [ 'noma nomod nu nobl nowrap ro' ]
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 " }}}
 
 " Organization {{{

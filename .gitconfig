@@ -1,3 +1,9 @@
+# davidtwco .gitconfig Configuration
+#	dotfiles: https://github.com/davidtwco/dotfiles
+#	website: https://davidtw.co
+# ==================================================
+# vim:ft=gitconfig:ts=4:sts=4:sw=4:noexpandtab
+
 [user]
 	name = David Wood
 	email = david@davidtw.co
@@ -42,4 +48,5 @@
 	autosquash = true
 [status]
 	showStash = true
-# vim:ft=gitconfig:ts=4:sts=4:sw=4:noexpandtab
+[stash]
+	showPatch = true

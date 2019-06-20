@@ -10,9 +10,6 @@ yadm submodule update --recursive --init
 # Install fzf
 $HOME/.fzf/install --all
 
-# Adjust file permissions.
-chmod +x ~/.yadm/external/rfc/rfc
-
 # Make our symlinks.
 echo ":: Creating symlinks..."
 mkdir -p ~/.local/bin

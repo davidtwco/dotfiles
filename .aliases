@@ -117,4 +117,7 @@ alias gpg-refresh='gpg-relearn-key && gpg-unlock-key && gpg-update-ssh-agent'
 # Fairly self explanatory, prints the current external IP address.
 alias what-is-my-ip='dig +short myip.opendns.com @resolver1.opendns.com'
 
+# `<command> | sprunge` will make a quick link to send.
+alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
+
 # vim:foldmethod=marker:foldlevel=0:ft=zsh

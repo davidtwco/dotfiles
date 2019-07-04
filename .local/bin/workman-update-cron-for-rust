@@ -5,9 +5,11 @@ if [ -d "$HOME/projects/rust" ] && [ -f "$HOME/.ssh/id_workman_rsa" ]; then
     . /etc/profile
     pushd $HOME/projects/rust
     if which nix-shell>/dev/null 2>&1; then
-        nix-shell --command "GIT_SSH_COMMAND='ssh -i $HOME/.ssh/id_workman_rsa' $HOME/.local/bin/workman update"
+        # Need to override the `SSH_AUTH_SOCK` variable as using GPG keys for SSH can somehow
+        # interfere with this.
+        nix-shell --command "SSH_AUTH_SOCK='' GIT_SSH_COMMAND='ssh -i $HOME/.ssh/id_workman_rsa' $HOME/.local/bin/workman update"
     else
-        GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_workman_rsa" $HOME/.local/bin/workman update
+        SSH_AUTH_SOCK='' GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_workman_rsa" $HOME/.local/bin/workman update
     fi
     popd
 fi

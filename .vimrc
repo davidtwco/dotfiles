@@ -140,6 +140,9 @@ if exists('*minpac#init')
     " Statusline
     call minpac#add('itchyny/lightline.vim')
 
+    " Show current tag in statusline.
+    call minpac#add('majutsushi/tagbar', {'type': 'opt'})
+
     " Visualize the undo tree.
     call minpac#add('simnalamburt/mundo.vim', {'type': 'opt'})
 
@@ -637,7 +640,8 @@ let g:lightline.component_function = {
 \   'fileencoding': 'LightlineFileEncoding',
 \   'fileformat': 'LightlineFileFormat',
 \   'filetype': 'LightlineFileType',
-\   'filename': 'LightlineFilename'
+\   'filename': 'LightlineFilename',
+\   'tagbar': 'LightlineTagbar'
 \ }
 
 function! LightlineFilename()
@@ -732,6 +736,11 @@ endfunction
 function! LightlineReadonly()
     " Don't show any read-only indicator for writable files.
     return &readonly && &filetype !=# 'help' ? 'RO' : ''
+endfunction
+
+function! LightlineTagbar()
+    " Don't show the current tag on windows that aren't wide.
+    return winwidth(0) > s:collapse_threshold ? tagbar#currenttag('%s', '', 'f') : ''
 endfunction
 
 " Define a custom colorscheme that matches the tmux configuration.

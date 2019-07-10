@@ -196,9 +196,6 @@ if exists('*minpac#init')
     " Live Markdown preview (requires npm package - `livedown`).
     call minpac#add('shime/vim-livedown', {'type': 'opt'})
 
-    " Support markdown headers as fold markers.
-    call minpac#add('masukomi/vim-markdown-folding')
-
     " Multi-file search (`Ack`)
     call minpac#add('wincent/ferret')
 
@@ -860,6 +857,9 @@ let g:pandoc#folding#fdc = 0
 
 let g:vim_markdown_conceal = 0
 let g:markdown_syntax_conceal = 0
+
+" Enable fenced language highlighting.
+let g:markdown_fenced_languages = ['c', 'python', 'cpp', 'bash=sh', 'lua', 'rust']
 " }}}
 
 " Mappings {{{

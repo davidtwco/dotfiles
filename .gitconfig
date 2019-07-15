@@ -6,7 +6,7 @@
 
 [user]
 	name = David Wood
-	email = david@davidtw.co
+	email = git@david.davidtw.co
 	signingkey = 9F53F154
 	useConfigOnly = true
 [core]

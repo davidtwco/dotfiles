@@ -1,0 +1,4 @@
+
+
+# Always --signoff commits. Included from `.gitmessage`.
+Signed-off-by: David Wood <david@davidtw.co>

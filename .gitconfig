@@ -32,6 +32,7 @@
 [commit]
 	gpgsign = true
 	verbose = true
+	template = ~/.gitmessage
 [gpg]
 	program = gpg2
 [diff]

@@ -1,0 +1,48 @@
+[terminal.shell]
+program = "/opt/homebrew/bin/fish"
+
+[window]
+decorations = "Transparent"
+startup_mode = "Maximized"
+padding = { x = 2, y = 25 }
+dynamic_padding = true
+option_as_alt = "OnlyRight"
+
+[font]
+normal = { family = "Iosevka Term", style = "Regular" }
+bold = { family = "Iosevka Term", style = "Bold" }
+italic = { family = "Iosevka Term", style = "Italic" }
+size = 14
+offset = { y = 2 }
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.primary]
+background = "#1c1c1c"
+foreground = "#c4c7c6"
+
+[colors.normal]
+black = "#393d42"
+red = "#ba6866"
+green = "#c2c779"
+yellow = "#e3c27d"
+blue = "#87a1bc"
+magenta = "#ad94b8"
+cyan = "#9cc7c1"
+white = "#c2c5c3"
+
+[colors.bright]
+black = "#27282c"
+red = "#944544"
+green = "#8c934c"
+yellow = "#e09f6b"
+blue = "#647e97"
+magenta = "#7d6689"
+cyan = "#688b86"
+white = "#6e747c"
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+
+[terminal]

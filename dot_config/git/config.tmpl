@@ -70,7 +70,7 @@ autostash = true
 updateRefs = true
 
 [receive]
-fsctObjects = true
+fsckObjects = true
 
 [rerere]
 enable = true
@@ -90,7 +90,7 @@ recurse = false
 fsckObjects = true
 
 [user]
-email = "david@davidtw.co"
+email = {{ .email | quote }}
 name = "David Wood"
 signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDNJI59xzWBIaWoGvoFcJk3f5YtpDoYkZhkvQC6rqYV2"
 useConfigOnly = true

@@ -1,10 +1,16 @@
 packages:
   darwin:
     brews:
+      - 'cmake'
       - 'fish'
       - 'git'
+      - 'git-absorb'
       - 'helix'
+      - 'jq'
+      - 'ninja'
+      - 'qemu'
       - 'rustup'
       - 'zellij'
     casks:
       - '1password-cli'
+      - 'alacritty'

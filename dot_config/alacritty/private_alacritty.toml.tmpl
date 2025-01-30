@@ -1,5 +1,7 @@
+{{- if eq .chezmoi.os "darwin" }}
 [terminal.shell]
 program = "/opt/homebrew/bin/fish"
+{{- end }}
 
 [window]
 decorations = "Transparent"

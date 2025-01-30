@@ -1,0 +1,22 @@
+[packages.darwin]
+brews = [  
+  'cmake',
+  'fd',
+  'fish',
+  'fzf',
+  'git',
+  'git-absorb',
+  'helix',
+  'hyperfine',
+  'jq',
+  'ninja',
+  'qemu',
+  'ripgrep',
+  'rustup',
+  'typst',
+  'zellij'
+]
+casks = [
+  '1password-cli',
+  'alacritty'
+]

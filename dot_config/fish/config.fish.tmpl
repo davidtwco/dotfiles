@@ -11,6 +11,11 @@ set fish_greeting
 
 set -x COLORTERM truecolor
 set -x TERM xterm-256color
+set -x EDITOR hx
+
+fzf --fish | source
+set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow -g "!{.git}" 2>/dev/null'
+set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 
 set -g hydro_color_error a54242
 set -g hydro_color_git 6b6b6b

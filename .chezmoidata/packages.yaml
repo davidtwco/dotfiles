@@ -1,0 +1,10 @@
+packages:
+  darwin:
+    brews:
+      - 'fish'
+      - 'git'
+      - 'helix'
+      - 'rustup'
+      - 'zellij'
+    casks:
+      - '1password-cli'

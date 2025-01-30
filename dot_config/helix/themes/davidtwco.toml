@@ -1,0 +1,272 @@
+[palette]
+background = "#1d1e20"
+black = "#282A2E"
+blue = "#5F819D"
+cyan = "#5E8D87"
+gray = "#707880"
+green = "#8C9440"
+light-black = "#373B41"
+light-blue = "#81A2BE"
+light-cyan = "#8ABEB7"
+light-gray = "#C5C8C6"
+light-green = "#B5BD68"
+light-purple = "#B294BB"
+light-red = "#CC6666"
+light-yellow = "#F0C674"
+purple = "#85678F"
+red = "#A54242"
+white = "#C5C8C6"
+yellow = "#DE935F"
+
+[diff]
+delta = "yellow"
+minus = "red"
+plus = "green"
+
+[attribute]
+fg = "light-black"
+
+[comment]
+fg = "gray"
+modifiers = ["italic"]
+
+["comment.block"]
+fg = "gray"
+modifiers = ["italic"]
+
+["comment.block.documentation"]
+fg = "light-green"
+modifiers = ["italic"]
+
+["comment.line"]
+fg = "gray"
+modifiers = ["italic"]
+
+[constant]
+fg = "light-yellow"
+
+["constant.builtin"]
+fg = "light-yellow"
+
+["constant.character.escape"]
+fg = "light-yellow"
+
+["constant.numeric"]
+fg = "light-yellow"
+
+[constructor]
+fg = "white"
+
+[diagnostic.underline]
+style = "line"
+
+[error]
+fg = "red"
+modifiers = ["bold"]
+
+[function]
+fg = "light-yellow"
+
+["function.builtin"]
+fg = "light-blue"
+
+["function.macro"]
+fg = "light-purple"
+
+[hint]
+fg = "green"
+modifiers = ["bold"]
+
+[info]
+fg = "blue"
+modifiers = ["bold"]
+
+[keyword]
+fg = "light-blue"
+
+["keyword.operator"]
+fg = "white"
+
+["keyword.storage.modifier"]
+fg = "yellow"
+
+[label]
+fg = "light-green"
+
+["markup.bold"]
+fg = "yellow"
+modifiers = ["bold"]
+
+["markup.heading"]
+fg = "red"
+
+["markup.italic"]
+fg = "purple"
+modifiers = ["italic"]
+
+["markup.link.label"]
+fg = "white"
+
+["markup.link.text"]
+fg = "white"
+
+["markup.link.url"]
+fg = "blue"
+
+["markup.link.url.underline"]
+style = "line"
+
+["markup.list"]
+fg = "red"
+
+["markup.quote"]
+fg = "yellow"
+
+["markup.raw.block"]
+fg = "white"
+
+["markup.raw.inline"]
+fg = "green"
+
+[namespace]
+fg = "light-cyan"
+
+[operator]
+fg = "white"
+
+[punctuation]
+fg = "white"
+
+["punctuation.special"]
+fg = "gray"
+
+[special]
+fg = "light-blue"
+
+[string]
+fg = "light-green"
+
+[type]
+fg = "yellow"
+
+["type.builtin"]
+fg = "light-red"
+
+["ui.background"]
+bg = "background"
+
+["ui.cursor"]
+fg = "white"
+modifiers = ["reversed"]
+
+["ui.cursor.match"]
+fg = "blue"
+
+["ui.cursor.match".underline]
+style = "line"
+
+["ui.cursor.primary"]
+fg = "white"
+modifiers = ["reversed"]
+
+["ui.cursorline.primary"]
+fg = "yellow"
+
+["ui.cursorline.primary".underline]
+color = "yellow"
+style = "double_line"
+
+["ui.cursorline.secondary".underline]
+color = "yellow"
+style = "line"
+
+["ui.help"]
+bg = "background"
+fg = "white"
+
+["ui.linenr"]
+fg = "black"
+
+["ui.linenr.selected"]
+fg = "yellow"
+
+["ui.menu"]
+bg = "background"
+fg = "white"
+
+["ui.menu.scroll"]
+bg = "background"
+fg = "light-red"
+
+["ui.menu.selected"]
+bg = "background"
+fg = "light-red"
+
+["ui.popup"]
+bg = "background"
+
+["ui.selection"]
+bg = "light-black"
+
+["ui.selection.primary"]
+bg = "light-black"
+
+["ui.statusline"]
+bg = "background"
+fg = "white"
+
+["ui.statusline.inactive"]
+bg = "background"
+fg = "black"
+
+["ui.statusline.insert"]
+bg = "background"
+fg = "light-green"
+
+["ui.statusline.normal"]
+bg = "background"
+fg = "light-purple"
+
+["ui.statusline.select"]
+bg = "background"
+fg = "light-cyan"
+
+["ui.text"]
+fg = "white"
+
+["ui.text.focus"]
+bg = "light-black"
+fg = "white"
+modifiers = ["bold"]
+
+["ui.virtual"]
+fg = "gray"
+
+["ui.virtual.indent-guide"]
+fg = "gray"
+
+["ui.virtual.ruler"]
+bg = "black"
+
+["ui.virtual.whitespace"]
+fg = "light-black"
+
+["ui.window"]
+fg = "background"
+
+[variable]
+fg = "white"
+
+["variable.builtin"]
+fg = "light-red"
+
+["variable.other.member"]
+fg = "white"
+
+["variable.parameter"]
+fg = "white"
+
+[warning]
+fg = "yellow"
+modifiers = ["bold"]
+

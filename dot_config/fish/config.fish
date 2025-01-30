@@ -1,0 +1,57 @@
+fish_add_path ~/.local/bin/
+fish_add_path ~/.cargo/bin/
+
+if status --is-interactive
+    eval (/opt/homebrew/bin/brew shellenv)
+end
+
+set fish_greeting
+
+set -x COLORTERM truecolor
+set -x TERM xterm-256color
+
+set -g hydro_color_error a54242
+set -g hydro_color_git 6b6b6b
+set -g hydro_color_prompt 85678f
+set -g hydro_color_pwd 5f819d
+set -g hydro_multiline true
+
+fish_vi_key_bindings
+
+bind -k nul accept-autosuggestion
+bind -M insert -k nul accept-autosuggestion
+
+bind \e\[1~ beginning-of-line
+bind -M insert \e\[1~ beginning-of-line
+bind \e\[4~ end-of-line
+bind -M insert \e\[4~ end-of-line
+bind \e\[7~ beginning-of-line
+bind -M insert \e\[7~ beginning-of-line
+bind \e\[8~ end-of-line
+bind -M insert \e\[8~ end-of-line
+bind \eOH beginning-of-line
+bind -M insert \eOH beginning-of-line
+bind \eOF end-of-line
+bind -M insert \eOF end-of-line
+bind \e\[H beginning-of-line
+bind -M insert \e\[H beginning-of-line
+bind \e\[F end-of-line
+bind -M insert \e\[F end-of-line
+
+set fish_color_autosuggestion 707880
+set fish_color_command F0C674
+set fish_color_comment B5BD68
+set fish_color_cwd 8C9440
+set fish_color_cwd_root A54242
+set fish_color_end B294BB
+set fish_color_error CC6666
+set fish_color_escape 8ABEB7
+set fish_color_operator 8ABEB7
+set fish_color_param 8C9440
+set fish_color_quote B5BD68
+set fish_color_redirection 5E8D87
+set fish_color_status A54242
+set fish_color_user B5BD68
+set fish_color_description 85678F
+
+set -gx SHELL (status fish-path)

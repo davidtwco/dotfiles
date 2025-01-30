@@ -1,0 +1,97 @@
+[advice]
+addIgnoredFile = false
+detachedHead = false
+
+[alias]
+a = "add"
+c = "commit"
+d = "diff"
+l = "log"
+o = "checkout"
+p = "pull"
+ps = "push"
+rb = "rebase"
+s = "status"
+
+[color]
+ui = "auto"
+
+[commit]
+gpgsign = true
+verbose = true
+
+[core]
+editor = "hx"
+
+[diff]
+algorithm = "histogram"
+compactionHeuristic = true
+context = 10
+indentHeuristic = true
+submodule = "log"
+
+[fetch]
+fsckObjects = true
+prune = true
+pruneTags = true
+writeCommitGraph = true
+
+[filter "lfs"]
+clean = "git-lfs clean -- %f"
+process = "git-lfs filter-process"
+required = true
+smudge = "git-lfs smudge -- %f"
+
+[gpg]
+format = "ssh"
+program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[gpg "ssh"]
+allowedSignersFile = "/Users/davidtw/.ssh/allowed_signers"
+program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[init]
+defaultBranch = "main"
+
+[merge]
+conflictStyle = "zdiff3"
+
+[pull]
+rebase = true
+
+[push]
+autoSetupRemote = true
+default = "current"
+followTags = true
+
+[rebase]
+autosquash = true
+autostash = true
+updateRefs = true
+
+[receive]
+fsctObjects = true
+
+[rerere]
+enable = true
+
+[stash]
+showPatch = true
+
+[status]
+showStash = true
+submoduleSummary = true
+
+[submodule]
+fetchJobs = 4
+recurse = false
+
+[transfer]
+fsckObjects = true
+
+[user]
+email = "david@davidtw.co"
+name = "David Wood"
+signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDNJI59xzWBIaWoGvoFcJk3f5YtpDoYkZhkvQC6rqYV2"
+useConfigOnly = true
+

@@ -1,0 +1,24 @@
+theme = "davidtwco"
+
+[editor]
+auto-save = true
+color-modes = true
+cursorline = true
+line-number = "relative"
+rulers = [100, 140, 180, 220, 240]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.statusline]
+center = []
+left = ["mode", "spinner", "file-name"]
+right = ["diagnostics", "selections", "position", "file-type"]
+
+[editor.whitespace]
+render = "all"
+
+[editor.whitespace.characters]
+newline = "¬"

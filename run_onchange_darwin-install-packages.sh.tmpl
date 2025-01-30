@@ -10,4 +10,13 @@ cask {{ . | quote }}
 {{ end -}}
 EOF
 
+$(brew --prefix)/bin/fish <<EOF
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish \
+  | source \
+  && fisher install jorgebucaran/fisher
+{{ range .packages.fisher -}}
+fisher install {{ . }}
+{{ end -}}
+EOF
+
 {{ end -}}

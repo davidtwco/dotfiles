@@ -1,3 +1,8 @@
+[packages]
+fisher = [
+  'jorgebucaran/hydro'
+]
+
 [packages.darwin]
 brews = [  
   'cmake',
@@ -20,3 +25,4 @@ casks = [
   '1password-cli',
   'alacritty'
 ]
+

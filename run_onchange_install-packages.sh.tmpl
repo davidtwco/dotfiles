@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -e
+
+{{ if eq .chezmoi.os "darwin" -}}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range .packages.darwin.brews -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ range .packages.darwin.casks -}}
+cask {{ . | quote }}
+{{ end -}}
+EOF
+
+{{ end -}}
+
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") -}}
+
+sudo dnf install -y {{ range .packages.fedora -}} {{ . }} {{ end }}
+
+{{ end -}}
+
+if command -v fish 2>&1 >/dev/null
+then
+
+fish <<EOF
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source \
+  && fisher install jorgebucaran/fisher
+{{ range .packages.fisher -}}
+fisher install {{ . }}
+{{ end -}}
+EOF
+
+fi

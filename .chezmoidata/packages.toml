@@ -1,4 +1,18 @@
 [packages]
+fedora = [
+  'cmake',
+  'fd-find',
+  'fish',
+  'fzf',
+  'git',
+  'git-absorb',
+  'helix',
+  'hyperfine',
+  'jq',
+  'ninja-build',
+  'ripgrep',
+  'rustup'
+]
 fisher = [
   'jorgebucaran/hydro'
 ]
@@ -25,4 +39,3 @@ casks = [
   '1password-cli',
   'alacritty'
 ]
-

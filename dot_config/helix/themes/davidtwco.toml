@@ -152,8 +152,8 @@ fg = "yellow"
 ["type.builtin"]
 fg = "light-red"
 
-["ui.background"]
-bg = "background"
+[ui]
+background = {}
 
 ["ui.cursor"]
 fg = "white"
@@ -191,15 +191,12 @@ fg = "black"
 fg = "yellow"
 
 ["ui.menu"]
-bg = "background"
 fg = "white"
 
 ["ui.menu.scroll"]
-bg = "background"
 fg = "light-red"
 
 ["ui.menu.selected"]
-bg = "background"
 fg = "light-red"
 
 ["ui.popup"]
@@ -212,23 +209,18 @@ bg = "light-black"
 bg = "light-black"
 
 ["ui.statusline"]
-bg = "background"
 fg = "white"
 
 ["ui.statusline.inactive"]
-bg = "background"
 fg = "black"
 
 ["ui.statusline.insert"]
-bg = "background"
 fg = "light-green"
 
 ["ui.statusline.normal"]
-bg = "background"
 fg = "light-purple"
 
 ["ui.statusline.select"]
-bg = "background"
 fg = "light-cyan"
 
 ["ui.text"]

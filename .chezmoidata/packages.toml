@@ -1,18 +1,4 @@
 [packages]
-fedora = [
-  'cmake',
-  'fd-find',
-  'fish',
-  'fzf',
-  'git',
-  'git-absorb',
-  'helix',
-  'hyperfine',
-  'jq',
-  'ninja-build',
-  'ripgrep',
-  'rustup'
-]
 fisher = [
   'jorgebucaran/hydro'
 ]
@@ -38,4 +24,24 @@ brews = [
 casks = [
   '1password-cli',
   'alacritty'
+]
+
+[packages.fedora]
+copr = [
+  'varlad/zellij'
+]
+packages = [
+  'cmake',
+  'fd-find',
+  'fish',
+  'fzf',
+  'git',
+  'git-absorb',
+  'helix',
+  'hyperfine',
+  'jq',
+  'ninja-build',
+  'ripgrep',
+  'rustup',
+  'zellij'
 ]

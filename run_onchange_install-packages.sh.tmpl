@@ -16,7 +16,10 @@ EOF
 
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") -}}
 
-sudo dnf install -y {{ range .packages.fedora -}} {{ . }} {{ end }}
+{{ range .packages.fedora.copr -}}
+sudo dnf copr enable -y {{ . }}
+{{ end -}}
+sudo dnf install -y {{ range .packages.fedora.packages -}} {{ . }} {{ end }}
 
 {{ end -}}
 

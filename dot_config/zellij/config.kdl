@@ -16,6 +16,8 @@ keybinds clear-defaults=true {
         bind "7" { GoToTab 7; SwitchToMode "locked"; }
         bind "8" { GoToTab 8; SwitchToMode "locked"; }
         bind "9" { GoToTab 9; SwitchToMode "locked"; }
+        bind "[" { PreviousSwapLayout; }
+        bind "]" { NextSwapLayout; }
     }
     pane {
         bind "left" { MoveFocus "left"; }
@@ -144,23 +146,23 @@ keybinds clear-defaults=true {
         }
     }
     shared_among "normal" "locked" {
-        bind "Alt left" { MoveFocusOrTab "left"; }
-        bind "Alt down" { MoveFocus "down"; }
-        bind "Alt up" { MoveFocus "up"; }
-        bind "Alt right" { MoveFocusOrTab "right"; }
-        bind "Alt +" { Resize "Increase"; }
-        bind "Alt -" { Resize "Decrease"; }
-        bind "Alt =" { Resize "Increase"; }
-        bind "Alt [" { PreviousSwapLayout; }
-        bind "Alt ]" { NextSwapLayout; }
-        bind "Alt f" { ToggleFloatingPanes; }
-        bind "Alt h" { MoveFocusOrTab "left"; }
-        bind "Alt i" { MoveTab "left"; }
-        bind "Alt j" { MoveFocus "down"; }
-        bind "Alt k" { MoveFocus "up"; }
-        bind "Alt l" { MoveFocusOrTab "right"; }
-        bind "Alt n" { NewPane; }
-        bind "Alt o" { MoveTab "right"; }
+        bind "Ctrl Alt left" { MoveFocusOrTab "left"; }
+        bind "Ctrl Alt down" { MoveFocus "down"; }
+        bind "Ctrl Alt up" { MoveFocus "up"; }
+        bind "Ctrl Alt right" { MoveFocusOrTab "right"; }
+        bind "Ctrl Alt +" { Resize "Increase"; }
+        bind "Ctrl Alt -" { Resize "Decrease"; }
+        bind "Ctrl Alt =" { Resize "Increase"; }
+        bind "Ctrl Alt [" { PreviousSwapLayout; }
+        bind "Ctrl Alt ]" { NextSwapLayout; }
+        bind "Ctrl Alt f" { ToggleFloatingPanes; }
+        bind "Ctrl Alt h" { MoveFocusOrTab "left"; }
+        bind "Ctrl Alt i" { MoveTab "left"; }
+        bind "Ctrl Alt j" { MoveFocus "down"; }
+        bind "Ctrl Alt k" { MoveFocus "up"; }
+        bind "Ctrl Alt l" { MoveFocusOrTab "right"; }
+        bind "Ctrl Alt n" { NewPane; }
+        bind "Ctrl Alt o" { MoveTab "right"; }
     }
     shared_except "locked" "renametab" "renamepane" {
         bind "Ctrl b" { SwitchToMode "locked"; }

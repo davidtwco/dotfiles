@@ -194,9 +194,11 @@ fg = "yellow"
 fg = "white"
 
 ["ui.menu.scroll"]
+bg = "background"
 fg = "light-red"
 
 ["ui.menu.selected"]
+bg = "background"
 fg = "light-red"
 
 ["ui.popup"]

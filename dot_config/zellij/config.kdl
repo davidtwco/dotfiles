@@ -16,8 +16,12 @@ keybinds clear-defaults=true {
         bind "7" { GoToTab 7; SwitchToMode "locked"; }
         bind "8" { GoToTab 8; SwitchToMode "locked"; }
         bind "9" { GoToTab 9; SwitchToMode "locked"; }
-        bind "[" { PreviousSwapLayout; }
-        bind "]" { NextSwapLayout; }
+        bind "h" { MoveFocus "left"; SwitchToMode "locked"; }
+        bind "j" { MoveFocus "down"; SwitchToMode "locked"; }
+        bind "k" { MoveFocus "up"; SwitchToMode "locked"; }
+        bind "l" { MoveFocus "right"; SwitchToMode "locked"; }
+        bind "[" { PreviousSwapLayout; SwitchToMode "locked"; }
+        bind "]" { NextSwapLayout; SwitchToMode "locked"; }
     }
     pane {
         bind "left" { MoveFocus "left"; }

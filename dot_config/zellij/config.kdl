@@ -7,6 +7,7 @@ keybinds clear-defaults=true {
         bind "Ctrl l" { MoveFocus "right"; }
     }
     normal {
+        bind "Ctrl c" { SwitchToMode "locked"; }
         bind "1" { GoToTab 1; SwitchToMode "locked"; }
         bind "2" { GoToTab 2; SwitchToMode "locked"; }
         bind "3" { GoToTab 3; SwitchToMode "locked"; }
@@ -250,6 +251,7 @@ default_mode "locked"
 default_layout "compact"
 pane_frames false
 attach_to_session true
+session_serialization false
 
 theme "davidtwco"
 themes {

@@ -5,6 +5,10 @@ fish_add_path ~/.cargo/bin/
 if status --is-interactive
     eval (/opt/homebrew/bin/brew shellenv)
 end
+
+if not command -q tailscale
+    alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+end
 {{- end }}
 
 set fish_greeting

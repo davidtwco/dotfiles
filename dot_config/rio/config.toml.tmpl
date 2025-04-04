@@ -1,0 +1,43 @@
+theme = "davidtwco"
+
+confirm-before-quit = false
+
+[editor]
+program = "hx"
+
+{{ if eq .chezmoi.os "darwin" -}}
+[window]
+opacity = 0.95
+blur = true
+decorations = "transparent"
+macos-use-shadow = true
+{{- end }}
+
+[fonts]
+size = 14
+
+[fonts.regular]
+family = "Iosevka Term"
+style = "Normal"
+weight = 400
+
+[fonts.bold]
+family = "Iosevka Term"
+style = "Normal"
+weight = 800
+
+[fonts.italic]
+family = "Iosevka Term"
+style = "Italic"
+weight = 400
+
+[fonts.bold-italic]
+family = "Iosevka Term"
+style = "Italic"
+weight = 800
+
+[title]
+content = ""
+
+[navigation]
+mode = "plain"

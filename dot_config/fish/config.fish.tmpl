@@ -11,6 +11,10 @@ if not command -q tailscale
 end
 {{- end }}
 
+if command -q rbenv
+    status --is-interactive; and rbenv init - --no-rehash fish | source
+end
+
 set fish_greeting
 
 set -x COLORTERM truecolor

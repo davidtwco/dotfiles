@@ -14,6 +14,7 @@ o = "checkout"
 p = "pull"
 ps = "push"
 rb = "rebase"
+rbi = "!f() { MASTER_BRANCH=\"$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')\"; git rebase -i $(git merge-base $MASTER_BRANCH HEAD); }; f"
 s = "status"
 
 [color]

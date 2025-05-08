@@ -1,6 +1,9 @@
 fish_add_path ~/.local/bin/
 fish_add_path ~/.cargo/bin/
 
+set SKIM_CTRL_R_OPTS --no-clear-start
+set SKIM_CTRL_T_OPTS $SKIM_CTRL_R_OPTS
+
 {{- if eq .chezmoi.os "darwin" }}
 if status --is-interactive
     eval (/opt/homebrew/bin/brew shellenv)
@@ -9,6 +12,22 @@ end
 if not command -q tailscale
     alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 end
+
+if test -d (brew --prefix)"/share/fish/completions"
+    set -p fish_complete_path (brew --prefix)/share/fish/completions
+end
+
+if test -d (brew --prefix)"/share/fish/vendor_completions.d"
+    set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
+end
+
+source (brew --prefix)"/share/fish/vendor_completions.d/skim.fish"
+skim_key_bindings
+{{- end }}
+
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "fedora") -}}
+source /usr/share/skim/shell/key-bindings.fish
+skim_key_bindings
 {{- end }}
 
 if command -q rbenv
@@ -20,10 +39,6 @@ set fish_greeting
 set -x COLORTERM truecolor
 set -x TERM xterm-256color
 set -x EDITOR hx
-
-fzf --fish | source
-set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow -g "!{.git}" 2>/dev/null'
-set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 
 set -g hydro_color_error a54242
 set -g hydro_color_git 6b6b6b

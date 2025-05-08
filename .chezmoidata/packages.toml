@@ -8,7 +8,6 @@ brews = [
   'cmake',
   'fd',
   'fish',
-  'fzf',
   'git',
   'git-absorb',
   'helix',
@@ -18,6 +17,7 @@ brews = [
   'qemu',
   'ripgrep',
   'rustup',
+  'sk',
   'typst',
   'zellij'
 ]
@@ -34,7 +34,6 @@ packages = [
   'cmake',
   'fd-find',
   'fish',
-  'fzf',
   'git',
   'git-absorb',
   'helix',
@@ -43,5 +42,6 @@ packages = [
   'ninja-build',
   'ripgrep',
   'rustup',
+  'skim',
   'zellij'
 ]

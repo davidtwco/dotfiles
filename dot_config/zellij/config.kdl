@@ -253,6 +253,9 @@ pane_frames false
 attach_to_session true
 session_serialization false
 
+show_startup_tips false
+show_release_notes true
+
 theme "davidtwco"
 themes {
     davidtwco {

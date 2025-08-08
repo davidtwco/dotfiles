@@ -12,7 +12,7 @@ rb = ["rebase"]
 [git]
 fetch = ["upstream", "origin"]
 push = "origin"
-sign-on-push = true
+push-new-bookmarks = true
 
 [revset-aliases]
 log-all = "present(@) | ancestors(immutable_heads().., 2) | present(trunk())"

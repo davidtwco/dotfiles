@@ -36,6 +36,7 @@ end
 
 if command -q jj
     status --is-interactive; and jj util completion fish | source
+    set -g hydro_jj true
 end
 
 set fish_greeting
@@ -45,7 +46,7 @@ set -x TERM xterm-256color
 set -x EDITOR hx
 
 set -g hydro_color_error a54242
-set -g hydro_color_git 6b6b6b
+set -g hydro_color_vcs 6b6b6b
 set -g hydro_color_prompt 85678f
 set -g hydro_color_pwd 5f819d
 set -g hydro_multiline true

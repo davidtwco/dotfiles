@@ -1,6 +1,6 @@
 [packages]
 fisher = [
-  'jorgebucaran/hydro'
+  'davidtwco/hydro'
 ]
 
 [packages.darwin]

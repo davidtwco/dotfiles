@@ -12,6 +12,7 @@ brews = [
   'git-absorb',
   'helix',
   'hyperfine',
+  'jj',
   'jq',
   'ninja',
   'qemu',

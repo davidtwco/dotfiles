@@ -9,6 +9,9 @@ la = ["log", "-r", "log-all"]
 n = ["new"]
 rb = ["rebase"]
 
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@"]
+tug- = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+
 [git]
 fetch = ["upstream", "origin"]
 push = "origin"

@@ -34,6 +34,10 @@ if command -q rbenv
     status --is-interactive; and rbenv init - --no-rehash fish | source
 end
 
+if command -q jj
+    status --is-interactive; and jj util completion fish | source
+end
+
 set fish_greeting
 
 set -x COLORTERM truecolor

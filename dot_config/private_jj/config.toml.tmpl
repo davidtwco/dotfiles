@@ -1,0 +1,44 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[aliases]
+a = ["abandon"]
+d = ["diff"]
+e = ["edit"]
+l = ["log"]
+la = ["log", "-r", "log-all"]
+n = ["new"]
+rb = ["rebase"]
+
+[git]
+fetch = ["upstream", "origin"]
+push = "origin"
+sign-on-push = true
+
+[revset-aliases]
+log-all = "present(@) | ancestors(immutable_heads().., 2) | present(trunk())"
+
+[revsets]
+log = "(trunk()..@):: | (trunk()..@)-"
+
+[signing]
+behavior = "own"
+backend = "ssh"
+key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDNJI59xzWBIaWoGvoFcJk3f5YtpDoYkZhkvQC6rqYV2"
+
+[signing.backends.ssh]
+allowed-signers = "~/.ssh/allowed_signers"
+{{- if eq .chezmoi.os "darwin" }}
+program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+{{- end }}
+
+[template-aliases]
+"format_timestamp(timestamp)" = "timestamp.ago()"
+"format_short_signature(signature)" = "signature"
+
+[ui]
+default-command = "log"
+editor = "hx"
+
+[user]
+name = "David Wood"
+email = {{ .email | quote }}

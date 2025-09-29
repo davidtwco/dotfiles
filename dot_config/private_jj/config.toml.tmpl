@@ -9,8 +9,13 @@ la = ["log", "-r", "log-all"]
 n = ["new"]
 rb = ["rebase"]
 
-tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@"]
-tug- = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+tug = ["util", "exec", "--", "sh", "-c", """
+if [ "x$1" = "x" ]; then
+  jj bookmark move --from "closest_bookmark(@)" --to "closest_pushable(@)"
+else
+  jj bookmark move --to "closest_pushable(@)" "$@"
+fi
+""", ""]
 
 [git]
 fetch = ["upstream", "origin"]
@@ -19,6 +24,9 @@ push-new-bookmarks = true
 
 [revset-aliases]
 log-all = "present(@) | ancestors(immutable_heads().., 2) | present(trunk())"
+
+"closest_bookmark(to)" = "heads(::to & bookmarks())"
+"closest_pushable(to)" = 'heads(::to & mutable() & ~description(exact:"") & (~empty() | merges()))'
 
 [revsets]
 log = "(trunk()..@):: | (trunk()..@)-"
@@ -37,6 +45,26 @@ program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 [template-aliases]
 "format_timestamp(timestamp)" = "timestamp.ago()"
 "format_short_signature(signature)" = "signature"
+"in_branch(commit)" = 'commit.contained_in("(immutable_heads() | remote_bookmarks())..bookmarks()")'
+
+[templates]
+draft_commit_description = '''
+  concat(
+    coalesce(description, default_commit_description, "\n"),
+    surround(
+      "\nJJ: This commit contains the following changes:\n", "",
+      indent("JJ:     ", diff.stat(72)),
+    ),
+    "\nJJ: ignore-rest\n",
+    diff.git(),
+  )
+'''
+log_node = '''
+if(self && !current_working_copy && !immutable && !conflict && in_branch(self),
+  "◇",
+  builtin_log_node
+)
+'''
 
 [ui]
 default-command = "log"

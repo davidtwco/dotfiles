@@ -6,6 +6,11 @@ color-modes = true
 cursorline = true
 line-number = "relative"
 rulers = [100, 140, 180, 220, 240]
+text-width = 100
+
+[editor.soft-wrap]
+enable = false
+wrap-at-text-width = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -22,3 +27,6 @@ render = "all"
 
 [editor.whitespace.characters]
 newline = "¬"
+
+[keys.normal]
+C-w = ":toggle-option soft-wrap.enable"

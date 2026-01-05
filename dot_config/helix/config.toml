@@ -28,5 +28,5 @@ render = "all"
 [editor.whitespace.characters]
 newline = "¬"
 
-[keys.normal]
+[keys.normal.space]
 C-w = ":toggle-option soft-wrap.enable"

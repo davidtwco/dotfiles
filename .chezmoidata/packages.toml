@@ -46,3 +46,17 @@ packages = [
   'skim',
   'zellij'
 ]
+
+[packages.ubuntu]
+packages = [
+  'cmake',
+  'fd-find',
+  'fish',
+  'git',
+  'git-absorb',
+  'hyperfine',
+  'jq',
+  'ninja-build',
+  'ripgrep',
+  'rustup',
+]

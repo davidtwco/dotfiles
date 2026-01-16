@@ -23,6 +23,12 @@ sudo dnf install -y {{ range .packages.fedora.packages -}} {{ . }} {{ end }}
 
 {{ end -}}
 
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") -}}
+
+sudo apt install -y {{ range .packages.ubuntu.packages -}} {{ . }} {{ end }}
+
+{{ end -}}
+
 if command -v fish 2>&1 >/dev/null
 then
 
